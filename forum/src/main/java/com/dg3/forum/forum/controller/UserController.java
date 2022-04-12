@@ -22,7 +22,6 @@ import com.dg3.forum.forum.entity.Users;
 import com.dg3.forum.forum.repository.UserstRepository;
 import com.dg3.forum.forum.service.UserService;
 
-//nguyen
 @RestController
 @RequestMapping("/api/v1/users")
 public class UserController {

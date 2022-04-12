@@ -9,16 +9,16 @@ import lombok.Setter;
 
 @Getter
 @Setter
-
 @NoArgsConstructor
 public class Usersdto {
 	public String password;
 	public String username;
-	
-public Usersdto(Users users)
-{
-	this.password = users.password;
-	this.username = users.username;
-}
+
+	// nguyen
+	public Usersdto(Users users)
+	{
+		this.password = users.password;
+		this.username = users.username;
+	}
 	
 }
