@@ -1,8 +1,11 @@
 package com.dg3.forum.forum.entity;
 
-import lombok.Data;
 
-@Data
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
 public class Like {
 	private Long like_pk;
 	private Long comment_pk;
