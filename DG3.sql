@@ -11,7 +11,8 @@ CREATE TABLE "users" (
   "img_avatar" text,
   "description" text,
   "created_date" date,
-  "expire" date
+  "expire" date,
+  "enable_users" boolean
 );
 
 CREATE TABLE "medicine" (
@@ -21,7 +22,8 @@ CREATE TABLE "medicine" (
   "where_production" text,
   "price" text,
   "effect" text,
-  "details_medicine" text
+  "details_medicine" text,
+  "enable_medicine" boolean
 );
 
 CREATE TABLE "users_medicine" (
@@ -31,7 +33,8 @@ CREATE TABLE "users_medicine" (
 
 CREATE TABLE "post_topic" (
   "post_topic_pk" BIGSERIAL PRIMARY KEY,
-  "name_topic" text
+  "name_topic" text,
+  "enable_post_topic" boolean
 );
 
 CREATE TABLE "post_thread" (
@@ -40,21 +43,24 @@ CREATE TABLE "post_thread" (
   "time_post_thread" timestamp,
   "content_of_thread" text,
   "post_topic_pk" bigint,
-  "user_pk" bigint
+  "user_pk" bigint,
+  "enable_post_thread" boolean
 );
 
 CREATE TABLE "comment" (
   "comment_pk" BIGSERIAL PRIMARY KEY,
   "content_comment" text,
   "user_pk" bigint,
-  "thread_pk" bigint
+  "thread_pk" bigint,
+  "enable_comment" boolean
 );
 
 CREATE TABLE "like" (
   "like_pk" BIGSERIAL PRIMARY KEY,
   "comment_pk" bigint,
   "user_pk" bigint,
-  "thread_pk" bigint
+  "thread_pk" bigint,
+  "enable_like" boolean
 );
 
 CREATE TABLE "image" (
@@ -62,14 +68,16 @@ CREATE TABLE "image" (
   "thread_pk" bigint,
   "image_thread" text,
   "comment_pk" bigint,
-  "image_comment" text
+  "image_comment" text,
+  "enable_image" boolean
 );
 
 CREATE TABLE "rep_comment" (
   "comment_rep_pk" BIGSERIAL PRIMARY KEY,
   "content_comment_rep" text,
   "user_pk" bigint,
-  "comment_pk" bigint
+  "comment_pk" bigint,
+  "enable_rep_comment" boolean
 );
 
 ALTER TABLE "post_thread" ADD FOREIGN KEY ("user_pk") REFERENCES "users" ("user_pk");

@@ -25,19 +25,31 @@ import com.dg3.forum.forum.service.UserService;
 @RestController
 @RequestMapping("/api/v1/users")
 public class UserController {
-	private static final Logger LOGGER = LoggerFactory.getLogger(UserController.class);
-	
-	@Autowired
-	private UserstRepository userRepository;
-	
-	@Autowired
-	private UserService service;
-	
-	@GetMapping
-	public List<Users> listAll() {
-		return service.listAll();
-	}
+    private static final Logger LOGGER = LoggerFactory.getLogger(UserController.class);
+    @Autowired
+    private UserService service;
 
+    @Autowired
+    private UserstRepository repository;
+
+//	@GetMapping
+//	public List<Users> listAll() {
+//		return service.listAll();
+//	}
+
+    @GetMapping
+    public ResponseEntity<Message> listAll() {
+        LOGGER.error("listAll");
+        List<Users> users = service.listAll();
+        return users.isEmpty() ?
+                ResponseEntity.status(HttpStatus.NOT_FOUND).body(
+                        new Message("Fail", "not found user", "")
+                )
+                : ResponseEntity.status(HttpStatus.OK).body(
+                new Message("Ok", "have users", users)
+        )
+                ;
+    }
 
 //
 //	@GetMapping("/{id}")
@@ -47,32 +59,32 @@ public class UserController {
 //				
 //	
 //	}
-	@PostMapping
-	public Users Users(@RequestBody Users users) {
-		return userRepository.save(users);
-	}
-	@PutMapping
-	public Users UpdateUser(@RequestBody Users users) {
+//	@PostMapping
+//	public Users Users(@RequestBody Users users) {
+//		return userRepository.save(users);
+//	}
+//	@PutMapping
+//	public Users UpdateUser(@RequestBody Users users) {
+//
+//		return userRepository.save(users);
+//	}
+//	@DeleteMapping("{id}")
+//	public void a(@PathVariable Long id) {
+//
+//		 userRepository.deleteById(id);
+//	}
+//	
 
-		return userRepository.save(users);
-	}
-	@DeleteMapping("{id}")
-	public void a(@PathVariable Long id) {
-
-		 userRepository.deleteById(id);
-	}
-	
-	
-	@GetMapping("/{id}")
-    public ResponseEntity<Message> findById(@PathVariable Long id) {
-		LOGGER.error("logid");
-        Optional<Users> users = userRepository.findById(id);
+    @GetMapping("/{user_pk}")
+    public ResponseEntity<Message> findById(@PathVariable Long user_pk) {
+        LOGGER.error("findById");
+        Optional<Users> users = repository.findById(user_pk);
         return users.isPresent() ?
                 ResponseEntity.status(HttpStatus.OK).body(
                         new Message("Ok", "have users", users)
                 ) :
                 ResponseEntity.status(HttpStatus.NOT_FOUND).body(
-                        new Message("Fail", "not found user"+id,"")
+                        new Message("Fail", "not found user" + user_pk, "")
                 );
     }
 
