@@ -24,6 +24,7 @@ public class PostThread {
 	private String content_of_thread;
 	private String post_topic_pk;
 	private Long user_pk;
+	private boolean enable_post_thread ;
 //		private String post_toppic;
 //		private String post_toppic_pk;
 

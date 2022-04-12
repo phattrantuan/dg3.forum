@@ -17,5 +17,5 @@ public class Medicine {
 	private String price;
 	private String effect;
 	private String details_medicine;
-	
+	private boolean enable_medicine ;
 }

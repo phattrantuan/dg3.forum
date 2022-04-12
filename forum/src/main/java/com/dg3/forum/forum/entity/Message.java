@@ -1,19 +1,18 @@
 package com.dg3.forum.forum.entity;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-@Data
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class Message {
 	 private String statusCode;
 	    private String message;
 	    private Object object;
-		public Message(String statusCode, String message, Object object) {
-			super();
-			this.statusCode = statusCode;
-			this.message = message;
-			this.object = object;
-		}
-		public Message() {
-			
-		}
+		
 }
