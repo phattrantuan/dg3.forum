@@ -1,8 +1,11 @@
 package com.dg3.forum.forum.entity;
 
-import lombok.Data;
 
-@Data
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
 public class Message {
 	 private String statusCode;
 	    private String message;

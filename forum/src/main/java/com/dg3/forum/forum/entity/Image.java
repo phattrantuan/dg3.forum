@@ -1,8 +1,10 @@
 package com.dg3.forum.forum.entity;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
-@Data
+@Getter
+@Setter
 public class Image {
 	private Long image_pk;
 	private Long thread_pk;
