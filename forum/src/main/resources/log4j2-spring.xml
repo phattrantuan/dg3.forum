@@ -7,7 +7,7 @@
         <!--xuất ra file ngoài máy-->
         <File name="File" fileName="MyForum.log">
             <PatternLayout
-                    pattern="%d{yyyy-MMM-dd HH:mm:ss} [%t] %-5level %-50c{1.} - %msg%n"/>
+                    pattern=" %d{yyyy-MMM-dd HH:mm:ss} [%t] %-5level %-50c{1.} - %msg%n"/>
         </File>
 
     </Appenders>
