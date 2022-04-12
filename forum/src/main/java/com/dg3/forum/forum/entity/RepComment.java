@@ -1,15 +1,6 @@
 package com.dg3.forum.forum.entity;
 
-<<<<<<< HEAD
-
-import lombok.Getter;
-import lombok.Setter;
-
-@Getter
-@Setter
-=======
 import lombok.AllArgsConstructor;
-import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -18,11 +9,11 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
->>>>>>> phat
+
 public class RepComment {
-	private Long comment_rep_pk;
-	private String content_comment_rep;
-	private Long user_pk;
-	private Long comment_pk;
-	private boolean enable_rep_comment ;
+    private Long comment_rep_pk;
+    private String content_comment_rep;
+    private Long user_pk;
+    private Long comment_pk;
+    private boolean enable_rep_comment;
 }
