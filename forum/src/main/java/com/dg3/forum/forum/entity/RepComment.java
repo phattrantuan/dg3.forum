@@ -1,8 +1,11 @@
 package com.dg3.forum.forum.entity;
 
-import lombok.Data;
 
-@Data
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
 public class RepComment {
 	private Long comment_rep_pk;
 	private String content_comment_rep;

@@ -1,6 +1,6 @@
 package com.dg3.forum.forum.entity;
 
-import java.util.Date;
+
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -9,12 +9,17 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+import java.util.Date;
 
 
 public class PostThread {
 
-	@Data
+	@Getter
+	@Setter
 	@NoArgsConstructor
 	@Entity
 	@Table(name = "post_thread")

@@ -1,8 +1,11 @@
 package com.dg3.forum.forum.entity;
 
-import lombok.Data;
 
-@Data
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
 public class User_Medicine {
 	private Long user_pk;
 	private Long medicine_pk;
