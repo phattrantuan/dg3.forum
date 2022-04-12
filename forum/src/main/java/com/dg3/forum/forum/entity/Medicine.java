@@ -3,7 +3,7 @@ package com.dg3.forum.forum.entity;
 import lombok.Data;
 
 @Data
-public class medicine {
+public class Medicine {
 	private Long dealer_pk;
 	private Long medicine_pk;
 	private String name_medicine;
@@ -11,7 +11,7 @@ public class medicine {
 	private String price;
 	private String effect;
 	private String details_medicine;
-	public medicine(Long dealer_pk, Long medicine_pk, String name_medicine, String where_production, String price,
+	public Medicine(Long dealer_pk, Long medicine_pk, String name_medicine, String where_production, String price,
 			String effect, String details_medicine) {
 		super();
 		this.dealer_pk = dealer_pk;
@@ -22,7 +22,7 @@ public class medicine {
 		this.effect = effect;
 		this.details_medicine = details_medicine;
 	}
-	public medicine() {
+	public Medicine() {
 		
 	}
 }

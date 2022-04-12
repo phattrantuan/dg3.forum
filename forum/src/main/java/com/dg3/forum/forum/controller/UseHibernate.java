@@ -20,21 +20,21 @@ public class UseHibernate {
 	private UserstRepository repo;
 	
 
-
-	@GetMapping("/{a}")
-	public Users listAll(@PathVariable Long a) {
-		return repo.findRoomByUserId(a);
-	}
-	@GetMapping
-	public List<Usersdto> listAlla() {
-		List<Usersdto> listdto = new ArrayList<Usersdto>();
-		 for (Users users :  repo.findAll()){
-			 listdto.add(new Usersdto(users));
-	        }
-		
-		return  listdto;
-	}
-	
+//
+//	@GetMapping("/{a}")
+//	public Users listAll(@PathVariable Long a) {
+//		return repo.findRoomByUserId(a);
+//	}
+//	@GetMapping
+//	public List<Usersdto> listAlla() {
+//		List<Usersdto> listdto = new ArrayList<Usersdto>();
+//		 for (Users users :  repo.findAll()){
+//			 listdto.add(new Usersdto(users));
+//	        }
+//		
+//		return  listdto;
+//	}
+//	
 //	@GetMapping("/a")
 //	public List<Users> listAll1() {
 //		return service.listAll();

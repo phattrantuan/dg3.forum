@@ -11,22 +11,19 @@ import javax.persistence.Table;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-
+@Data
+@NoArgsConstructor
+@Entity
+@Table(name = "post_thread")
 public class PostThread {
-
-	@Data
-	@NoArgsConstructor
-	@Entity
-	@Table(name = "post_thread")
-	public class PostTopic {
-		@Id
-		@GeneratedValue(strategy = GenerationType.IDENTITY)
-		private Long thread_pk;
-		private String title_thread;
-		private Date time_post_thread;
-		private String content_of_thread;
-		private String post_topic_pk;
-		private Long user_pk;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long thread_pk;
+	private String title_thread;
+	private Date time_post_thread;
+	private String content_of_thread;
+	private String post_topic_pk;
+	private Long user_pk;
 //		private String post_toppic;
 //		private String post_toppic_pk;
 
@@ -34,5 +31,4 @@ public class PostThread {
 //		@JoinColumn(name = "user_pk")
 //		Users users;
 
-	}
 }
