@@ -40,6 +40,6 @@ public class Users {
 	
 	//jpin table dai dien cho khoa chinh chua clas
 	//inverse join column dai dieb k phai khoa chinh
-	
+	//
 
 }
