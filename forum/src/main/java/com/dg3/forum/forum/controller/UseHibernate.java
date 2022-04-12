@@ -12,13 +12,14 @@ import org.springframework.web.bind.annotation.RestController;
 import com.dg3.forum.forum.dto.Usersdto;
 import com.dg3.forum.forum.entity.Users;
 import com.dg3.forum.forum.repository.UserstRepository;
+
 @RestController
 @RequestMapping("/test")
 public class UseHibernate {
-	
-	@Autowired
-	private UserstRepository repo;
-	
+
+    @Autowired
+    private UserstRepository repo;
+
 
 //
 //	@GetMapping("/{a}")

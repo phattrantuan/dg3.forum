@@ -2,20 +2,20 @@
 <Configuration>
     <Appenders>
         <Console name="Console" target="SYSTEM_OUT">
-            <PatternLayout pattern="%d %t %level %c %msg %n" />
+            <PatternLayout pattern="%d %t %level %c %msg %n"/>
         </Console>
-<!--xuất ra file ngoài-->
+        <!--xuất ra file ngoài máy-->
         <File name="File" fileName="MyForum.log">
             <PatternLayout
-                    pattern="%d{yyyy-MMM-dd HH:mm:ss} [%t] %-5level %-50c{1.} - %msg%n" />
+                    pattern="%d{yyyy-MMM-dd HH:mm:ss} [%t] %-5level %-50c{1.} - %msg%n"/>
         </File>
 
     </Appenders>
- 
+
     <Loggers>
         <Root level="DEBUG">
-            <AppenderRef ref="Console" />
-            <AppenderRef ref="File" />
+            <AppenderRef ref="Console"/>
+            <AppenderRef ref="File"/>
         </Root>
     </Loggers>
 </Configuration>
