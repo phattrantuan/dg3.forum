@@ -95,6 +95,24 @@
     <version>1.4.2.Final</version>
 </dependency>
 
+		<!--   test log4j2   -->
+		<!--  khóa cái có sẵn trong spring boot   -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter</artifactId>
+			<exclusions>
+				<exclusion>
+					<groupId>org.springframework.boot</groupId>
+					<artifactId>spring-boot-starter-logging</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+
+		<!--   thêm thư viện log4j2   -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-log4j2</artifactId>
+		</dependency>
 		
 	</dependencies>
 
