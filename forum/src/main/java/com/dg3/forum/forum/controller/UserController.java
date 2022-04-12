@@ -21,16 +21,16 @@ import com.dg3.forum.forum.entity.Message;
 import com.dg3.forum.forum.entity.Users;
 import com.dg3.forum.forum.repository.UserstRepository;
 import com.dg3.forum.forum.service.UserService;
+import com.dg3.forum.forum.serviceimpl.UserServiceimpl;
 
 @RestController
 @RequestMapping("/api/v1/users")
 public class UserController {
     private static final Logger LOGGER = LoggerFactory.getLogger(UserController.class);
     @Autowired
-    private UserService service;
+    private UserServiceimpl service;
 
-    @Autowired
-    private UserstRepository repository;
+ 
 
 //	@GetMapping
 //	public List<Users> listAll() {
@@ -74,11 +74,10 @@ public class UserController {
 //		 userRepository.deleteById(id);
 //	}
 //	
-
     @GetMapping("/{user_pk}")
     public ResponseEntity<Message> findById(@PathVariable Long user_pk) {
         LOGGER.error("findById");
-        Optional<Users> users = repository.findById(user_pk);
+        Optional<Users> users = service.findById(user_pk);
         return users.isPresent() ?
                 ResponseEntity.status(HttpStatus.OK).body(
                         new Message("Ok", "have users", users)
@@ -87,5 +86,20 @@ public class UserController {
                         new Message("Fail", "not found user" + user_pk, "")
                 );
     }
+    
+    @DeleteMapping("/{user_pk}")
+    ResponseEntity<Message> deleteProduct(@PathVariable Long user_pk) {
+       
+        if( service.existById(user_pk)) {
+           service.deleteAccount(user_pk);
+            return ResponseEntity.status(HttpStatus.OK).body(
+                    new Message("ok", "Delete product successfully", "")
+            );
+        }
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(
+                new Message("failed", "Cannot find product to delete", "")
+        );
+    }
+    
 
 }
