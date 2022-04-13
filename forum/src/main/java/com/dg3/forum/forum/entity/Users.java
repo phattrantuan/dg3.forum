@@ -1,10 +1,17 @@
 package com.dg3.forum.forum.entity;
 
 import java.util.Date;
+import java.util.Set;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
@@ -30,13 +37,15 @@ public class Users {
     private Date created_date;
     private Date expire;
     private boolean enable_users;
-//	
-//	@OneToMany(cascade = CascadeType.ALL)
-//	@JoinColumn(name =  )
-//	Set<PostThread> setPostThread;//k them trung
 
-    //jpin table dai dien cho khoa chinh chua clas
-    //inverse join column dai dieb k phai khoa chinh
-    //
-
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "users_medicine"
+    ,joinColumns = {
+    		@JoinColumn(name="user_pk", referencedColumnName = "user_pk")//pre is table db, after is variable class
+    }//array
+    ,inverseJoinColumns = 
+    	{@JoinColumn(name="medicine_pk", referencedColumnName = "medicine_pk")
+    }) //join column represents the key that is in that class
+     //join column specify the foreign key being attached
+    Set<Medicine> medicines;
 }

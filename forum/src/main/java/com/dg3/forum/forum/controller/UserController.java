@@ -1,7 +1,11 @@
 package com.dg3.forum.forum.controller;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,16 +15,14 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.dg3.forum.forum.entity.Message;
+import com.dg3.forum.forum.entity.PostThread;
+import com.dg3.forum.forum.entity.PostTopic;
 import com.dg3.forum.forum.entity.Users;
 import com.dg3.forum.forum.repository.UserstRepository;
-import com.dg3.forum.forum.service.UserService;
 import com.dg3.forum.forum.serviceimpl.UserServiceimpl;
 
 @RestController
@@ -29,7 +31,8 @@ public class UserController {
     private static final Logger LOGGER = LoggerFactory.getLogger(UserController.class);
     @Autowired
     private UserServiceimpl service;
-
+    @Autowired 
+    UserstRepository repository;
  
 
 //	@GetMapping
@@ -101,5 +104,58 @@ public class UserController {
         );
     }
     
- //
+ @GetMapping("/insert")
+ public void ionetoone() {
+	  SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");  
+	    Date date = new Date();  
+	 
+	 PostTopic postTopic = new PostTopic();
+	 postTopic.setEnable_post_topic(true);
+	 postTopic.setName_topic("sthing2");
+	 
+	 
+	 
+	 PostThread postThread = new PostThread();
+	 postThread.setUser_pk(1L);
+	 postThread.setContent_of_thread("hoa vang tren co xanh");
+	 postThread.setEnable_post_thread(true);
+	 postThread.setTime_post_thread(date);
+	 postThread.setTitle_thread("something");
+	 postThread.setPostTopic(postTopic);
+	 repository.save(postThread);
+	 
+	 
+ }
+ 
+ @GetMapping("/insert2")
+ public void onetomay() {
+	  SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");  
+	    Date date = new Date();  
+	 
+
+	 
+	
+	 
+	 PostThread postThread23 = new PostThread();
+	// postThread23.setUser_pk(2L);
+	 postThread23.setContent_of_thread("hoa vang tren co xanh");
+	 postThread23.setEnable_post_thread(true);
+	 postThread23.setTime_post_thread(date);
+	 postThread23.setTitle_thread("something");
+	
+	 
+	 
+	 Set<PostThread> postThreadsS = new HashSet<>();
+	 postThreadsS.add(postThread23);
+	
+	 
+	 
+	 PostTopic postTopic = new PostTopic();
+	 postTopic.setEnable_post_topic(true);
+	 postTopic.setName_topic("sthing24");
+	 postTopic.setPostThreads(postThreadsS);
+	 repository.save(postTopic);
+	 
+	 
+ }
 }
