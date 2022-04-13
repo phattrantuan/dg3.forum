@@ -21,9 +21,6 @@ public class UserController {
     private static final Logger LOGGER = LoggerFactory.getLogger(UserController.class);
     @Autowired
     private UserService service;
-    @Autowired
-    private UserstRepository repository;
-
 
     @GetMapping
     public ResponseEntity<Message> listAll() {
@@ -73,15 +70,21 @@ public class UserController {
 //    }
 
     /**
-     * insert check phone
+     * insert check phone and check email
      *
      * @param users
      * @return
      */
     @PostMapping("/insert")
     ResponseEntity<Message> insertProduct(@RequestBody Users users) {
-        //2 products must not have the same phone number !
-        List<Users> foundPhoneNumber = repository.existByPhone_number(users.getPhone_number().trim());
+        //2 products must not have the same phone number and email !
+        List<Users> foundPhoneNumber = service.checkPhone_number(users.getPhone_number().trim());
+        List<Users> foundEmail = service.checkEmail(users.getEmail().trim());
+        if (foundEmail.size() > 0) {
+            return ResponseEntity.status(HttpStatus.NOT_IMPLEMENTED).body(
+                    new Message("Thất bại", "Email này đã tồn tại!", "")
+            );
+        }
         if (foundPhoneNumber.size() > 0) {
             return ResponseEntity.status(HttpStatus.NOT_IMPLEMENTED).body(
                     new Message("Thất bại", "Số điện thoại đã tồn tại!", "")
@@ -97,7 +100,7 @@ public class UserController {
      */
     @PutMapping("/{user_pk}")
     ResponseEntity<Message> updateUser(@RequestBody Users newUser, @PathVariable Long user_pk) {
-        Users updateUser = repository.findById(user_pk)
+        Users updateUser = service.findById(user_pk)
                 .map(user -> {
                     user.setEmail(newUser.getEmail());
                     user.setPassword(newUser.getPassword());
@@ -112,13 +115,13 @@ public class UserController {
                     user.setCreated_date(newUser.getCreated_date());
                     user.setExpire(newUser.getExpire());
                     user.setEnable_users(newUser.isEnable_users());
-                    return repository.save(user);
+                    return service.save(user);
                 }).orElseGet(() -> {
                     newUser.setUser_pk(user_pk);
-                    return repository.save(newUser);
+                    return service.save(newUser);
                 });
         return ResponseEntity.status(HttpStatus.OK).body(
-                new Message("ok", "Update Product successfully", updateUser)
+                new Message("Thành công!", "Cập nhập thành!", updateUser)
         );
     }
 
@@ -128,11 +131,12 @@ public class UserController {
         if (service.existById(user_pk)) {
             service.deleteAccount(user_pk);
             return ResponseEntity.status(HttpStatus.OK).body(
-                    new Message("ok", "Delete product successfully", "")
+                    new Message("Thành công!", "Xóa thành công!", "")
             );
         }
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(
-                new Message("failed", "Cannot find product to delete", "")
+                new Message("Thất bại!", "Không tìm thấy người dùng này để xóa!", "")
         );
     }
+
 }
