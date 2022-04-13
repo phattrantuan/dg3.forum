@@ -49,10 +49,10 @@ public class UserServiceimpl implements UserService {
     }
 
     //find by username*
-    @Override
-    public List<Users> findByUsername(String username) {
-        return userRepository.findByUsername(username);
-    }
+    
+//    public List<Users> findByUsername(String username) {
+//        return "a"; //userRepository.findByUsername(username)
+//    }
     //save*
     @Override
     public Users save(Users users) {

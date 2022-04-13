@@ -114,6 +114,15 @@
 			<artifactId>spring-boot-starter-log4j2</artifactId>
 		</dependency>
 		
+		
+		<!-- import and handle file csv -->
+		<!-- https://mvnrepository.com/artifact/org.apache.commons/commons-csv -->
+		<dependency>
+		    <groupId>org.apache.commons</groupId>
+		    <artifactId>commons-csv</artifactId>
+		    <version>1.8</version>
+		</dependency>
+		
 	</dependencies>
 
 	<build>
