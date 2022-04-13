@@ -58,10 +58,16 @@ public class UserServiceimpl implements UserService {
     public Users save(Users users) {
          return userRepository.save(users);
     }
-    //checkPhone_number*
+
+   //checkPhone_number*
     @Override
-    public void checkPhone_number(String phone_number){
-        userRepository.existByPhone_number(phone_number);
+    public List<Users> checkPhone_number(String phone_number){
+        return userRepository.existByPhone_number(phone_number);
+    }
+//check email
+    @Override
+    public List<Users> checkEmail(String email) {
+        return userRepository.existByEmail(email);
     }
 
     @Override

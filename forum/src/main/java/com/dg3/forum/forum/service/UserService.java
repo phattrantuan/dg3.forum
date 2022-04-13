@@ -22,6 +22,9 @@ public interface UserService {
 	//save*
 	Users save(Users users);
 	// Check phone number*
-	void checkPhone_number(String phone_number);
+	List<Users> checkPhone_number(String phone_number);
+	//check email
+	List<Users> checkEmail(String email);
+
 
 }
