@@ -56,18 +56,18 @@ public class UserController {
      * @param username
      * @return
      */
-    @GetMapping("/list/{username}")
-    public ResponseEntity<Message> findByUserName(@PathVariable String username) {
-        LOGGER.error("findByUserName");
-        List<Users> usersList = service.findByUsername(username);
-        return usersList.isEmpty() ?
-                ResponseEntity.status(HttpStatus.NOT_FOUND).body(
-                        new Message("Không tìm thấy!", "Không tìm thấy người dùng" + " " + username + "này!", "")
-                ) :
-                ResponseEntity.status(HttpStatus.OK).body(
-                        new Message("Tìm thấy!", "Người dùng:", usersList)
-                );
-    }
+//    @GetMapping("/list/{username}")
+//    public ResponseEntity<Message> findByUserName(@PathVariable String username) {
+//        LOGGER.error("findByUserName");
+//        List<Users> usersList = service.findByUsername(username);
+//        return usersList.isEmpty() ?
+//                ResponseEntity.status(HttpStatus.NOT_FOUND).body(
+//                        new Message("Không tìm thấy!", "Không tìm thấy người dùng" + " " + username + "này!", "")
+//                ) :
+//                ResponseEntity.status(HttpStatus.OK).body(
+//                        new Message("Tìm thấy!", "Người dùng:", usersList)
+//                );
+//    }
 
     /**
      * insert check phone and check email

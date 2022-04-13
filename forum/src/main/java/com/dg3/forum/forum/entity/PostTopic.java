@@ -15,10 +15,10 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "post_topic")
 public class PostTopic {
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-private Long post_topic_pk;
-private String name_topic;
-private boolean enable_post_topic ;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long post_topic_pk;
+    private String name_topic;
+    private boolean enable_post_topic;
 
 }
