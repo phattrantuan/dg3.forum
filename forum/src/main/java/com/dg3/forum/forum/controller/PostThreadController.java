@@ -1,12 +1,10 @@
-package com.dg3.forum.forum.controller;
 //package com.dg3.forum.forum.controller;
+//
 //
 //import java.util.List;
 //
 //import org.springframework.beans.factory.annotation.Autowired;
 //import org.springframework.web.bind.annotation.GetMapping;
-//import org.springframework.web.bind.annotation.PostMapping;
-//import org.springframework.web.bind.annotation.RequestBody;
 //import org.springframework.web.bind.annotation.RequestMapping;
 //import org.springframework.web.bind.annotation.RestController;
 //
@@ -14,8 +12,8 @@ package com.dg3.forum.forum.controller;
 //import com.dg3.forum.forum.repository.PostThreadRepository;
 //
 //@RestController
-////@RequestMapping("/postthread")
-//public class postThreadController {
+//@RequestMapping("/postthread")
+//public class PostThreadController {
 //	@Autowired
 //	private PostThreadRepository postThreadRepository;
 //
