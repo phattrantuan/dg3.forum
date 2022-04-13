@@ -30,13 +30,5 @@ public class Users {
     private Date created_date;
     private Date expire;
     private boolean enable_users;
-//	
-//	@OneToMany(cascade = CascadeType.ALL)
-//	@JoinColumn(name =  )
-//	Set<PostThread> setPostThread;//k them trung
-
-    //jpin table dai dien cho khoa chinh chua clas
-    //inverse join column dai dieb k phai khoa chinh
-    //
 
 }

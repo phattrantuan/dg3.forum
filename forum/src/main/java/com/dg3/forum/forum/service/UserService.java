@@ -7,13 +7,21 @@ import com.dg3.forum.forum.entity.Users;
 
 public interface UserService {
 	//get all information account users
-	public List<Users> listAll();
+	List<Users> listAll();
 	//get only account user
-	public Users getUsers(Long id);
+	Users getUsers(Long id);
 	//check exist account account user
-	public boolean existById(Long id);
+	boolean existById(Long id);
 	//delete account account user
-	public void deleteAccount(Long id);
+	void deleteAccount(Long id);
 	//get only account user
-	public Optional<Users> findById(Long user_pk);
+	Optional<Users> findById(Long user_pk);
+
+	//find by username*
+	List<Users> findByUsername(String username);
+	//save*
+	Users save(Users users);
+	// Check phone number*
+	void checkPhone_number(String phone_number);
+
 }

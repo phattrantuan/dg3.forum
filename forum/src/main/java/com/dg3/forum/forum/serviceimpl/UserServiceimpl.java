@@ -13,49 +13,61 @@ import com.dg3.forum.forum.service.UserService;
 @Service
 public class UserServiceimpl implements UserService {
 
-	@Autowired
-	UserstRepository userRepository;
+    @Autowired
+    UserstRepository userRepository;
 
-	/*
-	 * 
-	 */
-	@Override
-	public List<Users> listAll() {
-		return userRepository.findAll();
-	}
+    /*
+     *
+     */
+    @Override
+    public List<Users> listAll() {
+        return userRepository.findAll();
+    }
 
-	/*
-	 * get all account users request id response whole information of 1 account
-	 */
-	@Override
-	public Users getUsers(Long id) {
-		return userRepository.getById(id);
-	}
+    /*
+     * get all account users request id response whole information of 1 account
+     */
+    @Override
+    public Users getUsers(Long id) {
+        return userRepository.getById(id);
+    }
 
-	/*
-	 * delete 1 account request id need delete response the account information been
-	 * deleted or not
-	 */
-	@Override
-	public boolean existById(Long id) {
-		return userRepository.existsById(id);
+    /*
+     * delete 1 account request id need delete response the account information been
+     * deleted or not
+     */
+    @Override
+    public boolean existById(Long id) {
+        return userRepository.existsById(id);
 
-	}
+    }
 
-	/*
-	 * get an account users request id response whole information of 1 account
-	 */
-	@Override
-	public Optional<Users> findById(Long user_pk) {
-		// TODO Auto-generated method stub
-		return userRepository.findById(user_pk);
-	}
+    @Override
+    public Optional<Users> findById(Long user_pk) {
+        // TODO Auto-generated method stub
+        return userRepository.findById(user_pk);
+    }
 
-	@Override
-	public void deleteAccount(Long id) {
+    //find by username*
+    @Override
+    public List<Users> findByUsername(String username) {
+        return userRepository.findByUsername(username);
+    }
+    //save*
+    @Override
+    public Users save(Users users) {
+         return userRepository.save(users);
+    }
+    //checkPhone_number*
+    @Override
+    public void checkPhone_number(String phone_number){
+        userRepository.existByPhone_number(phone_number);
+    }
 
-		userRepository.deleteById(id);
+    @Override
+    public void deleteAccount(Long id) {
+        userRepository.deleteById(id);
 
-	}
+    }
 
 }
