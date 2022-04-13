@@ -18,7 +18,6 @@ import java.util.Date;
 @NoArgsConstructor
 @Entity
 @Table(name = "post_thread")
-
 public class PostThread {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,7 +25,7 @@ public class PostThread {
     private String title_thread;
     private Date time_post_thread;
     private String content_of_thread;
-    private String post_topic_pk;
+    private Long post_topic_pk;
     private Long user_pk;
     private boolean enable_post_thread;
 
