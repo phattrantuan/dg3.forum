@@ -31,6 +31,6 @@ private boolean enable_post_topic;
 @OneToMany(cascade = CascadeType.ALL)
 @JoinColumn(name = "post_topic_pk")
 Set<PostThread>postThreads;//data not duplicate
-
+// a
 
 }
