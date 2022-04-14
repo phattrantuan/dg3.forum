@@ -18,31 +18,38 @@ import com.dg3.forum.forum.entity.Users;
 @Repository
 
 public interface UserstRepository extends JpaRepository<Users, Long> {
-	//@Query("SELECT u from Users u where u.user_pk = :user_pk")
-	//Users findRoomByUserId(@PathVariable("user_pk") Long user_pk);
+    /**
+     * Get user information by username
+     *
+     * @param username
+     * @return
+     */
+    Users getByUsername(String username);
 
+    /**
+     * Find user information by username
+     *
+     * @param username
+     * @return
+     */
+    List<Users> findByUsername(String username);
 
-//	@Query("DELETE  from Users u where u.user_pk = :user_pk")
-//	Optional<Users> deleteAccount(@PathVariable("user_pk") Long user_pk);
+    /**
+     * Check phone number
+     *
+     * @param phone_number
+     * @return
+     */
+    @Query("SELECT u from Users u where u.phone_number = :phone_number")
+    List<Users> existByPhone_number(String phone_number);
 
-	/*
-	* Get user information by username
-	* */
-	Users getByUsername(String username);
+    /**
+     * Check email
+     *
+     * @param email
+     * @return
+     */
+    @Query("SELECT u from Users u where u.email = :email")
+    List<Users> existByEmail(String email);
 
-	/*
-	 * Find user information by username
-	 * */
-	List<Users> findByUsername(String username);
-  
-	//existByPhone_number
-	@Query("SELECT u from Users u where u.phone_number = :phone_number")
-	List<Users> existByPhone_number(String phone_number);
-
-	//existByGmail*
-	@Query("SELECT u from Users u where u.email = :email")
-	List<Users> existByEmail(String email);
-
-
-
-} 
+}

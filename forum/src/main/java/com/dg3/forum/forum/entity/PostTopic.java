@@ -1,6 +1,5 @@
 package com.dg3.forum.forum.entity;
 
-
 import lombok.Getter;
 import lombok.Setter;
 

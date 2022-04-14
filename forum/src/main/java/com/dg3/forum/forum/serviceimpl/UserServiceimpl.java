@@ -16,25 +16,33 @@ public class UserServiceimpl implements UserService {
     @Autowired
     UserstRepository userRepository;
 
-    /*
+    /**
+     * Show list all
      *
+     * @return
      */
     @Override
     public List<Users> listAll() {
         return userRepository.findAll();
     }
 
-    /*
-     * get all account users request id response whole information of 1 account
+    /**
+     * Get all account users request id response whole information of 1 account
+     *
+     * @param id
+     * @return
      */
     @Override
     public Users getUsers(Long id) {
         return userRepository.getById(id);
     }
 
-    /*
-     * delete 1 account request id need delete response the account information been
-     * deleted or not
+    /**
+     * Delete 1 account request id need delete response the account information been
+     * Deleted or not
+     *
+     * @param id
+     * @return
      */
     @Override
     public boolean existById(Long id) {
@@ -42,34 +50,66 @@ public class UserServiceimpl implements UserService {
 
     }
 
+    /**
+     * Find by id
+     *
+     * @param user_pk
+     * @return
+     */
     @Override
     public Optional<Users> findById(Long user_pk) {
-        // TODO Auto-generated method stub
         return userRepository.findById(user_pk);
     }
 
-    //find by username*
-    
-//    public List<Users> findByUsername(String username) {
-//        return "a"; //userRepository.findByUsername(username)
-//    }
-    //save*
+    /**
+     * Find by Username
+     *
+     * @param username
+     * @return
+     */
     @Override
-    public Users save(Users users) {
-         return userRepository.save(users);
+    public List<Users> findByUsername(String username) {
+        return userRepository.findByUsername(username);
     }
 
-   //checkPhone_number*
+    /**
+     * Save
+     *
+     * @param users
+     * @return
+     */
     @Override
-    public List<Users> checkPhone_number(String phone_number){
+    public Users save(Users users) {
+        return userRepository.save(users);
+    }
+
+    /**
+     * Check phone number
+     *
+     * @param phone_number
+     * @return
+     */
+    @Override
+    public List<Users> checkPhone_number(String phone_number) {
         return userRepository.existByPhone_number(phone_number);
     }
-//check email
+
+    /**
+     * Check email
+     *
+     * @param email
+     * @return
+     */
     @Override
     public List<Users> checkEmail(String email) {
         return userRepository.existByEmail(email);
     }
 
+    /**
+     * Delete by id
+     *
+     * @param id
+     */
     @Override
     public void deleteAccount(Long id) {
         userRepository.deleteById(id);

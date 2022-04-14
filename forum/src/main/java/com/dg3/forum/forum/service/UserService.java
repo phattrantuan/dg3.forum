@@ -6,25 +6,72 @@ import java.util.Optional;
 import com.dg3.forum.forum.entity.Users;
 
 public interface UserService {
-	//get all information account users
-	List<Users> listAll();
-	//get only account user
-	Users getUsers(Long id);
-	//check exist account account user
-	boolean existById(Long id);
-	//delete account account user
-	void deleteAccount(Long id);
-	//get only account user
-	Optional<Users> findById(Long user_pk);
+    /**
+     * Get all information account users
+     * @return
+     */
+    List<Users> listAll();
 
-	//find by username*
-//	List<Users> findByUsername(String username);
-	//save*
-	Users save(Users users);
-	// Check phone number*
-	List<Users> checkPhone_number(String phone_number);
-	//check email
-	List<Users> checkEmail(String email);
+    /**
+     * Get only account user
+     * @param id
+     * @return
+     */
+    Users getUsers(Long id);
 
+    /**
+     * Check exist account account user
+     *
+     * @param id
+     * @return
+     */
+    boolean existById(Long id);
+
+    /**
+     * Delete account account user
+     *
+     * @param id
+     */
+    void deleteAccount(Long id);
+
+    /**
+     * Get only account user
+     *
+     * @param user_pk
+     * @return
+     */
+    Optional<Users> findById(Long user_pk);
+
+    /**
+     * Find by username
+     *
+     * @param username
+     * @return
+     */
+    List<Users> findByUsername(String username);
+
+    /**
+     * Save
+     *
+     * @param users
+     * @return
+     */
+    Users save(Users users);
+
+    /**
+     * Check phone number
+     *
+     * @param phone_number
+     * @return
+     */
+    List<Users> checkPhone_number(String phone_number);
+
+    /**
+     * Check email
+     *
+     * @param email
+     * @return
+     */
+    List<Users> checkEmail(String email);
 
 }

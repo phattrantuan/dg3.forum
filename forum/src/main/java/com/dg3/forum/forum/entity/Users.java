@@ -49,4 +49,7 @@ public class Users {
 		this.enable_users = enable_users;
 	}
 
+	public Users() {
+
+	}
 }

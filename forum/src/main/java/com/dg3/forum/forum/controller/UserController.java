@@ -22,6 +22,11 @@ public class UserController {
     @Autowired
     private UserService service;
 
+    /**
+     * Show all user
+     *
+     * @return
+     */
     @GetMapping
     public ResponseEntity<Message> listAll() {
         LOGGER.error("listAll");
@@ -36,7 +41,12 @@ public class UserController {
                 ;
     }
 
-
+    /**
+     * Find by id
+     *
+     * @param user_pk
+     * @return
+     */
     @GetMapping("/{user_pk}")
     public ResponseEntity<Message> findById(@PathVariable Long user_pk) {
         LOGGER.error("findById");
@@ -51,26 +61,26 @@ public class UserController {
     }
 
     /**
-     * show list username
+     * Show list username
      *
      * @param username
      * @return
      */
-//    @GetMapping("/list/{username}")
-//    public ResponseEntity<Message> findByUserName(@PathVariable String username) {
-//        LOGGER.error("findByUserName");
-//        List<Users> usersList = service.findByUsername(username);
-//        return usersList.isEmpty() ?
-//                ResponseEntity.status(HttpStatus.NOT_FOUND).body(
-//                        new Message("Không tìm thấy!", "Không tìm thấy người dùng" + " " + username + "này!", "")
-//                ) :
-//                ResponseEntity.status(HttpStatus.OK).body(
-//                        new Message("Tìm thấy!", "Người dùng:", usersList)
-//                );
-//    }
+    @GetMapping("/list/{username}")
+    public ResponseEntity<Message> findByUserName(@PathVariable String username) {
+        LOGGER.error("findByUserName");
+        List<Users> usersList = service.findByUsername(username);
+        return usersList.isEmpty() ?
+                ResponseEntity.status(HttpStatus.NOT_FOUND).body(
+                        new Message("Không tìm thấy!", "Không tìm thấy người dùng" + " " + username + "này!", "")
+                ) :
+                ResponseEntity.status(HttpStatus.OK).body(
+                        new Message("Tìm thấy!", "Người dùng:", usersList)
+                );
+    }
 
     /**
-     * insert check phone and check email
+     * Insert check phone and check email
      *
      * @param users
      * @return
@@ -96,7 +106,11 @@ public class UserController {
     }
 
     /**
-     * update, upsert = update if found, otherwise insert
+     * Update, upsert = update if found, otherwise insert
+     *
+     * @param newUser
+     * @param user_pk
+     * @return
      */
     @PutMapping("/{user_pk}")
     ResponseEntity<Message> updateUser(@RequestBody Users newUser, @PathVariable Long user_pk) {
@@ -125,6 +139,12 @@ public class UserController {
         );
     }
 
+    /**
+     * Delete id
+     *
+     * @param user_pk
+     * @return
+     */
     @DeleteMapping("/{user_pk}")
     ResponseEntity<Message> deleteProduct(@PathVariable Long user_pk) {
 
