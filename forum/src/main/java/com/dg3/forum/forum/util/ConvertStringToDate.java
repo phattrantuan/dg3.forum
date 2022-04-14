@@ -8,7 +8,7 @@ import java.util.Date;
 public class ConvertStringToDate {
 	static Date convertStringtoDate(String startDate )  {
 		
-		DateFormat df = new SimpleDateFormat("mm/dd/yyyy");
+		DateFormat df = new SimpleDateFormat("yyyy/MM/dd");
 		Date dateconvert = null;
 		try {
 			dateconvert = df.parse(startDate);

@@ -21,12 +21,12 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.dg3.forum.forum.entity.Message;
 import com.dg3.forum.forum.entity.Users;
-import com.dg3.forum.forum.service.CSVService;
+import com.dg3.forum.forum.serviceimpl.CSVService;
 import com.dg3.forum.forum.util.CSVHelper;
 
 
 @RestController
-@RequestMapping("/api/csv")
+@RequestMapping("/api/v1/admin/csv")
 public class CSVController {
 
   @Autowired
@@ -58,21 +58,20 @@ public class CSVController {
     return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new Message("not import",message,""));
   }
 
-  @GetMapping("/tutorials")
+  @GetMapping("/users")
   public ResponseEntity<List<Users>> getAllTutorials() {
     try {
-      List<Users> tutorials = fileService.getAllTutorials();
+      List<Users> users = fileService.getAllUsers();
 
-      if (tutorials.isEmpty()) {
+      if (users.isEmpty()) {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
       }
 
-      return new ResponseEntity<>(tutorials, HttpStatus.OK);
+      return new ResponseEntity<>(users, HttpStatus.OK);
     } catch (Exception e) {
       return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
     }
   }
-
   @GetMapping("/download/{fileName:.+}")
   public ResponseEntity<Resource> downloadFile(@PathVariable String fileName) {
     InputStreamResource file = new InputStreamResource(fileService.load());

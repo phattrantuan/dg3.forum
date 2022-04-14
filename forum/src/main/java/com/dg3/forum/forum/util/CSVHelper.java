@@ -46,10 +46,15 @@ public class CSVHelper {
 
 			for (CSVRecord csvRecord : csvRecords) {
 				@SuppressWarnings("deprecation")
-				Users rowUser = new Users(csvRecord.get("email"), csvRecord.get("password"), csvRecord.get("username"),
-						csvRecord.get("role"), csvRecord.get("phone_number"), csvRecord.get("address"),
+				Users rowUser = new Users(csvRecord.get("email"),
+						csvRecord.get("password"), 
+						csvRecord.get("username"),
+						csvRecord.get("role"), 
+						csvRecord.get("phone_number"),
+						csvRecord.get("address"),
 						ConvertStringToDate.convertStringtoDate(csvRecord.get("date_of_birth")),
-						Boolean.parseBoolean(csvRecord.get("ban_account")), csvRecord.get("img_avatar"),
+						Boolean.parseBoolean(csvRecord.get("ban_account")),
+						csvRecord.get("img_avatar"),
 						csvRecord.get("description"),
 						ConvertStringToDate.convertStringtoDate(csvRecord.get("created_date")),
 						ConvertStringToDate.convertStringtoDate(csvRecord.get("expire")),
