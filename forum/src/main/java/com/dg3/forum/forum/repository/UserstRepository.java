@@ -26,9 +26,14 @@ public interface UserstRepository extends JpaRepository<Users, Long> {
 //	Optional<Users> deleteAccount(@PathVariable("user_pk") Long user_pk);
 
 	/*
-	* Find user information by username
+	* Get user information by username
 	* */
-	Users findByUsername(String username);
+	Users getByUsername(String username);
+
+	/*
+	 * Find user information by username
+	 * */
+	List<Users> findByUsername(String username);
   
 	//existByPhone_number
 	@Query("SELECT u from Users u where u.phone_number = :phone_number")

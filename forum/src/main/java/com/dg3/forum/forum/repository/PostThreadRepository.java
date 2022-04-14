@@ -15,7 +15,7 @@ import java.util.List;
 @Repository
 public interface PostThreadRepository extends JpaRepository<PostThread, Long>{
     /*
-     * Find all posts of dealer
+     * Find all posts of dealer. Sort in descending order of posting time
      * Request is Long user_pk
      * Respone is List posts by dealer
      * */
@@ -23,7 +23,8 @@ public interface PostThreadRepository extends JpaRepository<PostThread, Long>{
     @Transactional
     @Query(value = "select post_thread.* from post_thread " +
             "inner join users on users.user_pk = post_thread.user_pk " +
-            "where users.user_pk = :user_pk and users.role = 'ROLE_DEALER'", nativeQuery = true)
+            "where users.user_pk = :user_pk " +
+            "order by post_thread.time_post_thread DESC", nativeQuery = true)
     List<PostThread> findAllDealer(@Param("user_pk") Long user_pk);
 
     /*
