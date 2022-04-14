@@ -1,4 +1,4 @@
-package com.dg3.forum.forum.service;
+package com.dg3.forum.forum.serviceimpl;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
@@ -28,12 +28,11 @@ public class CSVService {
 
   public ByteArrayInputStream load() {
     List<Users> listUsers = repository.findAll();
-
     ByteArrayInputStream in = CSVHelper.tutorialsToCSV(listUsers);
     return in;
   }
 
-  public List<Users> getAllTutorials() {
+  public List<Users> getAllUsers() {
     return repository.findAll();
   }
 }
