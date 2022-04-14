@@ -1,5 +1,8 @@
 package com.dg3.forum.forum.entity;
 
+import javax.persistence.Entity;
+import javax.persistence.Table;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
