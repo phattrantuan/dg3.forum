@@ -4,33 +4,36 @@ import com.dg3.forum.forum.entity.PostThread;
 import com.dg3.forum.forum.entity.Users;
 import com.dg3.forum.forum.repository.PostThreadRepository;
 import com.dg3.forum.forum.repository.UserstRepository;
-import com.dg3.forum.forum.service.DealerService;
+import com.dg3.forum.forum.service.PostThreadService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
-public class DealerServiceImpl implements DealerService {
+public class PostThreadServiceImpl implements PostThreadService {
     @Autowired
     private UserstRepository userstRepository;
 
     @Autowired
     private PostThreadRepository postThreadRepository;
 
+    /*
+    * List all post
+    * */
     @Override
-    public List<PostThread> listAllPostDealer (String username){
-        Users users = userstRepository.findByUsername(username);
+    public List<PostThread> listAllPost (String username){
+        Users users = userstRepository.getByUsername(username);
         return postThreadRepository.findAllDealer(users.getUser_pk());
     }
 
     @Override
-    public PostThread savePostsDealer (PostThread postThread){
+    public PostThread savePosts (PostThread postThread){
         return postThreadRepository.save(postThread);
     }
 
     @Override
-    public void updatePostsDealer (PostThread postThread){
+    public void updatePosts (PostThread postThread){
         String title_thread = postThread.getTitle_thread();
         String content_of_thread = postThread.getContent_of_thread();
         Long post_topic_pk = postThread.getPost_topic_pk();
@@ -41,7 +44,7 @@ public class DealerServiceImpl implements DealerService {
     }
 
     @Override
-    public void deletePostsDealer (Long thread_pk){
+    public void deletePosts (Long thread_pk){
         postThreadRepository.deleteByPostsDealer(thread_pk);
     }
 

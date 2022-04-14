@@ -3,34 +3,34 @@ package com.dg3.forum.forum.service;
 import com.dg3.forum.forum.entity.PostThread;
 import java.util.List;
 
-public interface DealerService {
+public interface PostThreadService {
     /*
-    * List of dealer posts
+    * List posts through username
     * Request is String username
     * Respone is List of dealer posts
     * */
-    List<PostThread> listAllPostDealer (String username);
+    List<PostThread> listAllPost (String username);
 
     /*
-    * Save information posts of dealer
+    * Save information posts
     * Request is Object PostThread postThread
     * Respone is information is saved
     * */
-    PostThread savePostsDealer(PostThread postThread);
+    PostThread savePosts(PostThread postThread);
 
     /*
-    * Update information posts of dealer
+    * Update information posts
     * Request is Object PostThread postThread
     * Respone is information is update
     * */
-    void updatePostsDealer(PostThread postThread);
+    void updatePosts(PostThread postThread);
 
     /*
-    * Delete information posts of dealer
+    * Delete information posts
     * Request is Long threak_pk (primary key of table PostDealer)
     * Respone is information is delete from database
     * */
-    void deletePostsDealer(Long thread_pk);
+    void deletePosts(Long thread_pk);
 
     /*
     *   Check the information of the post exists or not through thread_pk

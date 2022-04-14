@@ -2,7 +2,7 @@ package com.dg3.forum.forum.controller;
 
 import com.dg3.forum.forum.entity.Message;
 import com.dg3.forum.forum.entity.PostThread;
-import com.dg3.forum.forum.service.DealerService;
+import com.dg3.forum.forum.service.PostThreadService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,14 +19,15 @@ public class DealerControllers {
     private static final Logger LOGGER = LoggerFactory.getLogger(UserController.class);
 
     @Autowired
-    private DealerService dealerService;
+    private PostThreadService postThreadService;
 
     /*
-     * Showing a list of dealer's posts
+     * Showing a list posts
      * */
     @GetMapping("/all/{username}")
     public ResponseEntity<Message> showAllPostDealer(@PathVariable String username) {
-        List<PostThread> listAllPost = dealerService.listAllPostDealer(username);
+        List<PostThread> listAllPost = postThreadService.listAllPost(username);
+
         return listAllPost.isEmpty() ?
                 ResponseEntity.status(HttpStatus.NOT_FOUND).body(
                         new Message("Fail", "There is no list of posts by" + username, "")
@@ -36,31 +37,48 @@ public class DealerControllers {
                 );
     }
 
+    /*
+    * Create posts
+    * */
     @PostMapping("/create/posts")
-    public PostThread createPostsDealer(@RequestBody PostThread postThread){
+    public ResponseEntity<Message> createPosts(@RequestBody PostThread postThread){
         /*
         * Get the current date and time when the article was posted.
         * */
         Date dateNow = new Date();
         postThread.setTime_post_thread(dateNow);
 
-        return dealerService.savePostsDealer(postThread);
-
-
+        return ResponseEntity.status(HttpStatus.OK).body(
+                new Message("OK", "Create posts successfully", postThreadService.savePosts(postThread))
+        );
     }
 
+    /*
+    * Update posts
+    * */
     @PutMapping("/update/posts/{thread_pk}")
-    public void updatePostsDealer(@RequestBody PostThread postThread, @PathVariable("thread_pk") Long thread_pk){
+    public ResponseEntity<Message> updatePosts(@RequestBody PostThread postThread, @PathVariable("thread_pk") Long thread_pk){
         postThread.setThread_pk(thread_pk);
-        dealerService.updatePostsDealer(postThread);
+
+        postThreadService.updatePosts(postThread);
+
+        return ResponseEntity.status(HttpStatus.OK).body(
+                new Message("OK", "Update posts successfully", "")
+        );
     }
 
+    /*
+    * Delete posts
+    * */
     @DeleteMapping("/delete/posts/{thread_pk}")
-    public void deletePostsDealer(@PathVariable("thread_pk") Long thread_pk){
-        if(dealerService.checkExistByThread_pk(thread_pk) != null){
-            dealerService.deletePostsDealer(thread_pk);
+    public void deletePosts(@PathVariable("thread_pk") Long thread_pk){
+        /*
+        * Check exist by posts through primary key thread_pk
+        * */
+        if(postThreadService.checkExistByThread_pk(thread_pk) != null){
+            postThreadService.deletePosts(thread_pk);
 
-            if(dealerService.checkExistByThread_pk(thread_pk) != null){
+            if(postThreadService.checkExistByThread_pk(thread_pk) != null){
                 ResponseEntity.status(HttpStatus.OK).body(
                         new Message("OK", "Delete posts successfully", "")
                 );
@@ -76,8 +94,4 @@ public class DealerControllers {
         }
     }
 
-    @GetMapping("/hello/{thread_pk}")
-    public PostThread check(@PathVariable("thread_pk") Long thread_pk){
-        return dealerService.checkExistByThread_pk(thread_pk);
-    }
 }
