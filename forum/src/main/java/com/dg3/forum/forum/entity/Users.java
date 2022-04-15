@@ -30,6 +30,7 @@ public class Users {
     private Date created_date;
     private Date expire;
     private boolean enable_users;
+
 	public Users(String email, String password, String username, String role, String phone_number, String address,
 			Date date_of_birth, boolean ban_account, String img_avatar, String description, Date created_date,
 			Date expire, boolean enable_users) {
@@ -49,4 +50,7 @@ public class Users {
 		this.enable_users = enable_users;
 	}
 
+	public Users() {
+
+	}
 }

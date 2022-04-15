@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class MedicineServiceImpl implements MedicineService {
     @Autowired
@@ -34,5 +36,15 @@ public class MedicineServiceImpl implements MedicineService {
     @Override
     public void deleteMedicine(Long medicine_pk){
         medicineRepository.deleteMedicine(medicine_pk);
+    }
+
+    @Override
+    public Medicine checkExistByMedicine(Long medicine_pk){
+        return medicineRepository.getByMedicine_pk(medicine_pk);
+    }
+
+    @Override
+    public List<Medicine> listAllMedicine_Dealer(Long dealer_pk) {
+        return medicineRepository.listAllByMedicineUser_Dealer(dealer_pk);
     }
 }
