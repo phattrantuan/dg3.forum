@@ -42,6 +42,11 @@ public interface UserstRepository extends JpaRepository<Users, Long> {
 	//existByGmail*
 	@Query("SELECT u from Users u where u.email = :email")
 	List<Users> existByEmail(String email);
+	
+	
+	
+	//insert users role dealer / manager
+	Optional<Users> save(Optional<Users> users);
 
 
 
