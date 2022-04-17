@@ -13,7 +13,7 @@ import com.dg3.forum.forum.repository.UserstRepository;
 import com.dg3.forum.forum.util.CSVHelper;
 
 @Service
-public class CSVService {
+public class CSVServiceImpl {
   @Autowired
   UserstRepository repository;
 
