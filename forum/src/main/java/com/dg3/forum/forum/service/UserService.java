@@ -3,7 +3,11 @@ package com.dg3.forum.forum.service;
 import java.util.List;
 import java.util.Optional;
 
+import org.thymeleaf.util.StringUtils;
+
 import com.dg3.forum.forum.entity.Users;
+
+
 
 public interface UserService {
 	//get all information account users
@@ -26,5 +30,23 @@ public interface UserService {
 	//check email
 	List<Users> checkEmail(String email);
 
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 
 }

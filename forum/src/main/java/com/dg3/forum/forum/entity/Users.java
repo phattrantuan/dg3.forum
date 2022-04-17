@@ -1,11 +1,17 @@
 package com.dg3.forum.forum.entity;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -53,7 +59,13 @@ public class Users {
 		this.expire = expire;
 		this.enable_users = enable_users;
 	}
+	public List<GrantedAuthority> getAuthorities() {
+		List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
 	
+			authorities.add(new SimpleGrantedAuthority(role));
+		
+		return authorities;
+	}
 	
 
 }

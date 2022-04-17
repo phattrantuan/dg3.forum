@@ -1,7 +1,8 @@
 package com.dg3.forum.forum.controller;
 
 import java.util.List;
-import java.util.Optional;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,20 +17,24 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import com.dg3.forum.forum.dto.Usersdto;
 import com.dg3.forum.forum.entity.Message;
 import com.dg3.forum.forum.entity.Users;
-import com.dg3.forum.forum.repository.UserstRepository;
 import com.dg3.forum.forum.serviceimpl.AdminServiceImpl;
 import com.dg3.forum.forum.serviceimpl.CSVServiceImpl;
+import com.dg3.forum.forum.serviceimpl.JwtServiceImpl;
+import com.dg3.forum.forum.serviceimpl.UserServiceimpl;
 import com.dg3.forum.forum.util.CSVHelper;
+
+
 
 @RestController
 @RequestMapping("/api/v1/admin")
@@ -42,6 +47,11 @@ AdminServiceImpl adminServiceImpl;
 	
   @Autowired
   CSVServiceImpl fileService;
+  
+  @Autowired 
+  JwtServiceImpl jwtServiceImpl;
+  @Autowired 
+  UserServiceimpl userServiceimpl;
 
   @PostMapping("/csv/upload")
   public ResponseEntity<Message> uploadFile(@RequestParam("file") MultipartFile file) {
@@ -147,6 +157,45 @@ AdminServiceImpl adminServiceImpl;
   
   
   
+  @RequestMapping(value = "/login", method = RequestMethod.POST)
+	public ResponseEntity<String> login(HttpServletRequest request, @RequestBody Users user) {
+		String result = "";
+		HttpStatus httpStatus = null;
+		try {
+			if (userServiceimpl.checkLogin(user)) {
+				result = jwtServiceImpl.generateTokenLogin(user.getUsername());
+				httpStatus = HttpStatus.OK;
+			} else {
+				result = "Wrong userId and password";
+				httpStatus = HttpStatus.BAD_REQUEST;
+			}
+		} catch (Exception ex) {
+			result = "Server Error";
+			httpStatus = HttpStatus.INTERNAL_SERVER_ERROR;
+		}
+		return new ResponseEntity<String>(result, httpStatus);
+	}
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+
+
+
+//
+//	@GetMapping("/{a}")
+//	public Users listAll(@PathVariable Long a) {
+//		return repo.findRoomByUserId(a);
+//	}
+
   
   
 }
