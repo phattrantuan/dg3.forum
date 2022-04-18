@@ -64,6 +64,6 @@ public interface MedicineRepository extends JpaRepository<Medicine, Long> {
     *   Show list medicine, sort descending by name medicine
     * */
     @Transactional
-    @Query(value = "select * from medicine order by name_medicine DESC")
+    @Query(value = "select * from medicine order by name_medicine DESC", nativeQuery = true)
     Page<Medicine> pageMedicine_Dealer(Pageable pageable);
 }
