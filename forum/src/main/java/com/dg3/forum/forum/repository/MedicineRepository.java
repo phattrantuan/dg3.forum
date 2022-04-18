@@ -57,7 +57,7 @@ public interface MedicineRepository extends JpaRepository<Medicine, Long> {
     @Transactional
     @Query(value = "select medicine.* from medicine " +
                     "inner join users on users.user_pk = medicine.dealer_pk " +
-                    "where medicine.dealer_pk = :dealer_pk", nativeQuery = true)
+                    "where medicine.dealer_pk = :dealer_pk order by name_medicine DESC", nativeQuery = true)
     List<Medicine> listAllByMedicineUser_Dealer(@Param("dealer_pk") Long dealer_pk);
 
     /*

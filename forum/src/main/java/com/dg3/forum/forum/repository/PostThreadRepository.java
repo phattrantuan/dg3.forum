@@ -15,9 +15,9 @@ import java.util.List;
 @Repository
 public interface PostThreadRepository extends JpaRepository<PostThread, Long>{
     /*
-     * Find all posts of dealer. Sort in descending order of posting time
+     * Find all posts of user. Sort in descending order of posting time
      * Request is Long user_pk
-     * Respone is List posts by dealer
+     * Respone is List posts by user
      * */
     @Modifying
     @Transactional
@@ -25,17 +25,17 @@ public interface PostThreadRepository extends JpaRepository<PostThread, Long>{
             "inner join users on users.user_pk = post_thread.user_pk " +
             "where users.user_pk = :user_pk " +
             "order by post_thread.time_post_thread DESC", nativeQuery = true)
-    List<PostThread> findAllDealer(@Param("user_pk") Long user_pk);
+    List<PostThread> findAll_User(@Param("user_pk") Long user_pk);
 
     /*
-    * Delete posts of dealer
+    * Delete posts
     * Request is Long thread_pk (primary key of table PostDealer)
     * Respone is Posts deleted
     * */
     @Modifying
     @Transactional
     @Query(value = "delete from post_thread where post_thread.thread_pk = :thread_pk", nativeQuery = true)
-    void deleteByPostsDealer(@Param("thread_pk") Long thread_pk);
+    void deleteByPosts(@Param("thread_pk") Long thread_pk);
 
     /*
     * Update posts of dealer
@@ -50,7 +50,7 @@ public interface PostThreadRepository extends JpaRepository<PostThread, Long>{
                     "post_topic_pk = :post_topic_pk," +
                     "enable_post_thread = :enable_post_thread " +
                     "where thread_pk = :thread_pk", nativeQuery = true)
-    void updateByPostsDealer(@Param("title_thread") String title_thread,
+    void updateByPosts(@Param("title_thread") String title_thread,
                              @Param("content_of_thread") String content_of_thread,
                              @Param("post_topic_pk") Long post_topic_pk,
                              @Param("enable_post_thread") boolean enable_post_thread,
@@ -64,4 +64,11 @@ public interface PostThreadRepository extends JpaRepository<PostThread, Long>{
     @Transactional
     @Query(value = "select * from post_thread where post_thread.thread_pk = :thread_pk", nativeQuery = true)
     PostThread existByThread_pk(@Param("thread_pk") Long thread_pk);
+
+    /*
+    * Show all information posts
+    * */
+    @Transactional
+    @Query(value = "select * from post_thread order by post_thread.time_post_thread DESC", nativeQuery = true)
+    List<PostThread> findByAllPosts();
 }

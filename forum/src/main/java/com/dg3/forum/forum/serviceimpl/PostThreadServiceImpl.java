@@ -19,11 +19,11 @@ public class PostThreadServiceImpl implements PostThreadService {
     private PostThreadRepository postThreadRepository;
 
     /*
-    * List all post
+    * List all post by user
     * */
     @Override
-    public List<PostThread> listAllPost (Long user_pk){
-        return postThreadRepository.findAllDealer(user_pk);
+    public List<PostThread> listAllPost_User (Long user_pk){
+        return postThreadRepository.findAll_User(user_pk);
     }
 
     @Override
@@ -39,16 +39,21 @@ public class PostThreadServiceImpl implements PostThreadService {
         boolean enable_post_thread = postThread.isEnable_post_thread();
         Long thread_pk = postThread.getThread_pk();
 
-        postThreadRepository.updateByPostsDealer(title_thread,content_of_thread,post_topic_pk,enable_post_thread,thread_pk);
+        postThreadRepository.updateByPosts(title_thread,content_of_thread,post_topic_pk,enable_post_thread,thread_pk);
     }
 
     @Override
     public void deletePosts (Long thread_pk){
-        postThreadRepository.deleteByPostsDealer(thread_pk);
+        postThreadRepository.deleteByPosts(thread_pk);
     }
 
     @Override
     public PostThread checkExistByThread_pk (Long thread_pk){
         return postThreadRepository.existByThread_pk(thread_pk);
+    }
+
+    @Override
+    public List<PostThread> listAllPosts(){
+        return postThreadRepository.findByAllPosts();
     }
 }

@@ -30,8 +30,8 @@ public class DealerControllers {
      * Showing a list posts by user
      * */
     @GetMapping("/all/{user_pk}")
-    public ResponseEntity<Message> showAllPost(@PathVariable Long user_pk) {
-        List<PostThread> listAllPost = postThreadService.listAllPost(user_pk);
+    public ResponseEntity<Message> showAllPost_User(@PathVariable Long user_pk) {
+        List<PostThread> listAllPost = postThreadService.listAllPost_User(user_pk);
 
         Users users = userService.getUsers(user_pk);
 
@@ -101,4 +101,19 @@ public class DealerControllers {
         }
     }
 
+    /*
+    * List all
+    * */
+    @GetMapping("/all")
+    public ResponseEntity<Message> listAllPosts(){
+        List<PostThread> list = postThreadService.listAllPosts();
+
+        return list.isEmpty() ?
+                ResponseEntity.status(HttpStatus.NOT_FOUND).body(
+                        new Message("Failed", "List posts not found", "")
+                ) :
+                ResponseEntity.status(HttpStatus.OK).body(
+                        new Message("OK", "List posts found", list)
+                );
+    }
 }
