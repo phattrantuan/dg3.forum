@@ -11,28 +11,33 @@ import java.util.Optional;
 @Repository
 
 public interface UserstRepository extends JpaRepository<Users, Long> {
-	//@Query("SELECT u from Users u where u.user_pk = :user_pk")
-	//Users findRoomByUserId(@PathVariable("user_pk") Long user_pk);
-
-
-//	@Query("DELETE  from Users u where u.user_pk = :user_pk")
-//	Optional<Users> deleteAccount(@PathVariable("user_pk") Long user_pk);
-
-	/*
-	* Get user information by username
-	* */
+	/**
+	 * Get user information by username
+	 * @param username
+	 * @return
+	 */
 	Users getByUsername(String username);
 
-	/*
+	/**
 	 * Find user information by username
-	 * */
+	 * @param username
+	 * @return
+	 */
 	List<Users> findByUsername(String username);
-  
-	//existByPhone_number
+
+	/**
+	 * Check number phone
+	 * @param phone_number
+	 * @return
+	 */
 	@Query("SELECT u from Users u where u.phone_number = :phone_number")
 	List<Users> existByPhone_number(String phone_number);
 
-	//existByGmail*
+	/**
+	 * Check email
+	 * @param email
+	 * @return
+	 */
 	@Query("SELECT u from Users u where u.email = :email")
 	List<Users> existByEmail(String email);
 	

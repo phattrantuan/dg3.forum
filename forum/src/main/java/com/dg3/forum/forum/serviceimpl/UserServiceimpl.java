@@ -19,61 +19,85 @@ public class UserServiceimpl implements UserService {
 	@Autowired
 	UserstRepository userRepository;
 
-	/*
-	 *
+	/**
+	 * get show all users
+	 * @return
 	 */
 	@Override
 	public List<Users> listAll() {
 		return userRepository.findAll();
 	}
 
-	/*
+	/**
 	 * get all account users request id response whole information of 1 account
+	 * @param id
+	 * @return
 	 */
 	@Override
 	public Users getUsers(Long id) {
 		return userRepository.getById(id);
 	}
 
-	/*
-	 * delete 1 account request id need delete response the account information been
-	 * deleted or not
-	 */
 	@Override
 	public boolean existById(Long id) {
 		return userRepository.existsById(id);
 
 	}
 
+	/**
+	 * find user by id
+	 * @param user_pk
+	 * @return
+	 */
 	@Override
 	public Optional<Users> findById(Long user_pk) {
-		// TODO Auto-generated method stub
 		return userRepository.findById(user_pk);
 	}
 
-	// find by username*
 
+	/**
+	 * find user by Username
+	 * @param username
+	 * @return
+	 */
     public List<Users> findByUsername(String username) {
         return userRepository.findByUsername(username);
     }
-	// save*
+
+	/**
+	 * save
+	 * @param users
+	 * @return
+	 */
 	@Override
 	public Users save(Users users) {
 		return userRepository.save(users);
 	}
 
-	// checkPhone_number*
+	/**
+	 * Check number phone
+	 * @param phone_number
+	 * @return
+	 */
 	@Override
 	public List<Users> checkPhone_number(String phone_number) {
 		return userRepository.existByPhone_number(phone_number);
 	}
 
-//check email
+	/**
+	 * check email
+	 * @param email
+	 * @return
+	 */
 	@Override
 	public List<Users> checkEmail(String email) {
 		return userRepository.existByEmail(email);
 	}
 
+	/**
+	 * delete user
+	 * @param id
+	 */
 	@Override
 	public void deleteAccount(Long id) {
 		userRepository.deleteById(id);
@@ -81,7 +105,6 @@ public class UserServiceimpl implements UserService {
 	}
 
 	public List<Users> findAll() {
-
 		return userRepository.findAll();
 	}
 
