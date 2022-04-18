@@ -15,46 +15,45 @@ import com.dg3.forum.forum.rest.JwtAuthenticationTokenFilter;
 import com.dg3.forum.forum.rest.RestAuthenticationEntryPoint;
 
 
-
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-	@Bean
-	public JwtAuthenticationTokenFilter jwtAuthenticationTokenFilter() throws Exception {
-		JwtAuthenticationTokenFilter jwtAuthenticationTokenFilter = new JwtAuthenticationTokenFilter();
-		jwtAuthenticationTokenFilter.setAuthenticationManager(authenticationManager());
-		return jwtAuthenticationTokenFilter;
-	}
+    @Bean
+    public JwtAuthenticationTokenFilter jwtAuthenticationTokenFilter() throws Exception {
+        JwtAuthenticationTokenFilter jwtAuthenticationTokenFilter = new JwtAuthenticationTokenFilter();
+        jwtAuthenticationTokenFilter.setAuthenticationManager(authenticationManager());
+        return jwtAuthenticationTokenFilter;
+    }
 
-	@Bean
-	public RestAuthenticationEntryPoint restServicesEntryPoint() {
-		return new RestAuthenticationEntryPoint();
-	}
+    @Bean
+    public RestAuthenticationEntryPoint restServicesEntryPoint() {
+        return new RestAuthenticationEntryPoint();
+    }
 
-	@Bean
-	public CustomAccessDeniedHandler customAccessDeniedHandler() {
-		return new CustomAccessDeniedHandler();
-	}
+    @Bean
+    public CustomAccessDeniedHandler customAccessDeniedHandler() {
+        return new CustomAccessDeniedHandler();
+    }
 
-	@Bean
-	@Override
-	protected AuthenticationManager authenticationManager() throws Exception {
-		return super.authenticationManager();
-	}
+    @Bean
+    @Override
+    protected AuthenticationManager authenticationManager() throws Exception {
+        return super.authenticationManager();
+    }
 
-	protected void configure(HttpSecurity http) throws Exception {
-		// Disable crsf cho đường dẫn /rest/**
-		http.csrf().ignoringAntMatchers("/api/v1/admin/**");
+    protected void configure(HttpSecurity http) throws Exception {
+        // Disable crsf cho đường dẫn /rest/**
+        http.csrf().ignoringAntMatchers("/api/v1/admin/**");
 
-		http.authorizeRequests().antMatchers("/api/v1/login**").permitAll();
+        http.authorizeRequests().antMatchers("/api/v1/login**").permitAll();
 
-		http.antMatcher("/api/v1/admin/**").httpBasic().authenticationEntryPoint(restServicesEntryPoint()).and()
-				.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and().authorizeRequests()
-				.antMatchers(HttpMethod.GET, "/api/v1/admin/**").access("hasRole('ROLE_ADMIN') ")
-				.antMatchers(HttpMethod.POST, "/api/v1/admin/**").access("hasRole('ROLE_ADMIN')")
-				.antMatchers(HttpMethod.DELETE, "/api/v1/admin/**").access("hasRole('ROLE_ADMIN')").and()
-				.addFilterBefore(jwtAuthenticationTokenFilter(), UsernamePasswordAuthenticationFilter.class)
-				.exceptionHandling().accessDeniedHandler(customAccessDeniedHandler());
-	}
+        http.antMatcher("/api/v1/admin/**").httpBasic().authenticationEntryPoint(restServicesEntryPoint()).and()
+                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and().authorizeRequests()
+                .antMatchers(HttpMethod.GET, "/api/v1/admin/**").access("hasRole('ROLE_ADMIN') ")
+                .antMatchers(HttpMethod.POST, "/api/v1/admin/**").access("hasRole('ROLE_ADMIN')")
+                .antMatchers(HttpMethod.DELETE, "/api/v1/admin/**").access("hasRole('ROLE_ADMIN')").and()
+                .addFilterBefore(jwtAuthenticationTokenFilter(), UsernamePasswordAuthenticationFilter.class)
+                .exceptionHandling().accessDeniedHandler(customAccessDeniedHandler());
+    }
 }

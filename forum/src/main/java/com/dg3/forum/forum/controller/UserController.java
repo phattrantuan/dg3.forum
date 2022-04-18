@@ -3,6 +3,8 @@ package com.dg3.forum.forum.controller;
 import java.util.List;
 import java.util.Optional;
 
+import com.dg3.forum.forum.entity.Users;
+import com.dg3.forum.forum.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,9 +13,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import com.dg3.forum.forum.entity.Message;
-import com.dg3.forum.forum.entity.Users;
-import com.dg3.forum.forum.repository.UserstRepository;
-import com.dg3.forum.forum.service.UserService;
 
 @RestController
 @RequestMapping("/api/v1/users")

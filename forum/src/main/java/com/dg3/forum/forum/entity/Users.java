@@ -1,27 +1,21 @@
 package com.dg3.forum.forum.entity;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
-import javax.validation.constraints.NotBlank;
-
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-
 import com.dg3.forum.forum.customannotation.NumberPhone;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
-
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+
+import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonIgnoreProperties(value = { "roles", "authorities" })
 @Getter
@@ -50,8 +44,8 @@ public class Users {
     private Date expire;
     private boolean enable_users;
 	public Users(String email, String password, String username, String role, String phone_number, String address,
-			Date date_of_birth, boolean ban_account, String img_avatar, String description, Date created_date,
-			Date expire, boolean enable_users) {
+                 Date date_of_birth, boolean ban_account, String img_avatar, String description, Date created_date,
+                 Date expire, boolean enable_users) {
 		super();
 		this.email = email;
 		this.password = password;

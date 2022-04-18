@@ -8,7 +8,7 @@ import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
-
+import com.dg3.forum.forum.serviceimpl.UserServiceimpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -19,7 +19,6 @@ import org.springframework.security.web.authentication.WebAuthenticationDetailsS
 
 import com.dg3.forum.forum.entity.Users;
 import com.dg3.forum.forum.serviceimpl.JwtServiceImpl;
-import com.dg3.forum.forum.serviceimpl.UserServiceimpl;
 
 
 

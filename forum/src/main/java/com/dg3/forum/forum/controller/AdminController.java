@@ -3,7 +3,7 @@ package com.dg3.forum.forum.controller;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
-
+import com.dg3.forum.forum.serviceimpl.UserServiceimpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,7 +31,6 @@ import com.dg3.forum.forum.entity.Users;
 import com.dg3.forum.forum.serviceimpl.AdminServiceImpl;
 import com.dg3.forum.forum.serviceimpl.CSVServiceImpl;
 import com.dg3.forum.forum.serviceimpl.JwtServiceImpl;
-import com.dg3.forum.forum.serviceimpl.UserServiceimpl;
 import com.dg3.forum.forum.util.CSVHelper;
 
 
@@ -50,7 +49,7 @@ AdminServiceImpl adminServiceImpl;
   
   @Autowired 
   JwtServiceImpl jwtServiceImpl;
-  @Autowired 
+  @Autowired
   UserServiceimpl userServiceimpl;
 
   @PostMapping("/csv/upload")
