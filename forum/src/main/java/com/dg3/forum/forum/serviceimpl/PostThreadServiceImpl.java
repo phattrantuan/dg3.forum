@@ -22,9 +22,8 @@ public class PostThreadServiceImpl implements PostThreadService {
     * List all post
     * */
     @Override
-    public List<PostThread> listAllPost (String username){
-        Users users = userstRepository.getByUsername(username);
-        return postThreadRepository.findAllDealer(users.getUser_pk());
+    public List<PostThread> listAllPost (Long user_pk){
+        return postThreadRepository.findAllDealer(user_pk);
     }
 
     @Override

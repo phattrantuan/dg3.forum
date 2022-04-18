@@ -13,5 +13,4 @@ public class Message {
 	 	private String statusCode;
 	    private String message;
 	    private Object object;
-
 }
