@@ -7,24 +7,55 @@ import java.util.Optional;
 
 
 public interface UserService {
-	//get all information account users
+	/**
+	 * get show all users
+	 * @return
+	 */
 	List<Users> listAll();
 	//get only account user
 	Users getUsers(Long id);
 	//check exist account account user
 	boolean existById(Long id);
-	//delete account account user
+
+	/**
+	 * delete user
+	 * @param id
+	 */
 	void deleteAccount(Long id);
-	//get only account user
+
+	/**
+	 * Find by id
+	 * @param user_pk
+	 * @return
+	 */
 	Optional<Users> findById(Long user_pk);
 
-	//find by username*
+	/**
+	 * Find by name user
+	 * @param username
+	 * @return
+	 */
 	List<Users> findByUsername(String username);
-	//save*
+
+	/**
+	 * Save
+	 * @param users
+	 * @return
+	 */
 	Users save(Users users);
-	// Check phone number*
+
+	/**
+	 * Check number phone
+	 * @param phone_number
+	 * @return
+	 */
 	List<Users> checkPhone_number(String phone_number);
-	//check email
+
+	/**
+	 * check email
+	 * @param email
+	 * @return
+	 */
 	List<Users> checkEmail(String email);
 
 	
