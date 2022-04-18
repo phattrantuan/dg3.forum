@@ -31,4 +31,26 @@ public class Users {
     private Date expire;
     private boolean enable_users;
 
+	public Users(String email, String password, String username, String role, String phone_number, String address,
+			Date date_of_birth, boolean ban_account, String img_avatar, String description, Date created_date,
+			Date expire, boolean enable_users) {
+		super();
+		this.email = email;
+		this.password = password;
+		this.username = username;
+		this.role = role;
+		this.phone_number = phone_number;
+		this.address = address;
+		this.date_of_birth = date_of_birth;
+		this.ban_account = ban_account;
+		this.img_avatar = img_avatar;
+		this.description = description;
+		this.created_date = created_date;
+		this.expire = expire;
+		this.enable_users = enable_users;
+	}
+
+	public Users() {
+
+	}
 }

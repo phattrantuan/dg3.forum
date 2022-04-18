@@ -18,10 +18,13 @@ public interface UserService {
 	Optional<Users> findById(Long user_pk);
 
 	//find by username*
-	List<Users> findByUsername(String username);
+//	List<Users> findByUsername(String username);
 	//save*
 	Users save(Users users);
 	// Check phone number*
-	void checkPhone_number(String phone_number);
+	List<Users> checkPhone_number(String phone_number);
+	//check email
+	List<Users> checkEmail(String email);
+
 
 }
