@@ -2,6 +2,8 @@ package com.dg3.forum.forum.repository;
 
 import com.dg3.forum.forum.entity.Like;
 import com.dg3.forum.forum.entity.Medicine;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -36,12 +38,32 @@ public interface MedicineRepository extends JpaRepository<Medicine, Long> {
     void deleteMedicine (@Param("medicine_pk") Long medicine_pk);
 
     /*
-    * List all
-    */
-    @Modifying
+    * Find information by medicine through the main key medicine_pk table medicine
+    * */
+    @Transactional
+    @Query(value = "select * from medicine where medicine_pk = :medicine_pk", nativeQuery = true)
+    Medicine getByMedicine_pk(@Param("medicine_pk") Long medicine_pk);
+
+    /*
+    * Find information by medicine through the name_medicine table medicine
+    * */
+    @Transactional
+    @Query(value = "select * from medicine where name_medicine = :name_medicine", nativeQuery = true)
+    Medicine getByName_medicine(@Param("name_medicine") String name_medicine);
+
+    /*
+    * List all information medicine by dealer
+    * */
     @Transactional
     @Query(value = "select medicine.* from medicine " +
                     "inner join users on users.user_pk = medicine.dealer_pk " +
-                    "where user.user_pk = :user_pk", nativeQuery = true)
-    List<Medicine> listAllMedicine_Dealer(@Param("user_pk") Long user_pk);
+                    "where medicine.dealer_pk = :dealer_pk", nativeQuery = true)
+    List<Medicine> listAllByMedicineUser_Dealer(@Param("dealer_pk") Long dealer_pk);
+
+    /*
+    *   Show list medicine, sort descending by name medicine
+    * */
+    @Transactional
+    @Query(value = "select * from medicine order by name_medicine DESC", nativeQuery = true)
+    Page<Medicine> pageMedicine_Dealer(Pageable pageable);
 }

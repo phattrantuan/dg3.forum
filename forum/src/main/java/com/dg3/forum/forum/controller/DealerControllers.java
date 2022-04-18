@@ -2,7 +2,9 @@ package com.dg3.forum.forum.controller;
 
 import com.dg3.forum.forum.entity.Message;
 import com.dg3.forum.forum.entity.PostThread;
+import com.dg3.forum.forum.entity.Users;
 import com.dg3.forum.forum.service.PostThreadService;
+import com.dg3.forum.forum.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,19 +23,24 @@ public class DealerControllers {
     @Autowired
     private PostThreadService postThreadService;
 
+    @Autowired
+    private UserService userService;
+
     /*
-     * Showing a list posts
+     * Showing a list posts by user
      * */
-    @GetMapping("/all/{username}")
-    public ResponseEntity<Message> showAllPostDealer(@PathVariable String username) {
-        List<PostThread> listAllPost = postThreadService.listAllPost(username);
+    @GetMapping("/all/{user_pk}")
+    public ResponseEntity<Message> showAllPost(@PathVariable Long user_pk) {
+        List<PostThread> listAllPost = postThreadService.listAllPost(user_pk);
+
+        Users users = userService.getUsers(user_pk);
 
         return listAllPost.isEmpty() ?
                 ResponseEntity.status(HttpStatus.NOT_FOUND).body(
-                        new Message("Fail", "There is no list of posts by" + username, "")
+                        new Message("Fail", "There is no list of posts by" + users.getUsername(), "")
                 ) :
                 ResponseEntity.status(HttpStatus.OK).body(
-                        new Message("OK", "List all posts dealer", listAllPost)
+                        new Message("OK", "List all posts by " + users.getUsername(), listAllPost)
                 );
     }
 
@@ -83,7 +90,7 @@ public class DealerControllers {
                         new Message("OK", "Delete posts successfully", "")
                 );
             }else {
-                ResponseEntity.status(HttpStatus.NOT_FOUND).body(
+                ResponseEntity.status(HttpStatus.NOT_IMPLEMENTED).body(
                         new Message("Failed", "Delete posts unsuccessfully", "")
                 );
             }

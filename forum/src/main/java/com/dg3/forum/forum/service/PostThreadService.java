@@ -5,11 +5,11 @@ import java.util.List;
 
 public interface PostThreadService {
     /*
-    * List posts through username
-    * Request is String username
+    * List posts through user_pk
+    * Request is Long user_pk
     * Respone is List of dealer posts
     * */
-    List<PostThread> listAllPost (String username);
+    List<PostThread> listAllPost (Long user_pk);
 
     /*
     * Save information posts
