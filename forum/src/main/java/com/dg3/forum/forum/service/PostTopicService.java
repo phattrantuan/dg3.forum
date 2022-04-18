@@ -5,31 +5,42 @@ import com.dg3.forum.forum.entity.Users;
 
 import java.util.List;
 import java.util.Optional;
+
 public interface PostTopicService {
     /**
-     * Get all Topic
+     * show all topic
      * @return
      */
     List<PostTopic> listAllTopic();
+
     /**
-     * Find by name topic
-     *
+     * Show topic by name
      * @param name_topic
      * @return
      */
     List<PostTopic> findByName_topic(String name_topic);
+
     /**
-     * Delete toppic
-     *
-     * @param id
+     * check name topic
+     * @param name_topic
+     * @return
      */
-    void deletePostTopic(Long id);
+    List<PostTopic> checkName_topic(String name_topic);
+
     /**
      * Save
-     *
      * @param postTopic
      * @return
      */
     PostTopic save(PostTopic postTopic);
 
+    /**
+     * hàm có sẵn jpa find by id
+     * @param post_topic_pk
+     * @return
+     */
+    Optional<PostTopic> findById(Long post_topic_pk);
+
+    boolean existById(Long id);
+    void deleteTopic(Long id);
 }

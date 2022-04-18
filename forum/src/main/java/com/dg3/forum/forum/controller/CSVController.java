@@ -2,6 +2,7 @@ package com.dg3.forum.forum.controller;
 
 import java.util.List;
 
+import com.dg3.forum.forum.repository.UserstRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.core.io.Resource;
@@ -10,12 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -31,7 +27,8 @@ public class CSVController {
 
   @Autowired
   CSVService fileService;
-
+@Autowired
+  UserstRepository userstRepository;
   @PostMapping("/upload")
   public ResponseEntity<Message> uploadFile(@RequestParam("file") MultipartFile file) {
     String message = "";
@@ -82,5 +79,6 @@ public class CSVController {
         .body(file);
   }
 }
+
 
 

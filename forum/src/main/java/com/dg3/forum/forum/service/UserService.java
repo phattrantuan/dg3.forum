@@ -3,6 +3,7 @@ package com.dg3.forum.forum.service;
 import java.util.List;
 import java.util.Optional;
 
+import com.dg3.forum.forum.entity.PostTopic;
 import com.dg3.forum.forum.entity.Users;
 
 public interface UserService {

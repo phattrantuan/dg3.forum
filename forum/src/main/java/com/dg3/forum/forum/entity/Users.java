@@ -1,11 +1,7 @@
 package com.dg3.forum.forum.entity;
 
 import java.util.Date;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -54,7 +50,4 @@ public class Users {
 		this.enable_users = enable_users;
 	}
 
-	public Users() {
-
-	}
 }

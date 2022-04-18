@@ -6,6 +6,7 @@ import java.util.Optional;
 import javax.transaction.Transactional;
 
 import com.dg3.forum.forum.entity.PostThread;
+import com.dg3.forum.forum.entity.PostTopic;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -32,7 +33,8 @@ public interface UserstRepository extends JpaRepository<Users, Long> {
      * @param username
      * @return
      */
-    List<Users> findByUsername(String username);
+    @Query(value = "select * from users u where u.username = :username", nativeQuery = true)
+    List<Users> findByUsername(@Param("username") String username);
 
     /**
      * Check phone number

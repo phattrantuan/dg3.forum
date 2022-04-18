@@ -33,10 +33,10 @@ public class UserController {
         List<Users> users = service.listAll();
         return users.isEmpty() ?
                 ResponseEntity.status(HttpStatus.NOT_FOUND).body(
-                        new Message("Fail", "not found user", "")
+                        new Message("Thất bại!", "Không thực hiện được!", "")
                 )
                 : ResponseEntity.status(HttpStatus.OK).body(
-                new Message("Ok", "have users", users)
+                new Message("Thành công!", "Danh sách người dùng:", users)
         )
                 ;
     }
@@ -53,10 +53,10 @@ public class UserController {
         Optional<Users> users = service.findById(user_pk);
         return users.isPresent() ?
                 ResponseEntity.status(HttpStatus.OK).body(
-                        new Message("Ok", "have users", users)
+                        new Message("Thành công!", "Thông tin người dùng với id " + user_pk+ ":", users)
                 ) :
                 ResponseEntity.status(HttpStatus.NOT_FOUND).body(
-                        new Message("Fail", "not found user" + user_pk, "")
+                        new Message("Thất bại!", "Không tìm thấy" + user_pk, "")
                 );
     }
 
@@ -72,10 +72,10 @@ public class UserController {
         List<Users> usersList = service.findByUsername(username);
         return usersList.isEmpty() ?
                 ResponseEntity.status(HttpStatus.NOT_FOUND).body(
-                        new Message("Không tìm thấy!", "Không tìm thấy người dùng" + " " + username + "này!", "")
+                        new Message("Không tìm thấy!", "Không tìm thấy người dùng"  + username + "này!", "")
                 ) :
                 ResponseEntity.status(HttpStatus.OK).body(
-                        new Message("Tìm thấy!", "Người dùng:", usersList)
+                        new Message("Tìm thấy!", "Thông tin người dùng với tên " + username +":" , usersList)
                 );
     }
 
@@ -86,7 +86,7 @@ public class UserController {
      * @return
      */
     @PostMapping("/insert")
-    ResponseEntity<Message> insertProduct(@RequestBody Users users) {
+    ResponseEntity<Message> insertUser(@RequestBody Users users) {
         //2 products must not have the same phone number and email !
         List<Users> foundPhoneNumber = service.checkPhone_number(users.getPhone_number().trim());
         List<Users> foundEmail = service.checkEmail(users.getEmail().trim());

@@ -1,10 +1,9 @@
 package com.dg3.forum.forum.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.dg3.forum.forum.repository.UserstRepository;
+
 
 @RestController
 @RequestMapping("/test")
