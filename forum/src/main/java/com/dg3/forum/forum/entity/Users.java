@@ -9,15 +9,21 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
+
+import com.dg3.forum.forum.customannotation.NumberPhone;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
+@JsonInclude(JsonInclude.Include.NON_NULL)
+@JsonIgnoreProperties(value = { "roles", "authorities" })
 @Getter
 @Setter
 @AllArgsConstructor
@@ -32,6 +38,8 @@ public class Users {
     private String password;
     private String username;
     private String role;
+    @NotBlank
+    @NumberPhone
     private String phone_number;
     private String address;
     private Date date_of_birth;

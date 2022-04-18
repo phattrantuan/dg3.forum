@@ -47,11 +47,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		// Disable crsf cho đường dẫn /rest/**
 		http.csrf().ignoringAntMatchers("/api/v1/admin/**");
 
-		http.authorizeRequests().antMatchers("/api/v1/admin/login**").permitAll();
+		http.authorizeRequests().antMatchers("/api/v1/login**").permitAll();
 
 		http.antMatcher("/api/v1/admin/**").httpBasic().authenticationEntryPoint(restServicesEntryPoint()).and()
 				.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and().authorizeRequests()
-				.antMatchers(HttpMethod.GET, "/rest/**").access("hasRole('ROLE_ADMIN') ")
+				.antMatchers(HttpMethod.GET, "/api/v1/admin/**").access("hasRole('ROLE_ADMIN') ")
 				.antMatchers(HttpMethod.POST, "/api/v1/admin/**").access("hasRole('ROLE_ADMIN')")
 				.antMatchers(HttpMethod.DELETE, "/api/v1/admin/**").access("hasRole('ROLE_ADMIN')").and()
 				.addFilterBefore(jwtAuthenticationTokenFilter(), UsernamePasswordAuthenticationFilter.class)
