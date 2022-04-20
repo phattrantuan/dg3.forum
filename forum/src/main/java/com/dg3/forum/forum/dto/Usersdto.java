@@ -3,8 +3,8 @@ package com.dg3.forum.forum.dto;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
+//import org.springframework.security.core.GrantedAuthority;
+//import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
 import com.dg3.forum.forum.entity.Users;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -28,12 +28,12 @@ public class Usersdto {
         this.password = entity.getPassword();
         this.role = entity.getRole();
     }
-	public List<GrantedAuthority> getAuthorities() {
-		List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
-	
-			authorities.add(new SimpleGrantedAuthority(role));
-		
-		return authorities;
-	}
+//	public List<GrantedAuthority> getAuthorities() {
+//		List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
+//
+//			authorities.add(new SimpleGrantedAuthority(role));
+//
+//		return authorities;
+//	}
 	
 }

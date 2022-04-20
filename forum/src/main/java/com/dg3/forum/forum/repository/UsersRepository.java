@@ -10,7 +10,7 @@ import java.util.Optional;
 
 @Repository
 
-public interface UserstRepository extends JpaRepository<Users, Long> {
+public interface UsersRepository extends JpaRepository<Users, Long> {
 	/**
 	 * Get user information by username
 	 * @param username

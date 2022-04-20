@@ -18,10 +18,7 @@ import com.dg3.forum.forum.customannotation.Phone;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonIgnoreProperties(value = { "roles", "authorities" })
@@ -30,6 +27,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
+@Builder
 @Table(name = "users")
 public class Users {
     @Id
@@ -70,9 +68,9 @@ public class Users {
 	}
 	public List<GrantedAuthority> getAuthorities() {
 		List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
-	
+
 			authorities.add(new SimpleGrantedAuthority(role));
-		
+
 		return authorities;
 	}
 	

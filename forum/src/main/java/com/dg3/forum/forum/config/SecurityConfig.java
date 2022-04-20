@@ -1,13 +1,19 @@
 package com.dg3.forum.forum.config;
 
+import com.dg3.forum.forum.service.UserService;
+import com.dg3.forum.forum.serviceimpl.AdminServiceImpl;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import com.dg3.forum.forum.rest.CustomAccessDeniedHandler;
@@ -31,6 +37,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         return new RestAuthenticationEntryPoint();
     }
 
+
+    /**
+     * passs mã hóa
+     * @return
+     */
+
     @Bean
     public CustomAccessDeniedHandler customAccessDeniedHandler() {
         return new CustomAccessDeniedHandler();
@@ -44,7 +56,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     protected void configure(HttpSecurity http) throws Exception {
         // Disable crsf cho đường dẫn /rest/**
-        http.csrf().ignoringAntMatchers("/api/v1/admin/**");
+        http.csrf().ignoringAntMatchers("/api/v1/admin/**").disable();
+        http.csrf().ignoringAntMatchers("/api/v1/users/**").disable();
 
         http.authorizeRequests().antMatchers("/api/v1/login**").permitAll();
 //

@@ -1,8 +1,15 @@
 package com.dg3.forum.forum.controller;
 
+import java.io.IOException;
+import java.io.OutputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
+import com.dg3.forum.forum.dto.UserRegisterDTO;
 import com.dg3.forum.forum.entity.Users;
 import com.dg3.forum.forum.service.UserService;
 import org.slf4j.Logger;
@@ -13,13 +20,19 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import com.dg3.forum.forum.entity.Message;
+import org.springframework.web.multipart.MultipartFile;
+
+import javax.xml.crypto.Data;
 
 @RestController
 @RequestMapping("/api/v1/users")
 public class UserController {
     private static final Logger LOGGER = LoggerFactory.getLogger(UserController.class);
+
+   private static final Path CURRENT_FOLDER = Paths.get(System.getProperty("user.dir"));
     @Autowired
     private UserService service;
+
 
     /**
      * Show all user
@@ -158,4 +171,64 @@ public class UserController {
         );
     }
 
+   @PostMapping("/image")
+    @ResponseStatus(HttpStatus.CREATED)
+    public Users create(@RequestParam String email,
+                       @RequestParam String password,
+                       @RequestParam String username,
+                       @RequestParam String role,
+                       @RequestParam String phone_number,
+                       @RequestParam String address,
+                       @RequestParam Date date_of_birth,
+                       @RequestParam boolean ban_account,
+                       @RequestParam String description,
+                       @RequestParam Date created_date,
+                       @RequestParam Date expire,
+                       @RequestParam boolean enable_users,
+                       @RequestParam MultipartFile image) throws IOException {
+        Path staticPath = Paths.get("static");
+        Path imagePath = Paths.get("images");
+        if (!Files.exists(CURRENT_FOLDER.resolve(staticPath).resolve(imagePath))) {
+            Files.createDirectories(CURRENT_FOLDER.resolve(staticPath).resolve(imagePath));
+        }
+        Path file = CURRENT_FOLDER.resolve(staticPath)
+                .resolve(imagePath).resolve(image.getOriginalFilename());
+        try (OutputStream os = Files.newOutputStream(file)) {
+            os.write(image.getBytes());
+        }
+        Users users = new Users();
+        users.setEmail(email);
+        users.setPassword(password);
+        users.setUsername(username);
+        users.setRole(role);
+        users.setPhone_number(phone_number);
+        users.setAddress(address);
+        users.setDate_of_birth(date_of_birth);
+        users.setBan_account(ban_account);
+        users.setImg_avatar(imagePath.resolve(image.getOriginalFilename()).toString());
+        users.setDescription(description);
+        users.setCreated_date(created_date);
+        users.setExpire(expire);
+        users.setEnable_users(enable_users);
+        return service.save(users);
+    }
+
+    @PostMapping("/register")
+    ResponseEntity<Message> insertDocument(@RequestBody UserRegisterDTO userRegisterDTO) {
+        List<Users> foundPhoneNumber = service.checkPhone_number(userRegisterDTO.getPhone_number().trim());
+        List<Users> foundEmail = service.checkEmail(userRegisterDTO.getEmail().trim());
+        if (foundEmail.size() > 0) {
+            return ResponseEntity.status(HttpStatus.NOT_IMPLEMENTED).body(
+                    new Message("Thất bại", "Email này đã tồn tại!", "")
+            );
+        }
+        if (foundPhoneNumber.size() > 0) {
+            return ResponseEntity.status(HttpStatus.NOT_IMPLEMENTED).body(
+                    new Message("Thất bại", "Số điện thoại đã tồn tại!", "")
+            );
+        }
+        return ResponseEntity.status(HttpStatus.OK).body(
+                new Message("Thành công", "Thêm người dùng thành công!", service.createUser(userRegisterDTO))
+        );
+    }
 }

@@ -1,15 +1,16 @@
 package com.dg3.forum.forum.serviceimpl;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import com.dg3.forum.forum.Mapper.RegisterMapper;
+import com.dg3.forum.forum.dto.UserRegisterDTO;
+import com.dg3.forum.forum.repository.UsersRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.thymeleaf.util.StringUtils;
 
 import com.dg3.forum.forum.entity.Users;
-import com.dg3.forum.forum.repository.UserstRepository;
 
 import com.dg3.forum.forum.service.UserService;
 
@@ -17,7 +18,10 @@ import com.dg3.forum.forum.service.UserService;
 public class UserServiceimpl implements UserService {
 
 	@Autowired
-	UserstRepository userRepository;
+	UsersRepository userRepository;
+	@Autowired
+	RegisterMapper mapper;
+
 
 	/**
 	 * get show all users
@@ -92,6 +96,19 @@ public class UserServiceimpl implements UserService {
 	@Override
 	public List<Users> checkEmail(String email) {
 		return userRepository.existByEmail(email);
+	}
+
+	@Override
+	public UserRegisterDTO createUser(UserRegisterDTO userRegisterDTO) {
+
+		Users users = mapper.fromUserEntityCreateDtoToEntity(userRegisterDTO);
+		Users users1 = userRepository.save(users);
+		UserRegisterDTO userRegisterDetailDTO = null;
+		if(users1 != null){
+			userRegisterDetailDTO = mapper.fromEntityToDto(users1);
+		}
+		return userRegisterDetailDTO;
+
 	}
 
 	/**

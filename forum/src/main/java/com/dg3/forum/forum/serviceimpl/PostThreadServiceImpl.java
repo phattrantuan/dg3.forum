@@ -1,9 +1,8 @@
 package com.dg3.forum.forum.serviceimpl;
 
 import com.dg3.forum.forum.entity.PostThread;
-import com.dg3.forum.forum.entity.Users;
 import com.dg3.forum.forum.repository.PostThreadRepository;
-import com.dg3.forum.forum.repository.UserstRepository;
+import com.dg3.forum.forum.repository.UsersRepository;
 import com.dg3.forum.forum.service.PostThreadService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,7 +12,7 @@ import java.util.List;
 @Service
 public class PostThreadServiceImpl implements PostThreadService {
     @Autowired
-    private UserstRepository userstRepository;
+    private UsersRepository usersRepository;
 
     @Autowired
     private PostThreadRepository postThreadRepository;

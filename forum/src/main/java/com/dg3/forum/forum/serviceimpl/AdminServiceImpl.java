@@ -1,25 +1,23 @@
 package com.dg3.forum.forum.serviceimpl;
 
 import java.util.Objects;
-
+import com.dg3.forum.forum.repository.UsersRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import com.dg3.forum.forum.entity.Users;
-import com.dg3.forum.forum.repository.UserstRepository;
 import com.dg3.forum.forum.service.AdminService;
 
 @Service
 public class AdminServiceImpl implements AdminService {
 	@Autowired
-	UserstRepository userstRepository;
+	UsersRepository usersRepository;
 
 	/*
 	 * Insert User with role is Manager or Dealer
 	 */
 
 	public boolean insertUser(Users users) {
-		if (Objects.isNull(userstRepository.save(users))) {
+		if (Objects.isNull(usersRepository.save(users))) {
 			return false;
 		};
 		return true;
@@ -29,7 +27,7 @@ public class AdminServiceImpl implements AdminService {
 	 */
 	@Override
 	public boolean existById(Long id) {
-		return userstRepository.existsById(id);
+		return usersRepository.existsById(id);
 	}
 	
 	/*

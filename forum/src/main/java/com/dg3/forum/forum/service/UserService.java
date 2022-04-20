@@ -1,5 +1,6 @@
 package com.dg3.forum.forum.service;
 
+import com.dg3.forum.forum.dto.UserRegisterDTO;
 import com.dg3.forum.forum.entity.Users;
 
 import java.util.List;
@@ -58,8 +59,8 @@ public interface UserService {
 	 */
 	List<Users> checkEmail(String email);
 
-	
-	
+
+	UserRegisterDTO createUser(UserRegisterDTO userRegisterDTO);
 	
 	
 	
