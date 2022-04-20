@@ -37,4 +37,11 @@ public interface AdminRepository extends JpaRepository<Medicine, Long> {
 			@Param("img_avatar") String img_avatar, @Param("description") String description,
 			@Param("expire") Date expire);
 
+	@Modifying
+	  @Transactional
+	@Query("update Users u set u.enable_users = false where u.user_pk = :user_pk")
+	void blockUser(@Param("user_pk") Long user_pk);
+	
+	
+	
 }
