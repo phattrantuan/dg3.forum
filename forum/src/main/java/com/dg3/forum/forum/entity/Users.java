@@ -15,6 +15,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
 import com.dg3.forum.forum.customannotation.Phone;
+import com.dg3.forum.forum.dto.UserAdminOrDealerdto;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
@@ -74,6 +75,36 @@ public class Users {
 		
 		return authorities;
 	}
+	
+	public Users(UserAdminOrDealerdto userAdminOrDealerdto) {
+		this.email = userAdminOrDealerdto.getEmail();
+		this.password = userAdminOrDealerdto.getPassword();
+		this.username = userAdminOrDealerdto.getUsername();
+		this.role = userAdminOrDealerdto.getRole();
+		this.phone_number = userAdminOrDealerdto.getPhone_number();
+		this.address = userAdminOrDealerdto.getAddress();
+		this.date_of_birth = userAdminOrDealerdto.getDate_of_birth();
+		this.img_avatar = userAdminOrDealerdto.getImg_avatar();
+		this.description = userAdminOrDealerdto.getDescription();	
+		this.expire = userAdminOrDealerdto.getExpire();
+
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 
 }

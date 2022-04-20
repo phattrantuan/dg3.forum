@@ -12,30 +12,30 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class UserInsertdto {
+public class UserAdminOrDealerdto {
 
 	private String email;
 	private String password;
 	private String username;
-
+	private String role;
 	private String phone_number;
 	private String address;
 	private Date date_of_birth;
-
 	private String img_avatar;
 	private String description;
+    private Date expire;
 	
-	
-	public UserInsertdto(Users entity) {
+	public UserAdminOrDealerdto(Users entity) {
         this.email = entity.getUsername();
         this.password = entity.getPassword();
         this.username = entity.getUsername();
+        this.role = entity.getRole();
         this.phone_number = entity.getPhone_number();
         this.address = entity.getAddress();
         this.date_of_birth = entity.getDate_of_birth();
         this.img_avatar = entity.getImg_avatar();
         this.description = entity.getDescription();
-        
-      ;
+        this.expire = entity.getExpire();
+      
     }
 }

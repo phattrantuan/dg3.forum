@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.thymeleaf.util.StringUtils;
 
 import com.dg3.forum.forum.entity.Users;
+import com.dg3.forum.forum.repository.AdminRepository;
 import com.dg3.forum.forum.repository.UserstRepository;
 
 import com.dg3.forum.forum.service.UserService;
@@ -19,6 +20,8 @@ public class UserServiceimpl implements UserService {
 	@Autowired
 	UserstRepository userRepository;
 
+	
+	
 	/**
 	 * get show all users
 	 * @return

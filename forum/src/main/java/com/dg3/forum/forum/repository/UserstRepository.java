@@ -50,24 +50,5 @@ public interface UserstRepository extends JpaRepository<Users, Long> {
 	//insert users role dealer / manager
 	Optional<Users> save(Optional<Users> users);
 
-		/**
-	    * insert information user through dto
-	    * Request is String title_thread, String content_of_thread, Long post_topic_pk, boolean enable_post_thread, Long thread_pk
-	    * Respone is Posts update
-	    * */
-	    @Modifying
-	    @Transactional
-	    @Query(value = "update post_thread set " +
-	                    "title_thread = :title_thread," +
-	                    "content_of_thread = :content_of_thread," +
-	                    "post_topic_pk = :post_topic_pk," +
-	                    "enable_post_thread = :enable_post_thread " +
-	                    "where thread_pk = :thread_pk", nativeQuery = true)
-	    void updateByPosts(@Param("title_thread") String title_thread,
-	                             @Param("content_of_thread") String content_of_thread,
-	                             @Param("post_topic_pk") Long post_topic_pk,
-	                             @Param("enable_post_thread") boolean enable_post_thread,
-	                             @Param("thread_pk") Long thread_pk);
-
-
+	
 } 
