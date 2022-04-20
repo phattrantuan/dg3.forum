@@ -1,20 +1,27 @@
 package com.dg3.forum.forum.entity;
 
-import com.dg3.forum.forum.customannotation.NumberPhone;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
+
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+
+import com.dg3.forum.forum.customannotation.Phone;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-
-import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonIgnoreProperties(value = { "roles", "authorities" })
@@ -33,7 +40,7 @@ public class Users {
     private String username;
     private String role;
     @NotBlank
-    @NumberPhone
+    @Phone
     private String phone_number;
     private String address;
     private Date date_of_birth;
