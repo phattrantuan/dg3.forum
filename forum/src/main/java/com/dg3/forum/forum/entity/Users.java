@@ -39,7 +39,6 @@ public class Users {
     private String password;
     private String username;
     private String role;
-
     @Phone
     private String phone_number;
     private String address;
