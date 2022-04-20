@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import com.dg3.forum.forum.util.UserDetailsImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.thymeleaf.util.StringUtils;
@@ -131,15 +132,16 @@ public class UserServiceimpl implements UserService {
 //		listUser.removeIf(user -> user.getId() == id);
 //	}
 
-	public Users loadUserByUsername(String username) {
+	/*public Users loadUserByUsername(String username) {
 
 		for (Users user : userRepository.findAll()) {
-			if (user.getUsername().equals(username)) {
+			if (user.getEmail().equals(username)) {
+				UserDetailsImpl.build(user);
 				return user;
 			}
 		}
 		return null;
-	}
+	}*/
 
 	public boolean checkLogin(Users user) {
 

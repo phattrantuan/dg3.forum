@@ -41,4 +41,19 @@ public interface PostThreadService {
     * List all information posts
     * */
     List<PostThread> listAllPosts();
+
+    /*
+    * Update approved
+    * */
+    void updateApproved(boolean approved, Long thread_pk);
+
+    /*
+    * Update enable_post_thread
+    * */
+    void updateEnable_post_thread(boolean enable_post_thread, Long thread_pk);
+
+    /*
+    * Show all information posts not approved
+    * */
+    List<PostThread> showAllPosts_NotApproved();
 }

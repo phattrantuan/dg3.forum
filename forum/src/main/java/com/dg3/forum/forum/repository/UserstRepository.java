@@ -40,8 +40,9 @@ public interface UserstRepository extends JpaRepository<Users, Long> {
 	 */
 	@Query("SELECT u from Users u where u.email = :email")
 	List<Users> existByEmail(String email);
-	
-	
+
+	@Query("SELECT u from Users u where u.email = :email")
+	Users findByEmail(String email);
 	
 	//insert users role dealer / manager
 	Optional<Users> save(Optional<Users> users);

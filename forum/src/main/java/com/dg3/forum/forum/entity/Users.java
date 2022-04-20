@@ -9,14 +9,11 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import javax.validation.constraints.NotBlank;
 
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-
-import com.dg3.forum.forum.customannotation.Phone;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -39,8 +36,6 @@ public class Users {
     private String password;
     private String username;
     private String role;
-    @NotBlank
-    @Phone
     private String phone_number;
     private String address;
     private Date date_of_birth;
@@ -50,9 +45,10 @@ public class Users {
     private Date created_date;
     private Date expire;
     private boolean enable_users;
+
 	public Users(String email, String password, String username, String role, String phone_number, String address,
-                 Date date_of_birth, boolean ban_account, String img_avatar, String description, Date created_date,
-                 Date expire, boolean enable_users) {
+			Date date_of_birth, boolean ban_account, String img_avatar, String description, Date created_date,
+			Date expire, boolean enable_users) {
 		super();
 		this.email = email;
 		this.password = password;
@@ -68,6 +64,14 @@ public class Users {
 		this.expire = expire;
 		this.enable_users = enable_users;
 	}
+
+	public Users(String email, String password, String username, Long user_pk){
+		this.email = email;
+		this.password = password;
+		this.username = username;
+		this.user_pk = user_pk;
+	}
+
 	public List<GrantedAuthority> getAuthorities() {
 		List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
 	
@@ -75,6 +79,4 @@ public class Users {
 		
 		return authorities;
 	}
-	
-
 }

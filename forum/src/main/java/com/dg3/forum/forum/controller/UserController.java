@@ -28,7 +28,7 @@ public class UserController {
      */
     @GetMapping
     public ResponseEntity<Message> listAll() {
-        LOGGER.error("listAll");
+        LOGGER.error("listAllABC");
         List<Users> users = service.listAll();
         return users.isEmpty() ?
                 ResponseEntity.status(HttpStatus.NOT_FOUND).body(
