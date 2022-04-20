@@ -26,8 +26,8 @@ public class AdminServiceImpl implements AdminService {
 		};
 		return true;
 	}
-	/*
-	 * check exist of users  
+	/**
+	 * find id Users exist
 	 */
 	@Override
 	public boolean existById(Long id) {
@@ -50,4 +50,12 @@ public class AdminServiceImpl implements AdminService {
 		};
 		return 1;
 	}
+	@Override
+	public void blockAccount(Long User_pk) {
+		adminRepository.blockUser(User_pk);
+		
+	}
+	
+
+	
 }

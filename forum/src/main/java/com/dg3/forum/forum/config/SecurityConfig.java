@@ -44,7 +44,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     protected void configure(HttpSecurity http) throws Exception {
         // Disable crsf cho đường dẫn /rest/**
-        http.csrf().ignoringAntMatchers("/api/v1/admin/**");
+        http.csrf().ignoringAntMatchers("/api/v1/admin/**").disable();
 
         http.authorizeRequests().antMatchers("/api/v1/login**").permitAll();
 //
