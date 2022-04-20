@@ -95,6 +95,11 @@ public class UserServiceimpl implements UserService {
 		return userRepository.existByEmail(email);
 	}
 
+	@Override
+	public Users findByEmail(String email) {
+		return userRepository.findByEmail(email);
+	}
+
 	/**
 	 * delete user
 	 * @param id
@@ -153,5 +158,6 @@ public class UserServiceimpl implements UserService {
 		}
 		return false;
 	}
+
 
 }

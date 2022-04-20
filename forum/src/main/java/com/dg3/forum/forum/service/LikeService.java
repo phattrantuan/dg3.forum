@@ -16,9 +16,15 @@ public interface LikeService {
     /*
     * Create like comment
     * */
+    Like createLike_Comments(Long thread_pk, Like like);
 
     /*
     * Check exist by like posts
     * */
     Like checkExistLike_Posts(Long thread_pk, Long user_pk);
+
+    /*
+    *
+    * */
+    void deleteLike_Posts(Long thread_pk, Long user_pk);
 }

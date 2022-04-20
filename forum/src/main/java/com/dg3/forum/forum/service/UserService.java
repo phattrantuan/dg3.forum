@@ -12,8 +12,10 @@ public interface UserService {
 	 * @return
 	 */
 	List<Users> listAll();
+
 	//get only account user
 	Users getUsers(Long id);
+
 	//check exist account account user
 	boolean existById(Long id);
 
@@ -43,7 +45,7 @@ public interface UserService {
 	 * @return
 	 */
 	Users save(Users users);
-
+//
 	/**
 	 * Check number phone
 	 * @param phone_number
@@ -58,21 +60,10 @@ public interface UserService {
 	 */
 	List<Users> checkEmail(String email);
 
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+	/*
+	* Find email
+	* */
+	Users findByEmail(String email);
 	
 	
 	

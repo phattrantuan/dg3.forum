@@ -53,6 +53,16 @@ public class DealerControllers {
     * */
     @PostMapping("/create/posts")
     public ResponseEntity<Message> createPosts(@RequestBody PostThread postThread){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+
+        Users users = userService.findByEmail(userDetails.getUsername());
+
+        /*
+        * Set value user_pk by post thread
+        * */
+        postThread.setUser_pk(users.getUser_pk());
+
         /*
         * Get the current date and time when the article was posted.
         * */
@@ -177,13 +187,4 @@ public class DealerControllers {
         );
     }
 
-    @GetMapping("/abc")
-    public ResponseEntity<Message> abc(){
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
-
-        return ResponseEntity.status(HttpStatus.OK).body(
-                new Message("OK", "OK", userDetails.getUsername())
-        );
-    }
 }

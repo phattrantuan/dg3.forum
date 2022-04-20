@@ -2,7 +2,9 @@ package com.dg3.forum.forum.controller;
 
 import com.dg3.forum.forum.entity.Like;
 import com.dg3.forum.forum.entity.Message;
+import com.dg3.forum.forum.entity.Users;
 import com.dg3.forum.forum.service.LikeService;
+import com.dg3.forum.forum.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,20 +19,55 @@ public class LikeController {
     @Autowired
     private LikeService likeService;
 
-    @PostMapping("/create/{thread_pk}")
-    public ResponseEntity<Message> createLike_Posts(@PathVariable("thread_pk") Long threak_pk){
-//        Like user_like = likeService.checkExistLike_Posts(threak_pk, like.getUser_pk());
-//
-//        if(user_like == null){
+    @Autowired
+    private UserService userService;
+
+    @PostMapping("/create/posts/{thread_pk}")
+    public ResponseEntity<Message> createLike_Posts(@PathVariable("thread_pk") Long thread_pk){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+
+        Users users = userService.findByEmail(userDetails.getUsername());
+
+        Like user_like = likeService.checkExistLike_Posts(thread_pk, users.getUser_pk());
+
+        if(user_like == null){
+            Like like = new Like();
+            like.setUser_pk(users.getUser_pk());
+            like.setThread_pk(thread_pk);
+            like.setComment_pk(null);
+            like.setEnable_like(true);
             return ResponseEntity.status(HttpStatus.OK).body(
-                    new Message("OK", "Like posts successfully","")
+                    new Message("OK", "Like posts successfully",likeService.createLike_Posts(thread_pk, like))
             );
-//        }
-//        else {
-//            return ResponseEntity.status(HttpStatus.NOT_IMPLEMENTED).body(
-//                    new Message("Failed", "Like posts exist", "")
-//            );
-//        }
+        }
+        else {
+            return ResponseEntity.status(HttpStatus.NOT_IMPLEMENTED).body(
+                    new Message("Failed", "Like posts exist", "")
+            );
+        }
+    }
+
+    @DeleteMapping("/delete/posts/{thread_pk}")
+    public ResponseEntity<Message> deleteLikePosts(@PathVariable("thread_pk") Long thread_pk){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+
+        Users users = userService.findByEmail(userDetails.getUsername());
+
+        Like user_like = likeService.checkExistLike_Posts(thread_pk, users.getUser_pk());
+
+        if(user_like != null){
+            likeService.deleteLike_Posts(thread_pk, users.getUser_pk());
+            return ResponseEntity.status(HttpStatus.OK).body(
+                    new Message("OK", "Delete like posts successfully","")
+            );
+        }
+        else {
+            return ResponseEntity.status(HttpStatus.NOT_IMPLEMENTED).body(
+                    new Message("Failed", "Can't find like posts", "")
+            );
+        }
     }
 
     @GetMapping("/sumlike/{thread_pk}")

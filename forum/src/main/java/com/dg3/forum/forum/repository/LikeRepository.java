@@ -29,7 +29,15 @@ public interface LikeRepository extends JpaRepository<Like, Long> {
     @Query(value = "select likes.* as sum from likes " +
             "inner join post_thread on likes.thread_pk = post_thread.thread_pk " +
             "inner join users on users.user_pk = likes.user_pk " +
-            "inner join comment on comment.comment_pk = likes.comment_pk " +
             "where likes.thread_pk = :thread_pk and users.user_pk = :user_pk", nativeQuery = true)
     Like findByThreak_pkAndUser_pk(@Param("thread_pk") Long thread_pk, @Param("user_pk") Long user_pk);
+
+    /*
+    * Delete like posts
+    * Request is thread_pk and user_pk
+    * */
+    @Modifying
+    @Transactional
+    @Query(value = "delete from likes where thread_pk = :thread_pk and user_pk = :user_pk", nativeQuery = true)
+    void deleteByLike_Posts(@Param("thread_pk") Long thread_pk, @Param("user_pk") Long user_pk);
 }

@@ -20,5 +20,5 @@ public class Like {
 	private Long comment_pk;
 	private Long user_pk;
 	private Long thread_pk;
-
+	private boolean enable_like;
 }

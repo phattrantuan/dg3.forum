@@ -16,9 +16,6 @@ public class LikeServiceImpl implements LikeService {
     @Autowired
     private LikeRepository likeRepository;
 
-    @Autowired
-    private UserstRepository userstRepository;
-
     @Override
     public int sumLike_Posts(Long thread_pk){
         int sum = 0;
@@ -28,13 +25,21 @@ public class LikeServiceImpl implements LikeService {
 
     @Override
     public Like createLike_Posts(Long thread_pk, Like like){
-        like.setThread_pk(thread_pk);
-        like.setComment_pk(null);
+        return likeRepository.save(like);
+    }
+
+    @Override
+    public Like createLike_Comments(Long thread_pk, Like like) {
         return likeRepository.save(like);
     }
 
     @Override
     public Like checkExistLike_Posts(Long thread_pk, Long user_pk){
         return likeRepository.findByThreak_pkAndUser_pk(thread_pk, user_pk);
+    }
+
+    @Override
+    public void deleteLike_Posts(Long thread_pk, Long user_pk) {
+        likeRepository.deleteByLike_Posts(thread_pk, user_pk);
     }
 }

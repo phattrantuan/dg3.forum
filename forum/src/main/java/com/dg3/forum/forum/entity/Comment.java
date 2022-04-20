@@ -1,13 +1,17 @@
 package com.dg3.forum.forum.entity;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Getter
 @Setter
+@AllArgsConstructor
+@NoArgsConstructor
+@Entity
+@Table(name = "comment")
 public class Comment {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -15,4 +19,5 @@ public class Comment {
 	private String content_comment;
 	private Long user_pk;
 	private Long thread_pk;
+	private boolean enable_comment;
 }
