@@ -25,6 +25,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import com.dg3.forum.forum.dto.UserAdminOrDealerdto;
 import com.dg3.forum.forum.dto.Usersdto;
 import com.dg3.forum.forum.entity.Message;
 import com.dg3.forum.forum.entity.Users;
@@ -137,6 +138,31 @@ AdminServiceImpl adminServiceImpl;
 	                        new Message("Fail", "insert fail" ,  "")
 	                );
 	    }
+  
+  
+  @PostMapping("/insertUserDealerOrManager")
+  ResponseEntity<Message> insertUserDealerOrManager(@RequestBody UserAdminOrDealerdto userAdminOrDealerdto) {
+	        LOGGER.error("save dealer or manager");
+	      int check = adminServiceImpl.insertUserManagerOrDealer(new Users(userAdminOrDealerdto));
+	        return check!=0 ?
+	                ResponseEntity.status(HttpStatus.OK).body(
+	                        new Message("Ok", "insert cussess", userAdminOrDealerdto)
+	                ) :
+	                ResponseEntity.status(HttpStatus.NOT_FOUND).body(
+	                        new Message("Fail", "insert fail" ,  "")
+	                );
+	    }
+  
+
+  
+  
+  
+  
+  
+  
+  
+  
+  
   
   
   @DeleteMapping("/{user_pk}")

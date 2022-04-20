@@ -29,5 +29,5 @@ public class PostThread {
     private Long user_pk;
     private boolean enable_post_thread;
 
-
+    
 }

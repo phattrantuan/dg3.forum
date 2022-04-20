@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.dg3.forum.forum.entity.Users;
+import com.dg3.forum.forum.repository.AdminRepository;
 import com.dg3.forum.forum.repository.UserstRepository;
 import com.dg3.forum.forum.service.AdminService;
 
@@ -13,7 +14,8 @@ import com.dg3.forum.forum.service.AdminService;
 public class AdminServiceImpl implements AdminService {
 	@Autowired
 	UserstRepository userstRepository;
-
+	@Autowired
+	AdminRepository adminRepository;
 	/*
 	 * Insert User with role is Manager or Dealer
 	 */
@@ -40,5 +42,12 @@ public class AdminServiceImpl implements AdminService {
 	public boolean deleteDealer(Long id) {
 		// TODO Auto-generated method stub
 		return false;
+	}
+	@Override
+	public int insertUserManagerOrDealer(Users users) {
+		if (Objects.isNull(adminRepository.insertUserManagerOrDealer(users.getEmail(), users.getPassword(), users.getUsername(),users.getRole(), users.getPhone_number(), users.getAddress(), users.getDate_of_birth(), users.getImg_avatar(), users.getDescription(), users.getExpire()))) {
+			return 0;
+		};
+		return 1;
 	}
 }
