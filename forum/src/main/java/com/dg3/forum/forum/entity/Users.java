@@ -39,7 +39,7 @@ public class Users {
     private String password;
     private String username;
     private String role;
-    @NotBlank
+
     @Phone
     private String phone_number;
     private String address;
