@@ -3,6 +3,8 @@ package com.dg3.forum.forum.controller;
 import java.util.List;
 import java.util.Optional;
 
+import javax.validation.Valid;
+
 import com.dg3.forum.forum.entity.Users;
 import com.dg3.forum.forum.service.UserService;
 import org.slf4j.Logger;
@@ -20,6 +22,7 @@ public class UserController {
     private static final Logger LOGGER = LoggerFactory.getLogger(UserController.class);
     @Autowired
     private UserService service;
+  
 
     /**
      * Show all user
@@ -85,7 +88,7 @@ public class UserController {
      * @return
      */
     @PostMapping("/insert")
-    ResponseEntity<Message> insertUser(@RequestBody Users users) {
+    ResponseEntity<Message> insertUser(@RequestBody @Valid Users users) {
         //2 products must not have the same phone number and email !
         List<Users> foundPhoneNumber = service.checkPhone_number(users.getPhone_number().trim());
         List<Users> foundEmail = service.checkEmail(users.getEmail().trim());
