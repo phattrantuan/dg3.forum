@@ -1,19 +1,28 @@
 package com.dg3.forum.forum.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import com.dg3.forum.forum.entity.Users;
+import com.dg3.forum.forum.service.JwtService;
 import com.dg3.forum.forum.service.UserService;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.validation.FieldError;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 
+import com.dg3.forum.forum.dto.UserAndToken;
 import com.dg3.forum.forum.entity.Message;
 
 @RestController
@@ -22,6 +31,10 @@ public class UserController {
     private static final Logger LOGGER = LoggerFactory.getLogger(UserController.class);
     @Autowired
     private UserService service;
+    @Autowired
+	private JwtService jwtService;
+//	@Autowired
+//	private PasswordEncoder passwordEncoder;
   
 
     /**
@@ -61,6 +74,48 @@ public class UserController {
                         new Message("Thất bại!", "Không tìm thấy" + user_pk, "")
                 );
     }
+    
+    /**
+     * Login
+     * @param request
+     * @param user
+     * @return
+     */
+ 	@PostMapping( "/login")
+ 	public ResponseEntity<UserAndToken> login(HttpServletRequest request, @RequestBody Users user) {
+ 		String result = "";
+ 		HttpStatus httpStatus = null;
+ 		UserAndToken userAndToken = new UserAndToken();
+ 		// System.out.print(user.getUsername() + user.getPassword());
+ 		try {
+ 			
+ 				result = jwtService.generateTokenLogin(user.getUsername());
+ 				List<Users> userData = service.findByUsername(user.getUsername());
+ 				Users u = userData.get(0);
+ 				
+ 				
+// 				if(!this.passwordEncoder.matches(u.getPassword(), user.getPassword()) || u==null) {
+// 					httpStatus = HttpStatus.BAD_REQUEST;
+ 					
+ 					if( u==null) {
+ 	 					httpStatus = HttpStatus.BAD_REQUEST;
+ 					
+ 				} else {
+ 					userAndToken.setUser(userData.get(0));
+ 	 				userAndToken.setToken(result);
+
+ 	 				httpStatus = HttpStatus.OK;
+ 				}
+ 				
+ 				
+ 			
+ 		} catch (Exception ex) {
+ 			// System.out.print(ex);
+ 			result = "Server Error";
+ 			httpStatus = HttpStatus.INTERNAL_SERVER_ERROR;
+ 		}
+ 		return new ResponseEntity<UserAndToken>(userAndToken, httpStatus);
+ 	}
 
     /**
      * Show list username
@@ -102,6 +157,7 @@ public class UserController {
                     new Message("Thất bại", "Số điện thoại đã tồn tại!", "")
             );
         }
+        users.setRole("ROLE_USER");
         return ResponseEntity.status(HttpStatus.OK).body(
                 new Message("Thành công", "Thêm người dùng thành công!", service.save(users))
         );
@@ -159,6 +215,20 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(
                 new Message("Thất bại!", "Không tìm thấy người dùng này để xóa!", "")
         );
+    }
+    
+    
+//export error validation    
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public Map<String, String> handleValidationExceptions(MethodArgumentNotValidException ex) {
+        Map<String, String> errors = new HashMap<>();
+        ex.getBindingResult().getAllErrors().forEach((error) -> {
+            String fieldName = ((FieldError) error).getField();
+            String errorMessage = error.getDefaultMessage();
+            errors.put(fieldName, errorMessage);
+        });
+        return errors;
     }
 
 }
