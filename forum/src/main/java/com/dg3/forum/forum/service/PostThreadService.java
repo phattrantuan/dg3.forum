@@ -9,7 +9,7 @@ public interface PostThreadService {
     * Request is Long user_pk
     * Respone is List of dealer posts
     * */
-    List<PostThread> listAllPost (Long user_pk);
+    List<PostThread> listAllPost_User (Long user_pk);
 
     /*
     * Save information posts
@@ -36,4 +36,9 @@ public interface PostThreadService {
     *   Check the information of the post exists or not through thread_pk
     * */
     PostThread checkExistByThread_pk(Long thread_pk);
+
+    /*
+    * List all information posts
+    * */
+    List<PostThread> listAllPosts();
 }

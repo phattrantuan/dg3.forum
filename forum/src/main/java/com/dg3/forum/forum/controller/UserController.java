@@ -1,19 +1,24 @@
 package com.dg3.forum.forum.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
+import javax.validation.Valid;
+
+import com.dg3.forum.forum.entity.Users;
+import com.dg3.forum.forum.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.FieldError;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 
 import com.dg3.forum.forum.entity.Message;
-import com.dg3.forum.forum.entity.Users;
-import com.dg3.forum.forum.repository.UserstRepository;
-import com.dg3.forum.forum.service.UserService;
 
 @RestController
 @RequestMapping("/api/v1/users")
@@ -22,61 +27,71 @@ public class UserController {
     @Autowired
     private UserService service;
 
+    /**
+     * Show all user
+     *
+     * @return
+     */
     @GetMapping
     public ResponseEntity<Message> listAll() {
         LOGGER.error("listAll");
         List<Users> users = service.listAll();
         return users.isEmpty() ?
                 ResponseEntity.status(HttpStatus.NOT_FOUND).body(
-                        new Message("Fail", "not found user", "")
+                        new Message("Thất bại!", "Không thực hiện được!", "")
                 )
                 : ResponseEntity.status(HttpStatus.OK).body(
-                new Message("Ok", "have users", users)
+                new Message("Thành công!", "Danh sách người dùng:", users)
         )
                 ;
     }
 
-
+    /**
+     * Find by id
+     *
+     * @param user_pk
+     * @return
+     */
     @GetMapping("/{user_pk}")
     public ResponseEntity<Message> findById(@PathVariable Long user_pk) {
         LOGGER.error("findById");
         Optional<Users> users = service.findById(user_pk);
         return users.isPresent() ?
                 ResponseEntity.status(HttpStatus.OK).body(
-                        new Message("Ok", "have users", users)
+                        new Message("Thành công!", "Thông tin người dùng với id " + user_pk+ ":", users)
                 ) :
                 ResponseEntity.status(HttpStatus.NOT_FOUND).body(
-                        new Message("Fail", "not found user" + user_pk, "")
+                        new Message("Thất bại!", "Không tìm thấy" + user_pk, "")
                 );
     }
 
     /**
-     * show list username
+     * Show list username
      *
      * @param username
      * @return
      */
-//    @GetMapping("/list/{username}")
-//    public ResponseEntity<Message> findByUserName(@PathVariable String username) {
-//        LOGGER.error("findByUserName");
-//        List<Users> usersList = service.findByUsername(username);
-//        return usersList.isEmpty() ?
-//                ResponseEntity.status(HttpStatus.NOT_FOUND).body(
-//                        new Message("Không tìm thấy!", "Không tìm thấy người dùng" + " " + username + "này!", "")
-//                ) :
-//                ResponseEntity.status(HttpStatus.OK).body(
-//                        new Message("Tìm thấy!", "Người dùng:", usersList)
-//                );
-//    }
+    @GetMapping("/list/{username}")
+    public ResponseEntity<Message> findByUserName(@PathVariable String username) {
+        LOGGER.error("findByUserName");
+        List<Users> usersList = service.findByUsername(username);
+        return usersList.isEmpty() ?
+                ResponseEntity.status(HttpStatus.NOT_FOUND).body(
+                        new Message("Không tìm thấy!", "Không tìm thấy người dùng"  + username + "này!", "")
+                ) :
+                ResponseEntity.status(HttpStatus.OK).body(
+                        new Message("Tìm thấy!", "Thông tin người dùng với tên " + username +":" , usersList)
+                );
+    }
 
     /**
-     * insert check phone and check email
+     * Insert check phone and check email
      *
      * @param users
      * @return
      */
     @PostMapping("/insert")
-    ResponseEntity<Message> insertProduct(@RequestBody Users users) {
+    ResponseEntity<Message> insertUser(@RequestBody @Valid Users users) {
         //2 products must not have the same phone number and email !
         List<Users> foundPhoneNumber = service.checkPhone_number(users.getPhone_number().trim());
         List<Users> foundEmail = service.checkEmail(users.getEmail().trim());
@@ -96,7 +111,11 @@ public class UserController {
     }
 
     /**
-     * update, upsert = update if found, otherwise insert
+     * Update, upsert = update if found, otherwise insert
+     *
+     * @param newUser
+     * @param user_pk
+     * @return
      */
     @PutMapping("/{user_pk}")
     ResponseEntity<Message> updateUser(@RequestBody Users newUser, @PathVariable Long user_pk) {
@@ -125,6 +144,12 @@ public class UserController {
         );
     }
 
+    /**
+     * Delete id
+     *
+     * @param user_pk
+     * @return
+     */
     @DeleteMapping("/{user_pk}")
     ResponseEntity<Message> deleteProduct(@PathVariable Long user_pk) {
 
@@ -138,5 +163,17 @@ public class UserController {
                 new Message("Thất bại!", "Không tìm thấy người dùng này để xóa!", "")
         );
     }
-
+    
+  //export error validation    
+      @ResponseStatus(HttpStatus.BAD_REQUEST)
+      @ExceptionHandler(MethodArgumentNotValidException.class)
+      public Map<String, String> handleValidationExceptions(MethodArgumentNotValidException ex) {
+          Map<String, String> errors = new HashMap<>();
+          ex.getBindingResult().getAllErrors().forEach((error) -> {
+              String fieldName = ((FieldError) error).getField();
+              String errorMessage = error.getDefaultMessage();
+              errors.put(fieldName, errorMessage);
+          });
+          return errors;
+      }
 }

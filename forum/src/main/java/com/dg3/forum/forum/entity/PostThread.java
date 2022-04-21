@@ -29,11 +29,5 @@ public class PostThread {
     private Long user_pk;
     private boolean enable_post_thread;
 
-//		private String post_toppic;
-//		private String post_toppic_pk;
-
-//		@OneToOne(cascade = CascadeType.ALL)//update tables involve
-//		@JoinColumn(name = "user_pk")
-//		Users users;
-
+    
 }
