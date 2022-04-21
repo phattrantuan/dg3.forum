@@ -9,9 +9,9 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Date;
 import java.util.List;
 
+import com.dg3.forum.forum.entity.Users;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVPrinter;
@@ -19,12 +19,10 @@ import org.apache.commons.csv.CSVRecord;
 import org.apache.commons.csv.QuoteMode;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.dg3.forum.forum.entity.Users;
-
 public class CSVHelper {
 	public static String TYPE = "text/csv";
 	static String[] HEADERs = { "email", "password", "username", "role", "phone_number", "address", "date_of_birth",
-			"ban_account", "img_avatar", "description", "created_date", "expire", "enable_users" };
+			  "description", "expire"};
 
 	public static boolean hasCSVFormat(MultipartFile file) {
 		System.out.println(file.getContentType());
@@ -46,14 +44,19 @@ public class CSVHelper {
 
 			for (CSVRecord csvRecord : csvRecords) {
 				@SuppressWarnings("deprecation")
-				Users rowUser = new Users(csvRecord.get("email"), csvRecord.get("password"), csvRecord.get("username"),
-						csvRecord.get("role"), csvRecord.get("phone_number"), csvRecord.get("address"),
+				Users rowUser = new Users(csvRecord.get("email"),
+						csvRecord.get("password"), 
+						csvRecord.get("username"),
+						csvRecord.get("role"), 
+						csvRecord.get("phone_number"),
+						csvRecord.get("address"),
 						ConvertStringToDate.convertStringtoDate(csvRecord.get("date_of_birth")),
-						Boolean.parseBoolean(csvRecord.get("ban_account")), csvRecord.get("img_avatar"),
+						false,
+						"",
 						csvRecord.get("description"),
-						ConvertStringToDate.convertStringtoDate(csvRecord.get("created_date")),
+						DateCurrent.getDateCurrent(),
 						ConvertStringToDate.convertStringtoDate(csvRecord.get("expire")),
-						Boolean.parseBoolean(csvRecord.get("enable_users")));
+						true);
 
 				listUsers.add(rowUser);
 			}
@@ -72,9 +75,8 @@ public class CSVHelper {
 			for (Users user : listUsers) {
 				List<String> data = Arrays.asList(user.getEmail(), user.getPassword(), user.getUsername(),
 						user.getRole(), user.getPhone_number(), user.getAddress(),
-						String.valueOf(user.getDate_of_birth()), String.valueOf(user.isBan_account()),
-						user.getImg_avatar(), user.getDescription(), String.valueOf(user.getCreated_date()),
-						String.valueOf(user.getExpire()), String.valueOf(user.isEnable_users()));
+						String.valueOf(user.getDate_of_birth()), user.getDescription(),
+						String.valueOf(user.getExpire()));
 
 				csvPrinter.printRecord(data);
 			}
