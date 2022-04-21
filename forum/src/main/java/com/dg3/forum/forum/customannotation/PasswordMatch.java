@@ -14,7 +14,7 @@ import javax.validation.Payload;
 @Constraint(validatedBy=PasswordValidator.class)
 @Documented
 public @interface PasswordMatch {
-    String message() default "{error.password.mismatch}";
+    String message() default "Entry password invalid, Try again! (At least one uppercase, lowercase, number, and special character, at least 8 in length)";
     
     Class<?>[] groups() default {};
     
