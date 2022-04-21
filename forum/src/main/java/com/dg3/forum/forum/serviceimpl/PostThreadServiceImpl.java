@@ -19,8 +19,8 @@ public class PostThreadServiceImpl implements PostThreadService {
     private PostThreadRepository postThreadRepository;
 
     /*
-    * List all post by user
-    * */
+     * List all post by user
+     * */
     @Override
     public List<PostThread> listAllPost_User (Long user_pk){
         return postThreadRepository.findAll_User(user_pk);
@@ -28,6 +28,12 @@ public class PostThreadServiceImpl implements PostThreadService {
 
     @Override
     public PostThread savePosts (PostThread postThread){
+        boolean enable_post_thread = true;
+        boolean approved = false;
+
+        postThread.setEnable_post_thread(enable_post_thread);
+        postThread.setApproved(approved);
+
         return postThreadRepository.save(postThread);
     }
 
@@ -36,10 +42,9 @@ public class PostThreadServiceImpl implements PostThreadService {
         String title_thread = postThread.getTitle_thread();
         String content_of_thread = postThread.getContent_of_thread();
         Long post_topic_pk = postThread.getPost_topic_pk();
-        boolean enable_post_thread = postThread.isEnable_post_thread();
         Long thread_pk = postThread.getThread_pk();
 
-        postThreadRepository.updateByPosts(title_thread,content_of_thread,post_topic_pk,enable_post_thread,thread_pk);
+        postThreadRepository.updateByPosts(title_thread,content_of_thread,post_topic_pk,thread_pk);
     }
 
     @Override
@@ -55,5 +60,20 @@ public class PostThreadServiceImpl implements PostThreadService {
     @Override
     public List<PostThread> listAllPosts(){
         return postThreadRepository.findByAllPosts();
+    }
+
+    @Override
+    public void updateApproved(boolean approved, Long thread_pk){
+        postThreadRepository.updateApproved(approved, thread_pk);
+    }
+
+    @Override
+    public void updateEnable_post_thread(boolean enable_post_thread, Long thread_pk){
+        postThreadRepository.updateEnable_post_thread(enable_post_thread, thread_pk);
+    }
+
+    @Override
+    public List<PostThread> showAllPosts_NotApproved() {
+        return postThreadRepository.findByAllPosts_NotApproved();
     }
 }

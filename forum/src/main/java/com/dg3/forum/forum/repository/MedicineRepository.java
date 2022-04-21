@@ -14,55 +14,55 @@ import java.util.List;
 
 public interface MedicineRepository extends JpaRepository<Medicine, Long> {
     /*
-    * Update medicine
-    * */
+     * Update medicine
+     * */
     @Modifying
     @Transactional
     @Query(value = "update medicine set name_medicine = :name_medicine," +
-                    "where_production = :where_production," +
-                    "price = :price, effect = :effect," +
-                    "details_medicine = :details_medicine," +
-                    "enable_medicine = :enable_medicine " +
-                    "where medicine_pk = :medicine_pk and dealer_pk = :dealer_pk", nativeQuery = true)
+            "where_production = :where_production," +
+            "price = :price, effect = :effect," +
+            "details_medicine = :details_medicine," +
+            "enable_medicine = :enable_medicine " +
+            "where medicine_pk = :medicine_pk and dealer_pk = :dealer_pk", nativeQuery = true)
     void updateMedicine (@Param("name_medicine") String name_medicine, @Param("where_production") String where_production,
                          @Param("price") String price, @Param("effect") String effect,
                          @Param("details_medicine") String details_medicine, @Param("enable_medicine") boolean enable_medicine,
                          @Param("medicine_pk") Long medicine_pk, @Param("dealer_pk") Long dealer_pk);
 
     /*
-    * Delete medicine
-    */
+     * Delete medicine
+     */
     @Modifying
     @Transactional
     @Query(value = "delete from medicine where medicine_pk = :medicine_pk", nativeQuery = true)
     void deleteMedicine (@Param("medicine_pk") Long medicine_pk);
 
     /*
-    * Find information by medicine through the main key medicine_pk table medicine
-    * */
+     * Find information by medicine through the main key medicine_pk table medicine
+     * */
     @Transactional
     @Query(value = "select * from medicine where medicine_pk = :medicine_pk", nativeQuery = true)
     Medicine getByMedicine_pk(@Param("medicine_pk") Long medicine_pk);
 
     /*
-    * Find information by medicine through the name_medicine table medicine
-    * */
+     * Find information by medicine through the name_medicine table medicine
+     * */
     @Transactional
     @Query(value = "select * from medicine where name_medicine = :name_medicine", nativeQuery = true)
     Medicine getByName_medicine(@Param("name_medicine") String name_medicine);
 
     /*
-    * List all information medicine by dealer
-    * */
+     * List all information medicine by dealer
+     * */
     @Transactional
     @Query(value = "select medicine.* from medicine " +
-                    "inner join users on users.user_pk = medicine.dealer_pk " +
-                    "where medicine.dealer_pk = :dealer_pk order by name_medicine DESC", nativeQuery = true)
+            "inner join users on users.user_pk = medicine.dealer_pk " +
+            "where medicine.dealer_pk = :dealer_pk order by name_medicine DESC", nativeQuery = true)
     List<Medicine> listAllByMedicineUser_Dealer(@Param("dealer_pk") Long dealer_pk);
 
     /*
-    *   Show list medicine, sort descending by name medicine
-    * */
+     *   Show list medicine, sort descending by name medicine
+     * */
     @Transactional
     @Query(value = "select * from medicine order by name_medicine DESC", nativeQuery = true)
     Page<Medicine> pageMedicine_Dealer(Pageable pageable);

@@ -14,8 +14,6 @@ import javax.validation.constraints.NotBlank;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
-import com.dg3.forum.forum.customannotation.Email;
-import com.dg3.forum.forum.customannotation.PasswordMatch;
 import com.dg3.forum.forum.customannotation.Phone;
 import com.dg3.forum.forum.dto.UserAdminOrDealerdto;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -35,28 +33,26 @@ import lombok.Setter;
 @Entity
 @Table(name = "users")
 public class Users {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long user_pk;
-    @Email
-    private String email;
-    @PasswordMatch
-    private String password;
-    private String username;
-    private String role;
-    @Phone
-    private String phone_number;
-    private String address;
-    private Date date_of_birth;
-    private boolean ban_account;
-    private String img_avatar;
-    private String description;
-    private Date created_date;
-    private Date expire;
-    private boolean enable_users;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long user_pk;
+	private String email;
+	private String password;
+	private String username;
+	private String role;
+	@Phone
+	private String phone_number;
+	private String address;
+	private Date date_of_birth;
+	private boolean ban_account;
+	private String img_avatar;
+	private String description;
+	private Date created_date;
+	private Date expire;
+	private boolean enable_users;
 	public Users(String email, String password, String username, String role, String phone_number, String address,
-                 Date date_of_birth, boolean ban_account, String img_avatar, String description, Date created_date,
-                 Date expire, boolean enable_users) {
+				 Date date_of_birth, boolean ban_account, String img_avatar, String description, Date created_date,
+				 Date expire, boolean enable_users) {
 		super();
 		this.email = email;
 		this.password = password;
@@ -74,12 +70,12 @@ public class Users {
 	}
 	public List<GrantedAuthority> getAuthorities() {
 		List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
-	
-			authorities.add(new SimpleGrantedAuthority(role));
-		
+
+		authorities.add(new SimpleGrantedAuthority(role));
+
 		return authorities;
 	}
-	
+
 	public Users(UserAdminOrDealerdto userAdminOrDealerdto) {
 		this.email = userAdminOrDealerdto.getEmail();
 		this.password = userAdminOrDealerdto.getPassword();
@@ -89,26 +85,26 @@ public class Users {
 		this.address = userAdminOrDealerdto.getAddress();
 		this.date_of_birth = userAdminOrDealerdto.getDate_of_birth();
 		this.img_avatar = userAdminOrDealerdto.getImg_avatar();
-		this.description = userAdminOrDealerdto.getDescription();	
+		this.description = userAdminOrDealerdto.getDescription();
 		this.expire = userAdminOrDealerdto.getExpire();
 
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 }

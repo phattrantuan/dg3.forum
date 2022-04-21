@@ -28,6 +28,7 @@ public class PostThread {
     private Long post_topic_pk;
     private Long user_pk;
     private boolean enable_post_thread;
+    private boolean approved;
 
     
 }
