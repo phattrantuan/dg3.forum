@@ -2,6 +2,9 @@ package com.dg3.forum.forum.dto;
 
 import java.util.Date;
 
+import com.dg3.forum.forum.customannotation.Email;
+import com.dg3.forum.forum.customannotation.PasswordMatch;
+import com.dg3.forum.forum.customannotation.Phone;
 import com.dg3.forum.forum.entity.Users;
 
 import lombok.AllArgsConstructor;
@@ -13,11 +16,13 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class UserAdminOrDealerdto {
-
+@Email
 	private String email;
+@PasswordMatch
 	private String password;
 	private String username;
 	private String role;
+	@Phone
 	private String phone_number;
 	private String address;
 	private Date date_of_birth;

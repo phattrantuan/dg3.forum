@@ -100,4 +100,17 @@ public interface PostThreadRepository extends JpaRepository<PostThread, Long>{
             "where approved = 'false'" +
             "order by post_thread.time_post_thread DESC", nativeQuery = true)
     List<PostThread> findByAllPosts_NotApproved();
+    
+
+    /**
+	 * approved post of users
+	 * 
+	 * @param thread_pk
+	 */
+    @Modifying
+	@Transactional
+	@Query(value = "update Post_Thread u set u.approved = true where u.thread_pk = :thread_pk", nativeQuery = true)
+	int approvedPost(@Param("thread_pk") Long thread_pk);
+
+	
 }

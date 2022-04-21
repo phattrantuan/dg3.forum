@@ -1,9 +1,12 @@
 package com.dg3.forum.forum.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
-import com.dg3.forum.forum.serviceimpl.UserServiceimpl;
+import javax.validation.Valid;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +16,10 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.FieldError;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -22,17 +28,18 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.dg3.forum.forum.dto.UserAdminOrDealerdto;
-import com.dg3.forum.forum.dto.Usersdto;
 import com.dg3.forum.forum.entity.Message;
 import com.dg3.forum.forum.entity.Users;
 import com.dg3.forum.forum.serviceimpl.AdminServiceImpl;
 import com.dg3.forum.forum.serviceimpl.CSVServiceImpl;
 import com.dg3.forum.forum.serviceimpl.JwtServiceImpl;
+import com.dg3.forum.forum.serviceimpl.UserServiceimpl;
 import com.dg3.forum.forum.util.CSVHelper;
 
 
@@ -142,11 +149,11 @@ AdminServiceImpl adminServiceImpl;
   
   
   @PostMapping("/insertUserDealerOrManager")
-  ResponseEntity<Message> insertUserDealerOrManager(@RequestBody UserAdminOrDealerdto userAdminOrDealerdto) {
+  ResponseEntity<Message> insertUserDealerOrManager(@RequestBody @Valid UserAdminOrDealerdto userAdminOrDealerdto) {
 	        LOGGER.error("save dealer or manager");
 	      int check = adminServiceImpl.insertUserManagerOrDealer(new Users(userAdminOrDealerdto));
 	        return check!=0 ?
-	                ResponseEntity.status(HttpStatus.OK).body(
+	                ResponseEntity.status(HttpStatus.CREATED).body(
 	                        new Message("Ok", "insert cussess", userAdminOrDealerdto)
 	                ) :
 	                ResponseEntity.status(HttpStatus.NOT_FOUND).body(
@@ -247,12 +254,24 @@ AdminServiceImpl adminServiceImpl;
   
   
   
-  
-  
-  
-  
-  
+  //export error validation    
+  @ResponseStatus(HttpStatus.BAD_REQUEST)
+  @ExceptionHandler(MethodArgumentNotValidException.class)
+  public Map<String, String> handleValidationExceptions(MethodArgumentNotValidException ex) {
+      Map<String, String> errors = new HashMap<>();
+      ex.getBindingResult().getAllErrors().forEach((error) -> {
+          String fieldName = ((FieldError) error).getField();
+          String errorMessage = error.getDefaultMessage();
+          errors.put(fieldName, errorMessage);
+      });
+      return errors;
+  }
 }
+  
+  
+  
+  
+
 
   
   
