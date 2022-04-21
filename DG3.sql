@@ -26,11 +26,6 @@ CREATE TABLE "medicine" (
   "enable_medicine" boolean
 );
 
-CREATE TABLE "users_medicine" (
-  "user_pk" bigint,
-  "medicine_pk" bigint
-);
-
 CREATE TABLE "post_topic" (
   "post_topic_pk" BIGSERIAL PRIMARY KEY,
   "name_topic" text,
@@ -44,7 +39,8 @@ CREATE TABLE "post_thread" (
   "content_of_thread" text,
   "post_topic_pk" bigint,
   "user_pk" bigint,
-  "enable_post_thread" boolean
+  "enable_post_thread" boolean,
+  "approved" boolean
 );
 
 CREATE TABLE "comment" (
@@ -55,7 +51,7 @@ CREATE TABLE "comment" (
   "enable_comment" boolean
 );
 
-CREATE TABLE "like" (
+CREATE TABLE "likes" (
   "like_pk" BIGSERIAL PRIMARY KEY,
   "comment_pk" bigint,
   "user_pk" bigint,
@@ -88,20 +84,18 @@ ALTER TABLE "image" ADD FOREIGN KEY ("thread_pk") REFERENCES "post_thread" ("thr
 
 ALTER TABLE "comment" ADD FOREIGN KEY ("thread_pk") REFERENCES "post_thread" ("thread_pk");
 
-ALTER TABLE "like" ADD FOREIGN KEY ("thread_pk") REFERENCES "post_thread" ("thread_pk");
+ALTER TABLE "likes" ADD FOREIGN KEY ("thread_pk") REFERENCES "post_thread" ("thread_pk");
 
 ALTER TABLE "image" ADD FOREIGN KEY ("comment_pk") REFERENCES "comment" ("comment_pk");
 
-ALTER TABLE "like" ADD FOREIGN KEY ("comment_pk") REFERENCES "comment" ("comment_pk");
+ALTER TABLE "likes" ADD FOREIGN KEY ("comment_pk") REFERENCES "comment" ("comment_pk");
 
 ALTER TABLE "comment" ADD FOREIGN KEY ("user_pk") REFERENCES "users" ("user_pk");
 
-ALTER TABLE "like" ADD FOREIGN KEY ("user_pk") REFERENCES "users" ("user_pk");
+ALTER TABLE "likes" ADD FOREIGN KEY ("user_pk") REFERENCES "users" ("user_pk");
 
 ALTER TABLE "rep_comment" ADD FOREIGN KEY ("user_pk") REFERENCES "users" ("user_pk");
 
 ALTER TABLE "rep_comment" ADD FOREIGN KEY ("comment_pk") REFERENCES "comment" ("comment_pk");
 
-ALTER TABLE "users_medicine" ADD FOREIGN KEY ("user_pk") REFERENCES "users" ("user_pk");
-
-ALTER TABLE "users_medicine" ADD FOREIGN KEY ("medicine_pk") REFERENCES "medicine" ("medicine_pk");
+ALTER TABLE "medicine" ADD FOREIGN KEY ("dealer_pk") REFERENCES "users" ("user_pk");
