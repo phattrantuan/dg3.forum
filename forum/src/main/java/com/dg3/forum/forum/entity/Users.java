@@ -14,6 +14,8 @@ import javax.validation.constraints.NotBlank;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
+import com.dg3.forum.forum.customannotation.Email;
+import com.dg3.forum.forum.customannotation.PasswordMatch;
 import com.dg3.forum.forum.customannotation.Phone;
 import com.dg3.forum.forum.dto.UserAdminOrDealerdto;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -36,7 +38,9 @@ public class Users {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long user_pk;
+    @Email
     private String email;
+    @PasswordMatch
     private String password;
     private String username;
     private String role;

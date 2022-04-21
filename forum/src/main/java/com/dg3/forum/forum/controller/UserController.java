@@ -1,7 +1,11 @@
 package com.dg3.forum.forum.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
+
+import javax.validation.Valid;
 
 import com.dg3.forum.forum.entity.Users;
 import com.dg3.forum.forum.service.UserService;
@@ -10,6 +14,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.FieldError;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 
 import com.dg3.forum.forum.entity.Message;
@@ -85,7 +91,7 @@ public class UserController {
      * @return
      */
     @PostMapping("/insert")
-    ResponseEntity<Message> insertUser(@RequestBody Users users) {
+    ResponseEntity<Message> insertUser(@RequestBody @Valid Users users) {
         //2 products must not have the same phone number and email !
         List<Users> foundPhoneNumber = service.checkPhone_number(users.getPhone_number().trim());
         List<Users> foundEmail = service.checkEmail(users.getEmail().trim());
@@ -157,5 +163,17 @@ public class UserController {
                 new Message("Thất bại!", "Không tìm thấy người dùng này để xóa!", "")
         );
     }
-
+    
+  //export error validation    
+      @ResponseStatus(HttpStatus.BAD_REQUEST)
+      @ExceptionHandler(MethodArgumentNotValidException.class)
+      public Map<String, String> handleValidationExceptions(MethodArgumentNotValidException ex) {
+          Map<String, String> errors = new HashMap<>();
+          ex.getBindingResult().getAllErrors().forEach((error) -> {
+              String fieldName = ((FieldError) error).getField();
+              String errorMessage = error.getDefaultMessage();
+              errors.put(fieldName, errorMessage);
+          });
+          return errors;
+      }
 }
