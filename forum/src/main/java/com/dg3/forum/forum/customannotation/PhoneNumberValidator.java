@@ -4,14 +4,23 @@ import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 
 public class PhoneNumberValidator implements ConstraintValidator<Phone, String> {
-	@Override
-	public boolean isValid(String phoneNumber, ConstraintValidatorContext context) {
-		return phoneNumber != null && phoneNumber.matches("0[0-9]{9}") && phoneNumber.length() > 8 && phoneNumber.length() < 11;
+
+	public boolean isValid(String value, ConstraintValidatorContext context) {
+
+		if (value == null) {
+			return false;
+		}
+
+		
+		try{
+			return value.matches("0[0-9]{9}");
+        }
+        catch (Exception e){
+            return false;
+           
+        }
+	
+
 	}
 
-//		if (value == null) {
-//			return false;
-//		}
-//		return value.matches("0[0-9]{9}");
-//	}
 }

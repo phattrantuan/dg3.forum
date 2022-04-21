@@ -8,14 +8,27 @@ import java.lang.annotation.Target;
 import javax.validation.Constraint;
 import javax.validation.Payload;
 
+
+
+@Documented
 @Constraint(validatedBy = PhoneNumberValidator.class)
-@Target({ ElementType.FIELD, ElementType.METHOD })
+@Target({ ElementType.METHOD, ElementType.FIELD })
 @Retention(RetentionPolicy.RUNTIME)
 public @interface Phone {
+    String locale() default "";
 
-	String message() default "Invalid phone number";
+    String message() default "Invalid phone number";
 
-	Class<?>[] groups() default {};
+    Class<?>[] groups() default {};
 
-	Class<? extends Payload>[] payload() default {};
+    Class<? extends Payload>[] payload() default {};
 }
+
+    
+
+   // @Override
+   // public void initialize(Phone constraintAnnotation) {
+
+    //}
+
+
