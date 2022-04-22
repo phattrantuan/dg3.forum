@@ -5,10 +5,14 @@ import com.dg3.forum.forum.entity.Users;
 import com.dg3.forum.forum.repository.PostThreadRepository;
 import com.dg3.forum.forum.repository.UserstRepository;
 import com.dg3.forum.forum.service.PostThreadService;
+
+import net.bytebuddy.asm.Advice.Return;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
 
 @Service
 public class PostThreadServiceImpl implements PostThreadService {
@@ -76,4 +80,21 @@ public class PostThreadServiceImpl implements PostThreadService {
     public List<PostThread> showAllPosts_NotApproved() {
         return postThreadRepository.findByAllPosts_NotApproved();
     }
+
+    
+    
+	@Override
+	public int approvedPost(Long thread_pk) {
+		if (thread_pk!=null) {
+			postThreadRepository.approvedPost(thread_pk);
+			return 1;
+		}
+		return 0;
+	}
+
+	@Override
+	public PostThread getAnPostThrest(Long thread_pk) {
+	 return	postThreadRepository.getAnPostThrest(thread_pk);
+		
+	}
 }
