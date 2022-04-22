@@ -56,4 +56,13 @@ public interface PostThreadService {
      * Show all information posts not approved
      * */
     List<PostThread> showAllPosts_NotApproved();
+    /**
+     * approved post of users
+     */
+    int approvedPost(Long thread_pk);
+    /*
+     * Get an object post thread
+     */
+    PostThread getAnPostThrest(Long thread_pk);
+    
 }

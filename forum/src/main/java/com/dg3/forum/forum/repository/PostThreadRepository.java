@@ -109,8 +109,14 @@ public interface PostThreadRepository extends JpaRepository<PostThread, Long>{
 	 */
     @Modifying
 	@Transactional
-	@Query(value = "update Post_Thread u set u.approved = true where u.thread_pk = :thread_pk", nativeQuery = true)
+	@Query(value = "update Post_Thread  set approved = true where thread_pk = :thread_pk", nativeQuery = true)
 	int approvedPost(@Param("thread_pk") Long thread_pk);
-
-	
+    
+    /**
+     * 
+     * @param thread_pk
+     * @return object postThread
+     */
+    @Query(value = "select * from post_thread  where thread_pk = :thread_pk", nativeQuery = true)
+	PostThread getAnPostThrest(@Param("thread_pk") Long thread_pk);
 }

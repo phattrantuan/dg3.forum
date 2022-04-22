@@ -1,5 +1,6 @@
 package com.dg3.forum.forum.serviceimpl;
 
+import java.util.List;
 import java.util.Objects;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +27,7 @@ public class AdminServiceImpl implements AdminService {
 		};
 		return true;
 	}
-	/**
+	/*
 	 * find id Users exist
 	 */
 	@Override
@@ -43,6 +44,9 @@ public class AdminServiceImpl implements AdminService {
 		// TODO Auto-generated method stub
 		return false;
 	}
+	/*
+	 * insert account have role User or manager
+	 */
 	@Override
 	public int insertUserManagerOrDealer(Users users) {
 		if (Objects.isNull(adminRepository.insertUserManagerOrDealer(users.getEmail(), users.getPassword(), users.getUsername(),users.getRole(), users.getPhone_number(), users.getAddress(), users.getDate_of_birth(), users.getImg_avatar(), users.getDescription(), users.getExpire()))) {
@@ -50,10 +54,31 @@ public class AdminServiceImpl implements AdminService {
 		};
 		return 1;
 	}
+	/*
+	 * block account 
+	 */
 	@Override
 	public void blockAccount(Long User_pk) {
 		adminRepository.blockUser(User_pk);
 		
+	}
+	@Override
+	public void deleteAccount(Long id) {
+		adminRepository.deleteAccount(id);
+		
+	}
+	/*
+	 * disable account when expire contract
+	 */
+	@Override
+	public void disableAccountExpireContract() {
+	
+		 adminRepository.disableAccountExpireContract();
+		
+	}
+	@Override
+	public List<Users> getAllAccoutExpiretoday() {
+		return adminRepository.getAllAccoutExpiretoday();
 	}
 	
 

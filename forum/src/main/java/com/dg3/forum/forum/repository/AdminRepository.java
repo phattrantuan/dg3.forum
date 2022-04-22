@@ -1,6 +1,7 @@
 package com.dg3.forum.forum.repository;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.transaction.Transactional;
 
@@ -46,5 +47,24 @@ public interface AdminRepository extends JpaRepository<Users, Long> {
 	@Query("update Users u set u.enable_users = false where u.user_pk = :user_pk")
 	void blockUser(@Param("user_pk") Long user_pk);
 
-	
+	/**
+	 * delete account
+	 * @param user_pk
+	 *@return 
+	 */
+	 	@Modifying
+	    @Transactional
+	    @Query(value = "delete from users where user_pk = :user_pk", nativeQuery = true)
+	    void deleteAccount(@Param("user_pk") Long user_pk);
+	 	/**
+	 	 * disable account when expire contract
+	 	 * @return
+	 	 */
+		@Modifying
+	    @Transactional
+	    @Query(value = "update users set enable_users = false where expire = CURRENT_DATE", nativeQuery = true)
+	    void  disableAccountExpireContract();
+		
+		  @Query(value = "select * from users  where expire = CURRENT_DATE", nativeQuery = true)
+		  List<Users> getAllAccoutExpiretoday();
 }

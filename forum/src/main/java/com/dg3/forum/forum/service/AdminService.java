@@ -1,5 +1,7 @@
 package com.dg3.forum.forum.service;
 
+import java.util.List;
+
 import com.dg3.forum.forum.entity.Users;
 
 public interface AdminService {
@@ -18,4 +20,12 @@ public interface AdminService {
 	// block account users
 	public void blockAccount(Long user_pk);
 	
+	//delete account 
+	void deleteAccount(Long id);
+	
+	//disable account when expire contract
+	void disableAccountExpireContract();
+	
+	//get all account expire today
+	List<Users> getAllAccoutExpiretoday();
 }
