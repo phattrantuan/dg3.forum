@@ -8,20 +8,30 @@ import java.util.Optional;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
-import com.dg3.forum.forum.entity.Users;
-import com.dg3.forum.forum.service.JwtService;
-import com.dg3.forum.forum.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.dg3.forum.forum.dto.UserAndToken;
 import com.dg3.forum.forum.entity.Message;
+import com.dg3.forum.forum.entity.Users;
+import com.dg3.forum.forum.service.JwtService;
+import com.dg3.forum.forum.service.UserService;
 
 @RestController
 @RequestMapping("/api/v1/users")
@@ -32,6 +42,9 @@ public class UserController {
     
     @Autowired
     private JwtService jwtService;
+    
+    
+  
 
     /**
      * Show all user
@@ -149,6 +162,31 @@ public class UserController {
                 new Message("Thành công!", "Cập nhập thành!", updateUser)
         );
     }
+    @PostMapping("/sign-up")
+    ResponseEntity<Message> signUp(@RequestBody @Valid Users users) {
+        //2 products must not have the same phone number and email !
+        List<Users> foundPhoneNumber = service.checkPhone_number(users.getPhone_number().trim());
+        List<Users> foundEmail = service.checkEmail(users.getEmail().trim());
+        if (foundEmail.size() > 0) {
+            return ResponseEntity.status(HttpStatus.NOT_IMPLEMENTED).body(
+                    new Message("Thất bại", "Email này đã tồn tại!", "")
+            );
+        }
+        if (foundPhoneNumber.size() > 0) {
+            return ResponseEntity.status(HttpStatus.NOT_IMPLEMENTED).body(
+                    new Message("Thất bại", "Số điện thoại đã tồn tại!", "")
+            );
+        }
+        
+        String encoded = new BCryptPasswordEncoder().encode(users.getPassword());
+        users.setPassword(encoded);
+       
+        
+        return ResponseEntity.status(HttpStatus.OK).body(
+                new Message("Thành công", "Thêm người dùng thành công!", service.save(users))
+        );
+    }
+
     
     /**
      * Login
@@ -161,25 +199,22 @@ public class UserController {
  		String result = "";
  		HttpStatus httpStatus = null;
  		UserAndToken userAndToken = new UserAndToken();
- 		// System.out.print(user.getUsername() + user.getPassword());
+ 		 System.out.print(user.getUsername() + user.getPassword());
  		try {
  			
  				result = jwtService.generateTokenLogin(user.getUsername());
  				List<Users> userData = service.findByUsername(user.getUsername());
  				Users u = userData.get(0);
- 				
- 				
-// 				if(!this.passwordEncoder.matches(u.getPassword(), user.getPassword()) || u==null) {
-// 					httpStatus = HttpStatus.BAD_REQUEST;
+ 				 				
+ 				if(!new BCryptPasswordEncoder().matches( user.getPassword(),u.getPassword()) || u==null) {
+ 					httpStatus = HttpStatus.BAD_REQUEST;
  					
- 					if( u==null) {
- 	 					httpStatus = HttpStatus.BAD_REQUEST;
- 					
- 				} else {
+ 				}
+ 					 else {
  					userAndToken.setUser(userData.get(0));
  	 				userAndToken.setToken(result);
 
- 	 				httpStatus = HttpStatus.OK;
+ 	 				httpStatus = HttpStatus.BAD_REQUEST;
  				}
  				
  				
