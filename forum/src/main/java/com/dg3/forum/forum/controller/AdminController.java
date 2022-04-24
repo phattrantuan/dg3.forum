@@ -1,5 +1,10 @@
 package com.dg3.forum.forum.controller;
 
+import java.io.IOException;
+import java.io.OutputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -36,20 +41,20 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.dg3.forum.forum.dto.UserAdminOrDealerdto;
 import com.dg3.forum.forum.entity.Message;
-import com.dg3.forum.forum.entity.PostThread;
 import com.dg3.forum.forum.entity.Users;
+import com.dg3.forum.forum.repository.UserstRepository;
 import com.dg3.forum.forum.serviceimpl.AdminServiceImpl;
 import com.dg3.forum.forum.serviceimpl.CSVServiceImpl;
 import com.dg3.forum.forum.serviceimpl.JwtServiceImpl;
 import com.dg3.forum.forum.serviceimpl.PostThreadServiceImpl;
 import com.dg3.forum.forum.serviceimpl.UserServiceimpl;
 import com.dg3.forum.forum.util.CSVHelper;
-
+import com.dg3.forum.forum.util.En_DecodeAnImageToBase64;
 @RestController
 @RequestMapping("/api/v1/admin")
 public class AdminController {
 	private static final Logger LOGGER = LoggerFactory.getLogger(AdminController.class);
-
+	private static final Path CURRENT_FOLDER = Paths.get(System.getProperty("user.dir"));
 	@Autowired
 	AdminServiceImpl adminServiceImpl;
 
@@ -234,6 +239,36 @@ public class AdminController {
 		}
 	
 	
+
+	
+	
+	@Autowired
+	UserstRepository repository;
+	@PostMapping
+
+    public Users create(@RequestParam @Valid String email,
+                       @RequestParam @Valid String password,
+                       @RequestParam MultipartFile img_avatar,
+                       @RequestParam  String phone_number) throws IOException {
+        Path staticPath = Paths.get("static");
+        Path imagePath = Paths.get("images");
+        if (!Files.exists(CURRENT_FOLDER.resolve(staticPath).resolve(imagePath))) {
+            Files.createDirectories(CURRENT_FOLDER.resolve(staticPath).resolve(imagePath));
+        }
+        Path file = CURRENT_FOLDER.resolve(staticPath)
+                .resolve(imagePath).resolve(img_avatar.getOriginalFilename());
+        try (OutputStream os = Files.newOutputStream(file)) {
+            os.write(img_avatar.getBytes());
+        }
+
+        Users user = new Users();
+        user.setEmail(email);
+        user.setPassword(password);
+       
+      //  user.setImg_avatar( En_DecodeAnImageToBase64.encoder(imagePath.resolve(img_avatar.getOriginalFilename()).toString()));
+        return repository.save(user);
+    }
+	
 	// export error validation
 	@ResponseStatus(HttpStatus.BAD_REQUEST)
 	@ExceptionHandler(MethodArgumentNotValidException.class)
@@ -246,4 +281,5 @@ public class AdminController {
 		});
 		return errors;
 	}
+	
 }
