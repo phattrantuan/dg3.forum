@@ -245,35 +245,6 @@ public class AdminController {
 
 	
 	
-	@Autowired
-	UserstRepository repository;
-	@PostMapping
-
-    public Users create(@RequestParam @Valid String email,
-                       @RequestParam @Valid String password,
-                       @RequestParam MultipartFile img_avatar,
-                       @RequestParam  String phone_number) throws IOException {
-        Path staticPath = Paths.get("static");
-        Path imagePath = Paths.get("images");
-        if (!Files.exists(CURRENT_FOLDER.resolve(staticPath).resolve(imagePath))) {
-            Files.createDirectories(CURRENT_FOLDER.resolve(staticPath).resolve(imagePath));
-        }
-        Path file = CURRENT_FOLDER.resolve(staticPath)
-                .resolve(imagePath).resolve(img_avatar.getOriginalFilename());
-        try (OutputStream os = Files.newOutputStream(file)) {
-            os.write(img_avatar.getBytes());
-        }
-
-        Users user = new Users();
-        user.setEmail(email);
-        user.setPassword(password);
-    //   System.out.println(CURRENT_FOLDER);
-    //  user.setImg_avatar(CURRENT_FOLDER+imagePath.resolve(img_avatar.getOriginalFilename()).toString());
-      user.setImg_avatar( En_DecodeAnImageToBase64.encoder("D:\\image\\phat.png"));
-      System.out.println(En_DecodeAnImageToBase64.encoder(CURRENT_FOLDER+imagePath.resolve(img_avatar.getOriginalFilename()).toString())); 
-      return repository.save(user);
-    }
-	
 	// export error validation
 	@ResponseStatus(HttpStatus.BAD_REQUEST)
 	@ExceptionHandler(MethodArgumentNotValidException.class)

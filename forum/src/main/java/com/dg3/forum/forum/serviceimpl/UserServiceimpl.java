@@ -164,5 +164,13 @@ public class UserServiceimpl implements UserService {
         return false;
     }
 
+	@Override
+	public void updateInformationUser(Users users) {
+		userRepository.updateInformationUser(users.getDescription(), users.getEmail(), users.getPassword(), users.getUsername(), users.getAddress(), users.getImg_avatar(), users.getUser_pk());
+		
+	}
+
+
+
 
 }

@@ -5,10 +5,13 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Base64;
 
 
 public class En_DecodeAnImageToBase64 {
+	
 	public static String encoder(String imagePath) {
 	    String base64Image = "";
 	    File file = new File(imagePath);
@@ -37,35 +40,7 @@ public class En_DecodeAnImageToBase64 {
 		}
 	}
 	
-	public static void decoder2(String base64Image) {
 	
-			// Converting a Base64 String into Image byte array
-			Base64.getDecoder().decode(base64Image);
-		//	byte[] imageByteArray = Base64.getDecoder().decode(base64Image);
-		//	imageOutFile.write(imageByteArray);
-		
-	}
 	
-	public static void main(String[] args) {
 	
-
-		System.out.println(encoder("D:\\image\\phat.png"));
-	decoder2(encoder("D:\\image\\phat.png"));
-		
-		//decoder(encoder("D:\\image\\phat.png"), "D:\\image\\2phat.png");
-	//En_DecodeAnImageToBase64.decoder(En_DecodeAnImageToBase64.encoder("C:\\Users\\Phat\\Downloads\\2022-04-09_08-17-29.png") ,"‪‪C:\\Users\\intern.ttuanphat\\Desktop\\deUntitled.png");
-	
-//			public static void main(String[] args) {
-//		String imagePath = "D:\\image\\phat.png";
-//		System.out.println("=================Encoder Image to Base 64!=================");
-//		String base64ImageString = encoder(imagePath);
-//		System.out.println("Base64ImageString = " + base64ImageString);
-//
-//		System.out.println("=================Decoder Base64ImageString to Image!=================");
-//	//	decoder(base64ImageString, "C:\\Users\\Phat\\Downloads\\decode2022-04-09_08-17-29.png");
-//		System.out.println();
-//		System.out.println("DONE!");
-//
-//	}
-		 
-}}
+}

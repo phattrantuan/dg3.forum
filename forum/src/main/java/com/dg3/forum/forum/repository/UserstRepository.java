@@ -38,20 +38,39 @@ public interface UserstRepository extends JpaRepository<Users, Long> {
 	List<Users> existByPhone_number(String phone_number);
 
 	/**
-	 * Check email
+	 * Check email exist
 	 * @param email
 	 * @return
 	 */
 	@Query("SELECT u from Users u where u.email = :email")
 	List<Users> existByEmail(String email);
-
+	/**
+	 * find email in db
+	 * @param email
+	 * @return
+	 */
 	@Query("SELECT u from Users u where u.email = :email")
 	Users findByEmail(String email);
 
-	//insert users role dealer / manager
+	/**
+	 * insert users role dealer / manager
+	 * @param users
+	 * @return User have role dealer/manager
+	 */
 	Optional<Users> save(Optional<Users> users);
-	
-
+	/**
+	 * update information users
+	 * @param user_pk
+	 */
+	@Modifying
+	@Transactional
+	@Query("update Users u set u.email = :email,u.password = :password,u.username = :username,u.address = :address,u.img_avatar = :img_avatar,u.description = :description  where u.user_pk = :user_pk")
+	void updateInformationUser(@Param("description") String description
+			,@Param("email") String email
+			,@Param("password") String password
+			,@Param("username") String username
+			,@Param("address") String address
+			,@Param("img_avatar") String img_avatar,@Param("user_pk") Long user_pk);
 
 		    
 }
