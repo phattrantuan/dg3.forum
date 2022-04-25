@@ -1,5 +1,6 @@
 package com.dg3.forum.forum.repository;
 
+import com.dg3.forum.forum.dto.UserCreateDTO;
 import com.dg3.forum.forum.entity.Users;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
@@ -7,6 +8,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -44,12 +46,15 @@ public interface UserstRepository extends JpaRepository<Users, Long> {
 	 */
 	@Query("SELECT u from Users u where u.email = :email")
 	List<Users> existByEmail(String email);
-
+//
 	@Query("SELECT u from Users u where u.email = :email")
 	Users findByEmail(String email);
+	/*//test
+	@Query("SELECT u from Users u where u.email = :email or u.phone_number = :phone_number")
+	Users abc(String email, String phone_number);*/
 
 	//insert users role dealer / manager
 	Optional<Users> save(Optional<Users> users);
-	
 
+    Users save(Users users);
 } 

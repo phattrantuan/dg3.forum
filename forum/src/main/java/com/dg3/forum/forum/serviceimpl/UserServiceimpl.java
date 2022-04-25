@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import com.dg3.forum.forum.dto.UserCreateDTO;
 import com.dg3.forum.forum.util.UserDetailsImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,8 +21,6 @@ public class UserServiceimpl implements UserService {
 
     @Autowired
     UserstRepository userRepository;
-
-
 
     /**
      * get show all users

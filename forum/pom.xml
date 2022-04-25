@@ -73,11 +73,7 @@
 			<artifactId>h2</artifactId>
 			<scope>runtime</scope>
 		</dependency>
-		<dependency>
-			<groupId>org.postgresql</groupId>
-			<artifactId>postgresql</artifactId>
-			<scope>runtime</scope>
-		</dependency>
+
 		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
@@ -158,6 +154,20 @@
 			<version>2.6.3</version>
 		</dependency>
 		<!--  -->
+
+		<!--flyWay-->
+		<dependency>
+			<groupId>org.flywaydb</groupId>
+			<artifactId>flyway-core</artifactId>
+			<version>8.5.7</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.postgresql</groupId>
+			<artifactId>postgresql</artifactId>
+			<scope>runtime</scope>
+		</dependency>
+
 		
 		
 	</dependencies>
@@ -184,6 +194,19 @@
 					<target>17</target>
 				</configuration>
 			</plugin>
+
+<!--flyWay-->
+			<plugin>
+				<groupId>org.flywaydb</groupId>
+				<artifactId>flyway-maven-plugin</artifactId>
+				<configuration>
+					<driver>org.hibernate.dialect.PostgreSQL81Dialect</driver>
+					<url>jdbc:postgresql://localhost:5432/forum?currentSchema=public</url>
+					<user>postgres</user>
+					<password>hung</password>
+				</configuration>
+			</plugin>
+
 		</plugins>
 	</build>
 

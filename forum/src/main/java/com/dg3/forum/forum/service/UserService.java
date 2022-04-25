@@ -1,5 +1,6 @@
 package com.dg3.forum.forum.service;
 
+import com.dg3.forum.forum.dto.UserCreateDTO;
 import com.dg3.forum.forum.entity.Users;
 
 import java.util.List;
@@ -45,6 +46,7 @@ public interface UserService {
 	 * @return
 	 */
 	Users save(Users users);
+
 //
 	/**
 	 * Check number phone

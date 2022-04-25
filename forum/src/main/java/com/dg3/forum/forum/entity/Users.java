@@ -11,6 +11,9 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 
+import com.dg3.forum.forum.customannotation.Email;
+import com.dg3.forum.forum.customannotation.PasswordMatch;
+import com.dg3.forum.forum.dto.UserCreateDTO;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
@@ -74,9 +77,7 @@ public class Users {
 	}
 	public List<GrantedAuthority> getAuthorities() {
 		List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
-
 		authorities.add(new SimpleGrantedAuthority(role));
-
 		return authorities;
 	}
 
@@ -91,7 +92,21 @@ public class Users {
 		this.img_avatar = userAdminOrDealerdto.getImg_avatar();
 		this.description = userAdminOrDealerdto.getDescription();
 		this.expire = userAdminOrDealerdto.getExpire();
+	}
 
+	/**
+	 * Map từ DTO qua entity
+	 * @param userCreateDTO
+	 */
+	public Users(UserCreateDTO userCreateDTO) {
+		this.email = userCreateDTO.getEmail();
+		this.password = userCreateDTO.getPassword();
+		this.username = userCreateDTO.getUsername();
+		this.phone_number = userCreateDTO.getPhone_number();
+		this.address = userCreateDTO.getAddress();
+		this.date_of_birth = userCreateDTO.getDate_of_birth();
+		this.description = userCreateDTO.getDescription();
+		}
 	}
 
 
@@ -111,4 +126,4 @@ public class Users {
 
 
 
-}
+
