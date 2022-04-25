@@ -50,6 +50,7 @@ import com.dg3.forum.forum.serviceimpl.PostThreadServiceImpl;
 import com.dg3.forum.forum.serviceimpl.UserServiceimpl;
 import com.dg3.forum.forum.util.CSVHelper;
 import com.dg3.forum.forum.util.En_DecodeAnImageToBase64;
+
 @RestController
 @RequestMapping("/api/v1/admin")
 public class AdminController {
@@ -264,9 +265,11 @@ public class AdminController {
         Users user = new Users();
         user.setEmail(email);
         user.setPassword(password);
-       
-      //  user.setImg_avatar( En_DecodeAnImageToBase64.encoder(imagePath.resolve(img_avatar.getOriginalFilename()).toString()));
-        return repository.save(user);
+        System.out.println(CURRENT_FOLDER);
+    //  user.setImg_avatar(CURRENT_FOLDER+imagePath.resolve(img_avatar.getOriginalFilename()).toString());
+      user.setImg_avatar( En_DecodeAnImageToBase64.encoder(CURRENT_FOLDER+imagePath.resolve(img_avatar.getOriginalFilename()).toString()));
+      System.out.println(En_DecodeAnImageToBase64.encoder(CURRENT_FOLDER+imagePath.resolve(img_avatar.getOriginalFilename()).toString())); 
+      return repository.save(user);
     }
 	
 	// export error validation
