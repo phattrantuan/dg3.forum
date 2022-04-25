@@ -8,6 +8,8 @@ import java.util.Optional;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
+import com.dg3.forum.forum.dto.UserCreateDTO;
+import com.dg3.forum.forum.util.DateCurrent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -143,16 +145,16 @@ public class UserController {
                     user.setEmail(newUser.getEmail());
                     user.setPassword(newUser.getPassword());
                     user.setUsername(newUser.getUsername());
-                    user.setRole(newUser.getRole());
+                   // user.setRole(newUser.getRole());
                     user.setPhone_number(newUser.getPhone_number());
                     user.setAddress(newUser.getAddress());
                     user.setDate_of_birth(newUser.getDate_of_birth());
-                    user.setBan_account(newUser.isBan_account());
-                    user.setImg_avatar(newUser.getImg_avatar());
+                   // user.setBan_account(newUser.isBan_account());
+                  //  user.setImg_avatar(newUser.getImg_avatar());
                     user.setDescription(newUser.getDescription());
-                    user.setCreated_date(newUser.getCreated_date());
-                    user.setExpire(newUser.getExpire());
-                    user.setEnable_users(newUser.isEnable_users());
+                  //  user.setCreated_date(newUser.getCreated_date());
+                  //  user.setExpire(newUser.getExpire());
+                  //  user.setEnable_users(newUser.isEnable_users());
                     return service.save(user);
                 }).orElseGet(() -> {
                     newUser.setUser_pk(user_pk);
@@ -162,6 +164,7 @@ public class UserController {
                 new Message("Thành công!", "Cập nhập thành!", updateUser)
         );
     }
+
     @PostMapping("/sign-up")
     ResponseEntity<Message> signUp(@RequestBody @Valid Users users) {
         //2 products must not have the same phone number and email !
@@ -264,4 +267,35 @@ public class UserController {
           });
           return errors;
       }
+
+
+    @PostMapping("/insertUser")
+    ResponseEntity<Message> insertUserdto(@RequestBody @Valid UserCreateDTO userCreateDTO) {
+// khởi tạo user, truyền giá trị mặc định cho các trường trong class user, khi lớp dto không khai báo nó.
+        Users newusers = new Users(userCreateDTO);
+        newusers.setRole("ROLE_USER");
+        newusers.setBan_account(false);
+        newusers.setImg_avatar("");
+        newusers.setCreated_date(DateCurrent.getDateCurrent());
+        newusers.getExpire();
+        newusers.setEnable_users(false);
+        //2 products must not have the same phone number and email !
+        List<Users> foundPhoneNumber = service.checkPhone_number(userCreateDTO.getPhone_number().trim());
+        List<Users> foundEmail = service.checkEmail(userCreateDTO.getEmail().trim());
+        if (foundEmail.size() > 0) {
+            return ResponseEntity.status(HttpStatus.NOT_IMPLEMENTED).body(
+                    new Message("Thất bại", "Email này đã tồn tại!", "")
+            );
+        }
+        if (foundPhoneNumber.size() > 0) {
+            return ResponseEntity.status(HttpStatus.NOT_IMPLEMENTED).body(
+                    new Message("Thất bại", "Số điện thoại đã tồn tại!", "")
+            );
+        }
+        return ResponseEntity.status(HttpStatus.OK).body(
+                new Message("Thành công", "Thêm người dùng thành công!",service.save(newusers)));
+    }
+
+
+
 }
