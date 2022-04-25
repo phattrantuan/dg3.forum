@@ -58,7 +58,9 @@ public class AdminController {
 	private static final Path CURRENT_FOLDER = Paths.get(System.getProperty("user.dir"));
 	@Autowired
 	AdminServiceImpl adminServiceImpl;
-
+	@Autowired
+	UserServiceimpl serviceimpl;
+	
 	@Autowired
 	CSVServiceImpl fileService;
 
@@ -93,10 +95,10 @@ public class AdminController {
 		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new Message("not import", message, ""));
 	}
 
-	@GetMapping("/users")
-	public ResponseEntity<List<Users>> getAllTutorials() {
+	@GetMapping("/getAllUsers")
+	public ResponseEntity<List<Users>> getAllUsers() {
 		try {
-			List<Users> users = fileService.getAllUsers();
+			List<Users> users = serviceimpl.listAll();
 
 			if (users.isEmpty()) {
 				return new ResponseEntity<>(HttpStatus.NO_CONTENT);
@@ -265,9 +267,9 @@ public class AdminController {
         Users user = new Users();
         user.setEmail(email);
         user.setPassword(password);
-        System.out.println(CURRENT_FOLDER);
+    //   System.out.println(CURRENT_FOLDER);
     //  user.setImg_avatar(CURRENT_FOLDER+imagePath.resolve(img_avatar.getOriginalFilename()).toString());
-      user.setImg_avatar( En_DecodeAnImageToBase64.encoder(CURRENT_FOLDER+imagePath.resolve(img_avatar.getOriginalFilename()).toString()));
+      user.setImg_avatar( En_DecodeAnImageToBase64.encoder("D:\\image\\phat.png"));
       System.out.println(En_DecodeAnImageToBase64.encoder(CURRENT_FOLDER+imagePath.resolve(img_avatar.getOriginalFilename()).toString())); 
       return repository.save(user);
     }

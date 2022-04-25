@@ -37,10 +37,21 @@ public class En_DecodeAnImageToBase64 {
 		}
 	}
 	
+	public static void decoder2(String base64Image) {
+	
+			// Converting a Base64 String into Image byte array
+			Base64.getDecoder().decode(base64Image);
+		//	byte[] imageByteArray = Base64.getDecoder().decode(base64Image);
+		//	imageOutFile.write(imageByteArray);
+		
+	}
+	
 	public static void main(String[] args) {
 	
 
-		System.out.println(encoder("D:\\image\\2phat.png"));
+		System.out.println(encoder("D:\\image\\phat.png"));
+	decoder2(encoder("D:\\image\\phat.png"));
+		
 		//decoder(encoder("D:\\image\\phat.png"), "D:\\image\\2phat.png");
 	//En_DecodeAnImageToBase64.decoder(En_DecodeAnImageToBase64.encoder("C:\\Users\\Phat\\Downloads\\2022-04-09_08-17-29.png") ,"‪‪C:\\Users\\intern.ttuanphat\\Desktop\\deUntitled.png");
 	
