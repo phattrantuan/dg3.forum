@@ -3,6 +3,8 @@ package com.dg3.forum.forum.controller;
 import com.dg3.forum.forum.entity.Image;
 import com.dg3.forum.forum.entity.Message;
 import com.dg3.forum.forum.service.ImageService;
+import com.dg3.forum.forum.util.GetNameExtensionsForbase64;
+
 import org.apache.tomcat.util.codec.binary.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -32,18 +34,18 @@ public class ImageController {
         * Get file extension by image
         * */
         String nameFile = imageFile.getOriginalFilename();
-        String[] cutNameFile = nameFile.split(".");
-        String fileExtension = cutNameFile[1];
 
-//        Image image_Posts = new Image();
-//        image_Posts.setImage_thread("data:image/" + fileExtension + ";base64," + imageAsString);
-//        image_Posts.setThread_pk(thread_pk);
+       String nameExtension =  GetNameExtensionsForbase64.getPartExtensions(nameFile);
 
-//        return ResponseEntity.status(HttpStatus.OK).body(
-//                new Message("OK", "Upload file image successfully", imageService.createImagePosts(image_Posts))
-//        );
+        Image image_Posts = new Image();
+       image_Posts.setImage_thread(nameExtension + imageAsString);
+        image_Posts.setThread_pk(thread_pk);
+
+//       return ResponseEntity.status(HttpStatus.OK).body(
+//               new Message("OK", "Upload file image successfully", imageService.createImagePosts(image_Posts))
+//       );
         return ResponseEntity.status(HttpStatus.OK).body(
-                new Message("OK", "Upload file image successfully", fileExtension)
+                new Message("OK", "Upload file image successfully", nameExtension + imageAsString)
         );
     }
 
