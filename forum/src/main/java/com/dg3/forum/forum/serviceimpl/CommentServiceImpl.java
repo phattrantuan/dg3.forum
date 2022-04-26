@@ -37,4 +37,5 @@ public class CommentServiceImpl implements CommentService {
     public void deleteComment(Long comment_pk) {
         commentRepository.deleteId_Comment(comment_pk);
     }
+
 }

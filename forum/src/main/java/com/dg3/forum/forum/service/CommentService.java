@@ -29,4 +29,5 @@ public interface CommentService {
     * Delete comment by posts
     * */
     void deleteComment(Long comment_pk);
+
 }

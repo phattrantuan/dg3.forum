@@ -26,6 +26,11 @@ public interface MedicineService {
     Medicine checkExistByMedicine(Long medicine_pk);
 
     /*
+    * Check exist information name medicine
+    * */
+    Medicine checkExistsByName_Medicine(String name_medicine, Long dealer_pk);
+
+    /*
     * List all information medicine by dealer
     * */
     List<Medicine> listAllMedicine_Dealer(Long dealer_pk);

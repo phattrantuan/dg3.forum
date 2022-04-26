@@ -8,6 +8,9 @@ import com.dg3.forum.forum.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -23,13 +26,34 @@ public class MedicineController {
 
     @PostMapping("/create/medicine")
     public ResponseEntity<Message> createMedicine(@RequestBody Medicine medicine){
-        return ResponseEntity.status(HttpStatus.OK).body(
-                new Message("OK", "Create medicine succesfully", medicineService.createMedicine(medicine))
-        );
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+
+        Users users = userService.findByEmail(userDetails.getUsername());
+
+        Medicine checkMedicine = medicineService.checkExistsByName_Medicine(medicine.getName_medicine(), users.getUser_pk());
+
+        if(checkMedicine == null){
+            medicine.setDealer_pk(users.getUser_pk());
+
+            return ResponseEntity.status(HttpStatus.OK).body(
+                    new Message("OK", "Create medicine succesfully", medicineService.createMedicine(medicine))
+            );
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_IMPLEMENTED).body(
+                    new Message("Failed", "Name medicine exist", "")
+            );
+        }
     }
 
     @PutMapping("/update/medicine/{medicine_pk}")
     public ResponseEntity<Message> updateMedicine(@RequestBody Medicine medicine, @PathVariable("medicine_pk") Long medicine_pk){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+
+        Users users = userService.findByEmail(userDetails.getUsername());
+
+        medicine.setDealer_pk(users.getUser_pk());
         medicine.setMedicine_pk(medicine_pk);
 
         medicineService.updateMedicine(medicine);
@@ -60,9 +84,13 @@ public class MedicineController {
         }
     }
 
-    @GetMapping("/all/medicine/{user_pk}")
-    public ResponseEntity<Message> listAllMedicine_Dealer(@PathVariable("user_pk") Long user_pk){
-        Users users = userService.getUsers(user_pk);
+    @GetMapping("/all/medicine")
+    public ResponseEntity<Message> listAllMedicine_Dealer(){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+
+        Users users = userService.findByEmail(userDetails.getUsername());
+
         List<Medicine> list = medicineService.listAllMedicine_Dealer(users.getUser_pk());
 
         return list.isEmpty() ?

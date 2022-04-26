@@ -42,4 +42,10 @@ public interface CommentRepository extends JpaRepository<Comment, Long> {
     @Query(value = "delete from comment where comment_pk = :comment_pk", nativeQuery = true)
     void deleteId_Comment(@Param("comment_pk") Long comment_pk);
 
+    /*
+    * Sum comment by posts
+    * */
+    @Transactional
+    @Query(value = "select comment_pk from comment where thread_pk = :thread_pk", nativeQuery = true)
+    List<Long> sumComment_Posts(@Param("thread_pk") Long thread_pk);
 }
