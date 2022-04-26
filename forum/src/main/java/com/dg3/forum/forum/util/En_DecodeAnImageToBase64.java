@@ -9,6 +9,8 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Base64;
 
+import org.apache.commons.io.FilenameUtils;
+
 
 public class En_DecodeAnImageToBase64 {
 	
@@ -39,8 +41,6 @@ public class En_DecodeAnImageToBase64 {
 			System.out.println("Exception while reading the Image " + ioe);
 		}
 	}
-	
-	
-	
+
 	
 }

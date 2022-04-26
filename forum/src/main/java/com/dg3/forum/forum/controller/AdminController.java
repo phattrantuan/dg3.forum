@@ -135,13 +135,13 @@ public class AdminController {
 		}
 	}
 
-	@PostMapping("/insert")
-	ResponseEntity<Message> deleteProduct(@RequestBody Users users) {
-		LOGGER.error("save dealer or manager");
-		boolean user = adminServiceImpl.insertUser(users);
-		return user ? ResponseEntity.status(HttpStatus.OK).body(new Message("Ok", "insert cussess", users))
-				: ResponseEntity.status(HttpStatus.NOT_FOUND).body(new Message("Fail", "insert fail", ""));
-	}
+//	@PostMapping("/insert")
+//	ResponseEntity<Message> deleteProduct(@RequestBody Users users) {
+//		LOGGER.error("save dealer or manager");
+//		boolean user = adminServiceImpl.insertUser(users);
+//		return user ? ResponseEntity.status(HttpStatus.OK).body(new Message("Ok", "insert cussess", users))
+//				: ResponseEntity.status(HttpStatus.NOT_FOUND).body(new Message("Fail", "insert fail", ""));
+//	}
 
 	@PostMapping("/insertUserDealerOrManager")
 	ResponseEntity<Message> insertUserDealerOrManager(@RequestBody @Valid UserAdminOrDealerdto userAdminOrDealerdto) {
@@ -174,24 +174,24 @@ public class AdminController {
 				.body(new Message("Thất bại!", "Không tìm thấy người dùng này để xóa!", ""));
 	}
 
-	@RequestMapping(value = "/login", method = RequestMethod.POST)
-	public ResponseEntity<String> login(HttpServletRequest request, @RequestBody Users user) {
-		String result = "";
-		HttpStatus httpStatus = null;
-		try {
-			if (userServiceimpl.checkLogin(user)) {
-				result = jwtServiceImpl.generateTokenLogin(user.getUsername());
-				httpStatus = HttpStatus.OK;
-			} else {
-				result = "Wrong userId and password";
-				httpStatus = HttpStatus.BAD_REQUEST;
-			}
-		} catch (Exception ex) {
-			result = "Server Error";
-			httpStatus = HttpStatus.INTERNAL_SERVER_ERROR;
-		}
-		return new ResponseEntity<String>(result, httpStatus);
-	}
+//	@RequestMapping(value = "/login", method = RequestMethod.POST)
+//	public ResponseEntity<String> login(HttpServletRequest request, @RequestBody Users user) {
+//		String result = "";
+//		HttpStatus httpStatus = null;
+//		try {
+//			if (userServiceimpl.checkLogin(user)) {
+//				result = jwtServiceImpl.generateTokenLogin(user.getUsername());
+//				httpStatus = HttpStatus.OK;
+//			} else {
+//				result = "Wrong userId and password";
+//				httpStatus = HttpStatus.BAD_REQUEST;
+//			}
+//		} catch (Exception ex) {
+//			result = "Server Error";
+//			httpStatus = HttpStatus.INTERNAL_SERVER_ERROR;
+//		}
+//		return new ResponseEntity<String>(result, httpStatus);
+//	}
 
 //
 //	@GetMapping("/{a}")
