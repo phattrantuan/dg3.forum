@@ -2,9 +2,7 @@ package com.dg3.forum.forum.dto;
 
 import java.util.Date;
 
-import com.dg3.forum.forum.customannotation.Email;
 import com.dg3.forum.forum.customannotation.PasswordMatch;
-import com.dg3.forum.forum.customannotation.Phone;
 import com.dg3.forum.forum.entity.Users;
 
 import lombok.AllArgsConstructor;
@@ -28,6 +26,7 @@ public class EditUserdto {
 	private String description;
 
 	public EditUserdto(Users entity) {
+		this.user_pk = entity.getUser_pk();
 		this.password = entity.getPassword();
 		this.username = entity.getUsername();
 		this.address = entity.getAddress();

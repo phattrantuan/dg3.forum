@@ -13,6 +13,8 @@ import java.util.Optional;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.Pattern;
 
 import com.dg3.forum.forum.entity.Users;
 import com.dg3.forum.forum.service.JwtService;
@@ -26,15 +28,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.dg3.forum.forum.customannotation.PasswordMatch;
 import com.dg3.forum.forum.dto.EditUserdto;
 import com.dg3.forum.forum.dto.UserAndToken;
 import com.dg3.forum.forum.entity.Message;
 
 @RestController
+@Validated
 @RequestMapping("/api/v1/users")
 public class UserController {
 	private static final Logger LOGGER = LoggerFactory.getLogger(UserController.class);
@@ -207,32 +212,20 @@ public class UserController {
 				.body(new Message("Thất bại!", "Không tìm thấy người dùng này để xóa!", ""));
 	}
 
-	/**
-	 * Export error validation
-	 * 
-	 * @param ex
-	 * @return
-	 */
-	@ResponseStatus(HttpStatus.BAD_REQUEST)
-	@ExceptionHandler(MethodArgumentNotValidException.class)
-	public Map<String, String> handleValidationExceptions(MethodArgumentNotValidException ex) {
-		Map<String, String> errors = new HashMap<>();
-		ex.getBindingResult().getAllErrors().forEach((error) -> {
-			String fieldName = ((FieldError) error).getField();
-			String errorMessage = error.getDefaultMessage();
-			errors.put(fieldName, errorMessage);
-		});
-		return errors;
-	}
+
 
 	/**
 	 * Update information users
 	 */
 	@PutMapping("updateInfomationUser")
-	ResponseEntity<Message> deleteProduct(@RequestParam Long user_pk, @RequestParam @Valid String password,
+
+	ResponseEntity<Message> UpdateUsers(@RequestParam Long user_pk,@Pattern(regexp = "^(.*\\b)(?=.*[~!@#$%^&*()]+.*).{8,}$",message = "Entry password invalid, Try again! (At least one uppercase, lowercase, number, and special character, at least 8 in length")  @RequestParam("password") String password,
 			@RequestParam String username, @RequestParam String address, @RequestParam Date date_of_birth,
 			@RequestParam MultipartFile img_avatar, @RequestParam String description) throws IOException {
 		{
+			
+			
+			System.out.println(user_pk);
 			EditUserdto editUserdto = new EditUserdto();
 			editUserdto.setAddress(address);
 			editUserdto.setDate_of_birth(date_of_birth);
@@ -271,5 +264,22 @@ public class UserController {
 			}
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new Message("Faild!", "not find user!", ""));
 		}
+	}
+	/**
+	 * Export error validation
+	 * 
+	 * @param ex
+	 * @return
+	 */
+	@ResponseStatus(HttpStatus.BAD_REQUEST)
+	@ExceptionHandler(MethodArgumentNotValidException.class)
+	public Map<String, String> handleValidationExceptions(MethodArgumentNotValidException ex) {
+		Map<String, String> errors = new HashMap<>();
+		ex.getBindingResult().getAllErrors().forEach((error) -> {
+			String fieldName = ((FieldError) error).getField();
+			String errorMessage = error.getDefaultMessage();
+			errors.put(fieldName, errorMessage);
+		});
+		return errors;
 	}
 }

@@ -23,6 +23,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -52,6 +53,7 @@ import com.dg3.forum.forum.util.CSVHelper;
 import com.dg3.forum.forum.util.En_DecodeAnImageToBase64;
 
 @RestController
+
 @RequestMapping("/api/v1/admin")
 public class AdminController {
 	private static final Logger LOGGER = LoggerFactory.getLogger(AdminController.class);

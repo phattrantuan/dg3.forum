@@ -45,7 +45,7 @@ public class Users {
 	private String password;
 	private String username;
 	private String role;
-
+@Phone
 	private String phone_number;
 	private String address;
 	private Date date_of_birth;
@@ -100,7 +100,7 @@ public class Users {
 
 	// mapping EditUserdto to Users
 	public Users(EditUserdto editUserdto) {
-
+this.user_pk = editUserdto.getUser_pk();
 		this.password = editUserdto.getPassword();
 		this.username = editUserdto.getUsername();
 

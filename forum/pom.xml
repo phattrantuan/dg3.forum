@@ -165,8 +165,13 @@
 			<artifactId>commons-codec</artifactId>
 			<version>1.4</version>
 		</dependency>
-
-
+		<!-- export error when validate on @param -->
+		<dependency>
+			<groupId>io.github.wimdeblauwe</groupId>
+			<artifactId>error-handling-spring-boot-starter</artifactId>
+			<version>2.1.0</version>
+		</dependency>
+		<!--// export error when validate on @param -->
 	</dependencies>
 
 	<build>
