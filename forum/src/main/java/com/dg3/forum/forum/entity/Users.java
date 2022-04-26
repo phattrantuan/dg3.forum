@@ -96,7 +96,7 @@ public class Users {
 	}
 
 	/**
-	 * Map từ DTO qua entity
+	 * Mapping UserCreateDTO to Users
 	 * @param userCreateDTO
 	 */
 	public Users(UserCreateDTO userCreateDTO) {
