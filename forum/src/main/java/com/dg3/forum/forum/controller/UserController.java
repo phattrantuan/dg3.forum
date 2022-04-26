@@ -21,6 +21,7 @@ import com.dg3.forum.forum.service.JwtService;
 import com.dg3.forum.forum.service.UserService;
 import com.dg3.forum.forum.serviceimpl.UserServiceimpl;
 import com.dg3.forum.forum.util.En_DecodeAnImageToBase64;
+import com.dg3.forum.forum.util.GetNameExtensionsForbase64;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -212,25 +213,21 @@ public class UserController {
 				.body(new Message("Thất bại!", "Không tìm thấy người dùng này để xóa!", ""));
 	}
 
-
-
 	/**
 	 * Update information users
 	 */
 	@PutMapping("updateInfomationUser")
 
-	ResponseEntity<Message> UpdateUsers(@RequestParam Long user_pk,@Pattern(regexp = "^(.*\\b)(?=.*[~!@#$%^&*()]+.*).{8,}$",message = "Entry password invalid, Try again! (At least one uppercase, lowercase, number, and special character, at least 8 in length")  @RequestParam("password") String password,
+	ResponseEntity<Message> UpdateUsers(@RequestParam Long user_pk,
+			@Pattern(regexp = "^(.*\\b)(?=.*[~!@#$%^&*()]+.*).{8,}$", message = "Entry password invalid, Try again! (At least one uppercase, lowercase, number, and special character, at least 8 in length") @RequestParam("password") String password,
 			@RequestParam String username, @RequestParam String address, @RequestParam Date date_of_birth,
 			@RequestParam MultipartFile img_avatar, @RequestParam String description) throws IOException {
 		{
-			
-			
-			System.out.println(user_pk);
+
 			EditUserdto editUserdto = new EditUserdto();
 			editUserdto.setAddress(address);
 			editUserdto.setDate_of_birth(date_of_birth);
 			editUserdto.setDescription(description);
-			// editUserdto.setImg_avatar(img_avatar);
 			editUserdto.setPassword(password);
 			editUserdto.setUser_pk(user_pk);
 			editUserdto.setUsername(username);
@@ -247,24 +244,25 @@ public class UserController {
 						.resolve(img_avatar.getOriginalFilename());
 				try (OutputStream os = Files.newOutputStream(file)) {
 					os.write(img_avatar.getBytes());
-				}
+				} // !!create folder to save image upoad
 
-				// System.out.println(CURRENT_FOLDER);
-				// user.setImg_avatar(CURRENT_FOLDER+imagePath.resolve(img_avatar.getOriginalFilename()).toString());
+				// get Part extension of file image when import
+				String pre = GetNameExtensionsForbase64
+						.getPartExtensions(imagePath.resolve(img_avatar.getOriginalFilename()).toString());
+				// set value into Img_avatar
 				editUserdto.setImg_avatar(
-						En_DecodeAnImageToBase64.encoder(CURRENT_FOLDER + "\\" + staticPath.resolve("").toString()
-								+ "\\" + imagePath.resolve(img_avatar.getOriginalFilename()).toString()));
-				System.out.println(
-						En_DecodeAnImageToBase64.encoder(CURRENT_FOLDER + "\\" + staticPath.resolve("").toString()
+						pre + En_DecodeAnImageToBase64.encoder(CURRENT_FOLDER + "\\" + staticPath.resolve("").toString()
 								+ "\\" + imagePath.resolve(img_avatar.getOriginalFilename()).toString()));
 
 				service.updateInformationUser(new Users(editUserdto));
+
 				return ResponseEntity.status(HttpStatus.OK)
 						.body(new Message("Success", "UpdateSuccess!", service.findById(editUserdto.getUser_pk())));
 			}
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new Message("Faild!", "not find user!", ""));
 		}
 	}
+
 	/**
 	 * Export error validation
 	 * 
