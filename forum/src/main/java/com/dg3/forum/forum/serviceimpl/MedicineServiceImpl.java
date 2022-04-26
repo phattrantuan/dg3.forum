@@ -26,11 +26,10 @@ public class MedicineServiceImpl implements MedicineService {
         String price = medicine.getPrice();
         String effect = medicine.getEffect();
         String details_medicine = medicine.getDetails_medicine();
-        boolean enable_medicine = medicine.isEnable_medicine();
         Long medicine_pk = medicine.getMedicine_pk();
         Long dealer_pk = medicine.getDealer_pk();
 
-        medicineRepository.updateMedicine(name_medicine, where_production, price, effect, details_medicine, enable_medicine, medicine_pk, dealer_pk);
+        medicineRepository.updateMedicine(name_medicine, where_production, price, effect, details_medicine, medicine_pk, dealer_pk);
     }
 
     @Override
@@ -41,6 +40,11 @@ public class MedicineServiceImpl implements MedicineService {
     @Override
     public Medicine checkExistByMedicine(Long medicine_pk){
         return medicineRepository.getByMedicine_pk(medicine_pk);
+    }
+
+    @Override
+    public Medicine checkExistsByName_Medicine(String name_medicine, Long dealer_pk) {
+        return medicineRepository.getByName_medicine(name_medicine, dealer_pk);
     }
 
     @Override

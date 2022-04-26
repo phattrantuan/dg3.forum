@@ -21,12 +21,11 @@ public interface MedicineRepository extends JpaRepository<Medicine, Long> {
     @Query(value = "update medicine set name_medicine = :name_medicine," +
             "where_production = :where_production," +
             "price = :price, effect = :effect," +
-            "details_medicine = :details_medicine," +
-            "enable_medicine = :enable_medicine " +
+            "details_medicine = :details_medicine " +
             "where medicine_pk = :medicine_pk and dealer_pk = :dealer_pk", nativeQuery = true)
     void updateMedicine (@Param("name_medicine") String name_medicine, @Param("where_production") String where_production,
                          @Param("price") String price, @Param("effect") String effect,
-                         @Param("details_medicine") String details_medicine, @Param("enable_medicine") boolean enable_medicine,
+                         @Param("details_medicine") String details_medicine,
                          @Param("medicine_pk") Long medicine_pk, @Param("dealer_pk") Long dealer_pk);
 
     /*
@@ -48,8 +47,8 @@ public interface MedicineRepository extends JpaRepository<Medicine, Long> {
      * Find information by medicine through the name_medicine table medicine
      * */
     @Transactional
-    @Query(value = "select * from medicine where name_medicine = :name_medicine", nativeQuery = true)
-    Medicine getByName_medicine(@Param("name_medicine") String name_medicine);
+    @Query(value = "select * from medicine where name_medicine = :name_medicine and dealer_pk = :dealer_pk", nativeQuery = true)
+    Medicine getByName_medicine(@Param("name_medicine") String name_medicine, @Param("dealer_pk") Long dealer_pk);
 
     /*
      * List all information medicine by dealer

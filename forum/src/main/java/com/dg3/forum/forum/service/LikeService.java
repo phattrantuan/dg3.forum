@@ -4,11 +4,6 @@ import com.dg3.forum.forum.entity.Like;
 
 public interface LikeService {
     /*
-    * Sum like by posts
-    * */
-    int sumLike_Posts(Long threak_pk);
-
-    /*
     * Create like posts
     * */
     Like createLike_Posts(Long thread_pk, Like like);
@@ -24,7 +19,17 @@ public interface LikeService {
     Like checkExistLike_Posts(Long thread_pk, Long user_pk);
 
     /*
-    *
+    * Check exist by like comment
+    * */
+    Like checkExistLike_Comment(Long thread_pk, Long user_pk, Long comment_pk);
+
+    /*
+    * Delete like posts
     * */
     void deleteLike_Posts(Long thread_pk, Long user_pk);
+
+    /*
+     * Delete like comment posts
+     * */
+    void deleteLike_Comment(Long thread_pk, Long user_pk, Long comment_pk);
 }
