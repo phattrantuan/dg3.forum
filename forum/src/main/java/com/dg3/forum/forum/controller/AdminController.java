@@ -1,5 +1,10 @@
 package com.dg3.forum.forum.controller;
 
+import java.io.IOException;
+import java.io.OutputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -18,6 +23,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -36,23 +42,27 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.dg3.forum.forum.dto.UserAdminOrDealerdto;
 import com.dg3.forum.forum.entity.Message;
-import com.dg3.forum.forum.entity.PostThread;
 import com.dg3.forum.forum.entity.Users;
+import com.dg3.forum.forum.repository.UserstRepository;
 import com.dg3.forum.forum.serviceimpl.AdminServiceImpl;
 import com.dg3.forum.forum.serviceimpl.CSVServiceImpl;
 import com.dg3.forum.forum.serviceimpl.JwtServiceImpl;
 import com.dg3.forum.forum.serviceimpl.PostThreadServiceImpl;
 import com.dg3.forum.forum.serviceimpl.UserServiceimpl;
 import com.dg3.forum.forum.util.CSVHelper;
+import com.dg3.forum.forum.util.En_DecodeAnImageToBase64;
 
 @RestController
+
 @RequestMapping("/api/v1/admin")
 public class AdminController {
 	private static final Logger LOGGER = LoggerFactory.getLogger(AdminController.class);
-
+	private static final Path CURRENT_FOLDER = Paths.get(System.getProperty("user.dir"));
 	@Autowired
 	AdminServiceImpl adminServiceImpl;
-
+	@Autowired
+	UserServiceimpl serviceimpl;
+	
 	@Autowired
 	CSVServiceImpl fileService;
 
@@ -87,10 +97,10 @@ public class AdminController {
 		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new Message("not import", message, ""));
 	}
 
-	@GetMapping("/users")
-	public ResponseEntity<List<Users>> getAllTutorials() {
+	@GetMapping("/getAllUsers")
+	public ResponseEntity<List<Users>> getAllUsers() {
 		try {
-			List<Users> users = fileService.getAllUsers();
+			List<Users> users = serviceimpl.listAll();
 
 			if (users.isEmpty()) {
 				return new ResponseEntity<>(HttpStatus.NO_CONTENT);
@@ -234,6 +244,9 @@ public class AdminController {
 		}
 	
 	
+
+	
+	
 	// export error validation
 	@ResponseStatus(HttpStatus.BAD_REQUEST)
 	@ExceptionHandler(MethodArgumentNotValidException.class)
@@ -246,4 +259,5 @@ public class AdminController {
 		});
 		return errors;
 	}
+	
 }
