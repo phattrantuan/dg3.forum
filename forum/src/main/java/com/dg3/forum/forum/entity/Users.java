@@ -9,11 +9,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import javax.validation.constraints.NotBlank;
 
-import com.dg3.forum.forum.customannotation.Email;
-import com.dg3.forum.forum.customannotation.PasswordMatch;
-import com.dg3.forum.forum.dto.UserCreateDTO;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
@@ -22,6 +18,7 @@ import com.dg3.forum.forum.customannotation.PasswordMatch;
 import com.dg3.forum.forum.customannotation.Phone;
 import com.dg3.forum.forum.dto.EditUserdto;
 import com.dg3.forum.forum.dto.UserAdminOrDealerdto;
+import com.dg3.forum.forum.dto.UserCreateDTO;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
@@ -111,7 +108,7 @@ public class Users {
 		this.date_of_birth = userCreateDTO.getDate_of_birth();
 		this.description = userCreateDTO.getDescription();
 		}
-	}
+	
 
 	// mapping EditUserdto to Users
 	public Users(EditUserdto editUserdto) {
@@ -126,4 +123,5 @@ public class Users {
 
 	}
 
+}
 
