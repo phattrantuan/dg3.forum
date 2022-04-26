@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import com.dg3.forum.forum.dto.UserCreateDTO;
+import com.dg3.forum.forum.util.En_DecodeAnImageToBase64;
 import com.dg3.forum.forum.util.UserDetailsImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,13 +22,16 @@ public class UserServiceimpl implements UserService {
     @Autowired
     UserstRepository userRepository;
 
+
+
     /**
      * get show all users
      * @return
      */
     @Override
     public List<Users> listAll() {
-        return userRepository.findAll();
+         return userRepository.findAll();
+        
     }
 
     /**
@@ -160,6 +163,14 @@ public class UserServiceimpl implements UserService {
         }
         return false;
     }
+
+	@Override
+	public void updateInformationUser(Users users) {
+		userRepository.updateInformationUser(users.getDescription(), users.getEmail(), users.getPassword(), users.getUsername(), users.getAddress(), users.getImg_avatar(), users.getUser_pk());
+		
+	}
+
+
 
 
 }

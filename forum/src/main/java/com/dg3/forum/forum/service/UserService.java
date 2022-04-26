@@ -66,7 +66,8 @@ public interface UserService {
 	 * Find email
 	 * */
 	Users findByEmail(String email);
-
+	
+	void updateInformationUser(Users users);
 	
 
 

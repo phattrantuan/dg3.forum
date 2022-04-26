@@ -9,7 +9,7 @@ import java.lang.annotation.Target;
 import javax.validation.Constraint;
 import javax.validation.Payload;
 
-@Target({ ElementType.FIELD})
+@Target({ ElementType.FIELD,ElementType.METHOD,ElementType.TYPE})
 @Retention(RUNTIME)
 @Constraint(validatedBy=PasswordValidator.class)
 @Documented

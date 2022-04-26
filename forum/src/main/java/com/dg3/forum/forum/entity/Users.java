@@ -20,6 +20,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import com.dg3.forum.forum.customannotation.Email;
 import com.dg3.forum.forum.customannotation.PasswordMatch;
 import com.dg3.forum.forum.customannotation.Phone;
+import com.dg3.forum.forum.dto.EditUserdto;
 import com.dg3.forum.forum.dto.UserAdminOrDealerdto;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -57,9 +58,10 @@ public class Users {
 	private Date created_date;
 	private Date expire;
 	private boolean enable_users;
+
 	public Users(String email, String password, String username, String role, String phone_number, String address,
-				 Date date_of_birth, boolean ban_account, String img_avatar, String description, Date created_date,
-				 Date expire, boolean enable_users) {
+			Date date_of_birth, boolean ban_account, String img_avatar, String description, Date created_date,
+			Date expire, boolean enable_users) {
 		super();
 		this.email = email;
 		this.password = password;
@@ -75,12 +77,14 @@ public class Users {
 		this.expire = expire;
 		this.enable_users = enable_users;
 	}
+
 	public List<GrantedAuthority> getAuthorities() {
 		List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
 		authorities.add(new SimpleGrantedAuthority(role));
 		return authorities;
 	}
 
+	// mapping UserAdminOrDealerdto to Users
 	public Users(UserAdminOrDealerdto userAdminOrDealerdto) {
 		this.email = userAdminOrDealerdto.getEmail();
 		this.password = userAdminOrDealerdto.getPassword();
@@ -109,21 +113,17 @@ public class Users {
 		}
 	}
 
+	// mapping EditUserdto to Users
+	public Users(EditUserdto editUserdto) {
+		this.user_pk = editUserdto.getUser_pk();
+		this.password = editUserdto.getPassword();
+		this.username = editUserdto.getUsername();
 
+		this.address = editUserdto.getAddress();
+		this.date_of_birth = editUserdto.getDate_of_birth();
+		this.img_avatar = editUserdto.getImg_avatar();
+		this.description = editUserdto.getDescription();
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+	}
 
 

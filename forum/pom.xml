@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0"
-		 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<groupId>org.springframework.boot</groupId>
@@ -60,7 +60,7 @@
 			<groupId>org.springframework.session</groupId>
 			<artifactId>spring-session-core</artifactId>
 		</dependency>
-		<!-- <dependency> <groupId>org.thymeleaf.extras</groupId> <artifactId>thymeleaf-extras-springsecurity5</artifactId>
+		<!-- <dependency> <groupId>org.thymeleaf.extras</groupId> <artifactId>thymeleaf-extras-springsecurity5</artifactId> 
 			</dependency> -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -73,7 +73,11 @@
 			<artifactId>h2</artifactId>
 			<scope>runtime</scope>
 		</dependency>
-
+		<dependency>
+			<groupId>org.postgresql</groupId>
+			<artifactId>postgresql</artifactId>
+			<scope>runtime</scope>
+		</dependency>
 		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
@@ -89,7 +93,7 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
-		<!-- <dependency> <groupId>org.springframework.security</groupId> <artifactId>spring-security-test</artifactId>
+		<!-- <dependency> <groupId>org.springframework.security</groupId> <artifactId>spring-security-test</artifactId> 
 			<scope>test</scope> </dependency> -->
 		<!-- https://mvnrepository.com/artifact/org.modelmapper/modelmapper -->
 		<!-- https://mvnrepository.com/artifact/org.mapstruct/mapstruct -->
@@ -145,7 +149,7 @@
 			<artifactId>commons-csv</artifactId>
 			<version>1.8</version>
 		</dependency>
-		
+
 		<!-- Custom annotation to Notification -->
 		<!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-validation -->
 		<dependency>
@@ -153,23 +157,21 @@
 			<artifactId>spring-boot-starter-validation</artifactId>
 			<version>2.6.3</version>
 		</dependency>
-		<!--  -->
-
-		<!--flyWay-->
+		<!--// Custom annotation to Notification -->
+		<!-- BASE64 --><!-- -->
+		<!-- https://mvnrepository.com/artifact/commons-codec/commons-codec -->
 		<dependency>
-			<groupId>org.flywaydb</groupId>
-			<artifactId>flyway-core</artifactId>
-			<version>8.5.7</version>
+			<groupId>commons-codec</groupId>
+			<artifactId>commons-codec</artifactId>
+			<version>1.4</version>
 		</dependency>
-
+		<!-- export error when validate on @param -->
 		<dependency>
-			<groupId>org.postgresql</groupId>
-			<artifactId>postgresql</artifactId>
-			<scope>runtime</scope>
+			<groupId>io.github.wimdeblauwe</groupId>
+			<artifactId>error-handling-spring-boot-starter</artifactId>
+			<version>2.1.0</version>
 		</dependency>
-
-		
-		
+		<!--// export error when validate on @param -->
 	</dependencies>
 
 	<build>
@@ -194,19 +196,6 @@
 					<target>17</target>
 				</configuration>
 			</plugin>
-
-<!--flyWay-->
-			<plugin>
-				<groupId>org.flywaydb</groupId>
-				<artifactId>flyway-maven-plugin</artifactId>
-				<configuration>
-					<driver>org.hibernate.dialect.PostgreSQL81Dialect</driver>
-					<url>jdbc:postgresql://localhost:5432/forum?currentSchema=public</url>
-					<user>postgres</user>
-					<password>hung</password>
-				</configuration>
-			</plugin>
-
 		</plugins>
 	</build>
 
