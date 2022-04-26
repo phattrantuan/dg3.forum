@@ -16,10 +16,12 @@ import javax.validation.Valid;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.Pattern;
 
+import com.dg3.forum.forum.dto.UserCreateDTO;
 import com.dg3.forum.forum.entity.Users;
 import com.dg3.forum.forum.service.JwtService;
 import com.dg3.forum.forum.service.UserService;
 import com.dg3.forum.forum.serviceimpl.UserServiceimpl;
+import com.dg3.forum.forum.util.DateCurrent;
 import com.dg3.forum.forum.util.En_DecodeAnImageToBase64;
 import com.dg3.forum.forum.util.GetNameExtensionsForbase64;
 
@@ -261,6 +263,38 @@ public class UserController {
 			}
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new Message("Faild!", "not find user!", ""));
 		}
+	}
+
+	/**
+	 * insertUser
+	 * @param userCreateDTO
+	 * @return
+	 */
+	@PostMapping("/insertUser")
+	ResponseEntity<Message> insertUserdto(@RequestBody @Valid UserCreateDTO userCreateDTO) {
+// khởi tạo user, truyền giá trị mặc định cho các trường trong class user, khi lớp dto không khai báo nó.
+		Users newusers = new Users(userCreateDTO);
+		newusers.setRole("ROLE_USER");
+		newusers.setBan_account(false);
+		newusers.setImg_avatar("");
+		newusers.setCreated_date(DateCurrent.getDateCurrent());
+		newusers.getExpire();
+		newusers.setEnable_users(false);
+		//2 products must not have the same phone number and email !
+		List<Users> foundPhoneNumber = service.checkPhone_number(userCreateDTO.getPhone_number().trim());
+		List<Users> foundEmail = service.checkEmail(userCreateDTO.getEmail().trim());
+		if (foundEmail.size() > 0) {
+			return ResponseEntity.status(HttpStatus.NOT_IMPLEMENTED).body(
+					new Message("Thất bại", "Email này đã tồn tại!", "")
+			);
+		}
+		if (foundPhoneNumber.size() > 0) {
+			return ResponseEntity.status(HttpStatus.NOT_IMPLEMENTED).body(
+					new Message("Thất bại", "Số điện thoại đã tồn tại!", "")
+			);
+		}
+		return ResponseEntity.status(HttpStatus.OK).body(
+				new Message("Thành công", "Thêm người dùng thành công!",service.save(newusers)));
 	}
 
 	/**
