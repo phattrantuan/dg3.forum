@@ -1,5 +1,6 @@
 package com.dg3.forum.forum.serviceimpl;
 
+import com.dg3.forum.forum.dto.CommentImagedto;
 import com.dg3.forum.forum.entity.Image;
 import com.dg3.forum.forum.repository.ImageRepository;
 import com.dg3.forum.forum.service.ImageService;
@@ -35,4 +36,25 @@ public class ImageServiceImpl implements ImageService {
     public List<Image> listAllImagePosts(Long thread_pk) {
         return imageRepository.findByThread_pk(thread_pk);
     }
+
+	@Override
+	public List<Image> listAllImageComment() {
+		
+		return imageRepository.ListImageComment();
+	}
+
+	@Override
+	public void deleteImageComment(Long image_pk) {
+		imageRepository.deleteImageComment(image_pk);
+		
+	}
+	/**
+	 * check exist of image
+	 * @param image_pk
+	 * @return true or false
+	 */
+	@Override
+	public boolean existById(Long image_pk) {
+		return imageRepository.existsById(image_pk);
+	}
 }

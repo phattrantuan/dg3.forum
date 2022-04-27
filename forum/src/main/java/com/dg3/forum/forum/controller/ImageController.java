@@ -1,5 +1,6 @@
 package com.dg3.forum.forum.controller;
 
+import com.dg3.forum.forum.dto.CommentImagedto;
 import com.dg3.forum.forum.entity.Image;
 import com.dg3.forum.forum.entity.Message;
 import com.dg3.forum.forum.service.ImageService;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -79,4 +81,37 @@ public class ImageController {
                         new Message("OK", "List information image successfully", listImagePosts)
                 );
     }
+    
+    
+    /**
+     * get all image comment
+     * @return
+     */
+    @GetMapping("/all/imagecomment")
+    public ResponseEntity<Message> listAllImageComment(){
+        List<Image> listImageComment = imageService.listAllImageComment();
+        List<CommentImagedto> commentImagedtos = new ArrayList<CommentImagedto>();
+        for(Image image : listImageComment)
+        {
+        	commentImagedtos.add(new CommentImagedto(image));
+        }
+        return listImageComment.isEmpty() ?
+                ResponseEntity.status(HttpStatus.NOT_FOUND).body(
+                        new Message("Failed", "Can't find list information image comment", "")
+                ) :
+                ResponseEntity.status(HttpStatus.OK).body(
+                        new Message("OK", "List information image comment successfully", commentImagedtos)
+                );
+    }
+    @DeleteMapping("/{image_pk}")
+  //delete account users
+  	ResponseEntity<Message> deleteImageComment(@PathVariable Long image_pk) {
+  		if (imageService.existById(image_pk)) {
+  			imageService.deleteImageComment(image_pk);
+  		
+  			return ResponseEntity.status(HttpStatus.OK).body(new Message("success!", "deleted",""));
+  		}
+  		return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new Message("Faild!", "not find image !", ""));
+  	}
+	
 }
