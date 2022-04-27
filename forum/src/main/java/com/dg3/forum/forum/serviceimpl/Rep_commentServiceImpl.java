@@ -1,12 +1,13 @@
 package com.dg3.forum.forum.serviceimpl;
 
-import com.dg3.forum.forum.entity.RepComment;
-import com.dg3.forum.forum.repository.Rep_commentRepository;
-import com.dg3.forum.forum.service.Rep_commentService;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
+import com.dg3.forum.forum.entity.RepComment;
+import com.dg3.forum.forum.repository.Rep_commentRepository;
+import com.dg3.forum.forum.service.Rep_commentService;
 
 @Service
 public class Rep_commentServiceImpl implements Rep_commentService {

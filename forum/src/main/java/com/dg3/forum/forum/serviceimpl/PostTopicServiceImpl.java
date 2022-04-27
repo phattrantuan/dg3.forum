@@ -1,14 +1,14 @@
 package com.dg3.forum.forum.serviceimpl;
 
-import com.dg3.forum.forum.entity.PostTopic;
-import com.dg3.forum.forum.entity.Users;
-import com.dg3.forum.forum.repository.PostTopicReposity;
-import com.dg3.forum.forum.service.PostTopicService;
+import java.util.List;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.Optional;
+import com.dg3.forum.forum.entity.PostTopic;
+import com.dg3.forum.forum.repository.PostTopicReposity;
+import com.dg3.forum.forum.service.PostTopicService;
 
 @Service
 public class PostTopicServiceImpl implements PostTopicService {

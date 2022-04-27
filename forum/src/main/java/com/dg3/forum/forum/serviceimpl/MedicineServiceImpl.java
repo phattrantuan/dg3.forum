@@ -1,13 +1,13 @@
 package com.dg3.forum.forum.serviceimpl;
 
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import com.dg3.forum.forum.entity.Medicine;
 import com.dg3.forum.forum.repository.MedicineRepository;
 import com.dg3.forum.forum.service.MedicineService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.repository.query.Param;
-import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 @Service
 public class MedicineServiceImpl implements MedicineService {

@@ -1,15 +1,11 @@
 package com.dg3.forum.forum.serviceimpl;
 
-import com.dg3.forum.forum.entity.Like;
-import com.dg3.forum.forum.entity.Users;
-import com.dg3.forum.forum.repository.LikeRepository;
-import com.dg3.forum.forum.repository.UserstRepository;
-import com.dg3.forum.forum.service.LikeService;
-import com.dg3.forum.forum.util.UserDetailsImpl;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
+
+import com.dg3.forum.forum.entity.Like;
+import com.dg3.forum.forum.repository.LikeRepository;
+import com.dg3.forum.forum.service.LikeService;
 
 @Service
 public class LikeServiceImpl implements LikeService {

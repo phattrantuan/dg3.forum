@@ -21,7 +21,7 @@ public interface ImageRepository extends JpaRepository<Image, Long> {
     List<Image> findByThread_pk(Long thread_pk);
     
  /**
-  * 
+  *  
   * @return list image for comment
   */
     @Query(value = "select * from image where enable_image = true and image_thread is null", nativeQuery = true)

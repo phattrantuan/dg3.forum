@@ -17,17 +17,12 @@ import com.dg3.forum.forum.util.DateCurrent;
 
 @Repository
 public interface AdminRepository extends JpaRepository<Users, Long> {
-//	@Modifying
-//	@Query(
-//	  value = 
-//	    "insert into Users (name, age, email, status) values (:name, :age, :email, :status)",
-//	  nativeQuery = true)
-//	void insertUser(@Param("name") String name, @Param("age") Integer age, 
-//	  @Param("status") Integer status, @Param("email") String email);
 	/**
-	 * insert information user through dto Request is String title_thread, String
+	 * Insert User have role is Dealer or Manager
+	 * @param insert information user through dto Request is String title_thread, String
 	 * content_of_thread, Long post_topic_pk, boolean enable_post_thread, Long
-	 * thread_pk Respone is Posts update
+	 * thread_pk 
+	 * @return Information inserted
 	 */
 	@Modifying
 	@Transactional
@@ -39,8 +34,11 @@ public interface AdminRepository extends JpaRepository<Users, Long> {
 			@Param("img_avatar") String img_avatar, @Param("description") String description,
 			@Param("expire") Date expire);
 
+
 	/**
-	 * block users Request is Long user_pk
+	 * block users 
+	 * @param user_pk
+	 * @return account user have field enable_users= false
 	 */
 	@Modifying
 	@Transactional
@@ -51,7 +49,7 @@ public interface AdminRepository extends JpaRepository<Users, Long> {
 	 * delete account
 	 * 
 	 * @param user_pk
-	 * @return
+	 * @return Response account deleted
 	 */
 	@Modifying
 	@Transactional
@@ -60,8 +58,8 @@ public interface AdminRepository extends JpaRepository<Users, Long> {
 
 	/**
 	 * disable account when expire contract
-	 * 
-	 * @return
+	 * @param 
+	 * @return enable_user=false
 	 */
 	@Modifying
 	@Transactional
@@ -70,7 +68,7 @@ public interface AdminRepository extends JpaRepository<Users, Long> {
 
 	/**
 	 * get all account expire today
-	 * @return
+	 * @return list User expire contract
 	 */
 	@Query(value = "select * from users  where expire = CURRENT_DATE", nativeQuery = true)
 	List<Users> getAllAccoutExpiretoday();

@@ -1,20 +1,16 @@
 package com.dg3.forum.forum.serviceimpl;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import com.dg3.forum.forum.util.En_DecodeAnImageToBase64;
-import com.dg3.forum.forum.util.UserDetailsImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.thymeleaf.util.StringUtils;
 
 import com.dg3.forum.forum.entity.Users;
-import com.dg3.forum.forum.repository.AdminRepository;
 import com.dg3.forum.forum.repository.UserstRepository;
-
 import com.dg3.forum.forum.service.UserService;
+import com.dg3.forum.forum.util.UserDetailsImpl;
 
 @Service
 public class UserServiceimpl implements UserService {
@@ -26,7 +22,7 @@ public class UserServiceimpl implements UserService {
 
     /**
      * get show all users
-     * @return
+     * @return List Users
      */
     @Override
     public List<Users> listAll() {
@@ -37,84 +33,96 @@ public class UserServiceimpl implements UserService {
     /**
      * get all account users request id response whole information of 1 account
      * @param id
-     * @return
+     * @return Users have id enter
      */
     @Override
     public Users getUsers(Long id) {
         return userRepository.getById(id);
     }
-
+	/**
+	 * check exist account  user
+	 * @param id
+	 * @return true or false
+	 */
     @Override
     public boolean existById(Long id) {
         return userRepository.existsById(id);
 
     }
 
-    /**
-     * find user by id
-     * @param user_pk
-     * @return
-     */
+	/**
+	 * Find by id
+	 * @param user_pk
+	 * @return object Users
+	 */
     @Override
     public Optional<Users> findById(Long user_pk) {
         return userRepository.findById(user_pk);
     }
 
 
-    /**
-     * find user by Username
-     * @param username
-     * @return
-     */
+	/**
+	 * Find by name user
+	 * @param username
+	 * @return List User have User name enter
+	 */
     public List<Users> findByUsername(String username) {
         return userRepository.findByUsername(username);
     }
 
-    /**
-     * save
-     * @param users
-     * @return
-     */
+	/**
+	 * insert Users
+	 * @param users
+	 * @return information user inserted
+	 */
     @Override
     public Users save(Users users) {
         return userRepository.save(users);
     }
 
-    /**
-     * Check number phone
-     * @param phone_number
-     * @return
-     */
+	/**
+	 * Check number phone
+	 * @param phone_number
+	 * @return List User have number phone  enter
+	 */
     @Override
     public List<Users> checkPhone_number(String phone_number) {
         return userRepository.existByPhone_number(phone_number);
     }
 
-    /**
-     * check email
-     * @param email
-     * @return
-     */
+	/**
+	 * check email 
+	 * @param email
+	 * @return List User have email enter
+	 */
     @Override
     public List<Users> checkEmail(String email) {
         return userRepository.existByEmail(email);
     }
-
+	/**
+	 * Find email
+	 * @param email
+	 * @return Users have email enter
+	 */
     @Override
     public Users findByEmail(String email) {
         return userRepository.findByEmail(email);
     }
 
-    /**
-     * delete user
-     * @param id
-     */
+	/**
+	 * delete user
+	 * @param id
+	 * @return delete user
+	 */
     @Override
     public void deleteAccount(Long id) {
         userRepository.deleteById(id);
 
     }
-
+	/**
+	 * get show all users
+	 * @return list all users
+	 */
     public List<Users> findAll() {
         return userRepository.findAll();
     }
@@ -142,6 +150,11 @@ public class UserServiceimpl implements UserService {
 //		listUser.removeIf(user -> user.getId() == id);
 //	}
 
+    /**
+     * 
+     * @param username
+     * @return
+     */
 	public Users loadUserByUsername(String username) {
 
 		for (Users user : userRepository.findAll()) {
@@ -152,7 +165,11 @@ public class UserServiceimpl implements UserService {
 		}
 		return null;
 	}
-
+/**
+ * check account when login
+ * @param user
+ * @return true or false
+ */
     public boolean checkLogin(Users user) {
 
         for (Users userExist : userRepository.findAll()) {
@@ -163,7 +180,11 @@ public class UserServiceimpl implements UserService {
         }
         return false;
     }
-
+	/**
+	 * update Information User 
+	 * @param users
+	 * @return Information User updated
+	 */
 	@Override
 	public void updateInformationUser(Users users) {
 		userRepository.updateInformationUser(users.getDescription(), users.getEmail(), users.getPassword(), users.getUsername(), users.getAddress(), users.getImg_avatar(), users.getUser_pk());

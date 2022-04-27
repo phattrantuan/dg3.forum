@@ -1,18 +1,14 @@
 package com.dg3.forum.forum.serviceimpl;
 
-import com.dg3.forum.forum.entity.PostThread;
-import com.dg3.forum.forum.entity.Users;
-import com.dg3.forum.forum.repository.PostThreadRepository;
-import com.dg3.forum.forum.repository.UserstRepository;
-import com.dg3.forum.forum.service.PostThreadService;
-
-import net.bytebuddy.asm.Advice.Return;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.Objects;
+import com.dg3.forum.forum.entity.PostThread;
+import com.dg3.forum.forum.repository.PostThreadRepository;
+import com.dg3.forum.forum.repository.UserstRepository;
+import com.dg3.forum.forum.service.PostThreadService;
 
 @Service
 public class PostThreadServiceImpl implements PostThreadService {

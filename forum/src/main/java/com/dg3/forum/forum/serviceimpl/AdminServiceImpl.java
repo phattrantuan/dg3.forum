@@ -17,70 +17,97 @@ public class AdminServiceImpl implements AdminService {
 	UserstRepository userstRepository;
 	@Autowired
 	AdminRepository adminRepository;
-	/*
-	 * Insert User with role is Manager or Dealer
-	 */
 
+	/**
+	 * Insert User with role is Manager or Dealer(not through dto)
+	 * 
+	 * @param Users
+	 * @return true or false
+	 */
 	public boolean insertUser(Users users) {
 		if (Objects.isNull(userstRepository.save(users))) {
 			return false;
-		};
+		}
+		;
 		return true;
 	}
-	/*
+
+	
+	/**
 	 * find id Users exist
+	 * @param id
+	 * @return true or false
 	 */
 	@Override
 	public boolean existById(Long id) {
 		return userstRepository.existsById(id);
 	}
-	
-	/*
-	 * delete user when expire contract  
-	 */
-	
-	@Override
-	public boolean deleteDealer(Long id) {
-		// TODO Auto-generated method stub
-		return false;
-	}
+
+
 	/*
 	 * insert account have role User or manager
 	 */
+	/**
+	 * Insert User with role is Manager or Dealer( through dto)
+	 * 
+	 * @param Users
+	 * @return 0 or 1
+	 */
 	@Override
 	public int insertUserManagerOrDealer(Users users) {
-		if (Objects.isNull(adminRepository.insertUserManagerOrDealer(users.getEmail(), users.getPassword(), users.getUsername(),users.getRole(), users.getPhone_number(), users.getAddress(), users.getDate_of_birth(), users.getImg_avatar(), users.getDescription(), users.getExpire()))) {
+		if (Objects.isNull(adminRepository.insertUserManagerOrDealer(users.getEmail(), users.getPassword(),
+				users.getUsername(), users.getRole(), users.getPhone_number(), users.getAddress(),
+				users.getDate_of_birth(), users.getImg_avatar(), users.getDescription(), users.getExpire()))) {
 			return 0;
-		};
+		}
+		;
 		return 1;
 	}
-	/*
-	 * block account 
+
+	/**
+	 * block account
+	 * 
+	 * @param User_pk
+	 * @return account blocked
 	 */
 	@Override
 	public void blockAccount(Long User_pk) {
 		adminRepository.blockUser(User_pk);
-		
+
 	}
+	/**
+	 * delete account
+	 * 
+	 * @param User_pk
+	 * @return account deleted
+	 */
 	@Override
 	public void deleteAccount(Long id) {
 		adminRepository.deleteAccount(id);
-		
+
 	}
-	/*
+
+	/**
 	 * disable account when expire contract
+	 * 
+	 * @param 
+	 * @return enable_users= false
 	 */
 	@Override
 	public void disableAccountExpireContract() {
-	
-		 adminRepository.disableAccountExpireContract();
-		
+
+		adminRepository.disableAccountExpireContract();
+
 	}
+	/**
+	 * get All Account Expire today
+	 * 
+	 * @param 
+	 * @return list account Expire today
+	 */
 	@Override
 	public List<Users> getAllAccoutExpiretoday() {
 		return adminRepository.getAllAccoutExpiretoday();
 	}
-	
 
-	
 }

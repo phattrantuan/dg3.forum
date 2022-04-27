@@ -11,8 +11,7 @@ public interface AdminService {
 	// check exist id of users
 	public boolean existById(Long id);
 
-	// delete dealer when expire contract
-	public boolean deleteDealer(Long id);
+
 
 	// insert a User have role Manager/Dealer through dto
 	public int insertUserManagerOrDealer(Users users);
