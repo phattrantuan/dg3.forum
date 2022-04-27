@@ -13,7 +13,11 @@ import org.apache.commons.io.FilenameUtils;
 
 
 public class En_DecodeAnImageToBase64 {
-	
+	/**
+	 * Convert image to base 64
+	 * @param imagePath
+	 * @return string
+	 */
 	public static String encoder(String imagePath) {
 	    String base64Image = "";
 	    File file = new File(imagePath);

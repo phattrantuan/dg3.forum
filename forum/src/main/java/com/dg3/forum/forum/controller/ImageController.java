@@ -43,12 +43,12 @@ public class ImageController {
        image_Posts.setImage_thread(nameExtension + imageAsString);
         image_Posts.setThread_pk(thread_pk);
 
-//       return ResponseEntity.status(HttpStatus.OK).body(
-//               new Message("OK", "Upload file image successfully", imageService.createImagePosts(image_Posts))
-//       );
-        return ResponseEntity.status(HttpStatus.OK).body(
-                new Message("OK", "Upload file image successfully", nameExtension + imageAsString)
-        );
+       return ResponseEntity.status(HttpStatus.OK).body(
+               new Message("OK", "Upload file image successfully", imageService.createImagePosts(image_Posts))
+       );
+//        return ResponseEntity.status(HttpStatus.OK).body(
+//                new Message("OK", "Upload file image successfully", nameExtension + imageAsString)
+//        );
     }
 
     @PostMapping("/create/comment/{comment_pk}")
@@ -59,9 +59,15 @@ public class ImageController {
         //base64 encoded string, and this string store in a
         //varchar column of database.
         String imageAsString= Base64.encodeBase64String(imageArr);
+        /*
+         * Get file extension by image
+         * */
+         String nameFile = imageFile.getOriginalFilename();
 
+        String nameExtension =  GetNameExtensionsForbase64.getPartExtensions(nameFile);
+        
         Image image_Comment = new Image();
-        image_Comment.setImage_comment(imageAsString);
+        image_Comment.setImage_comment(nameExtension + imageAsString);
         image_Comment.setComment_pk(comment_pk);
 
         return ResponseEntity.status(HttpStatus.OK).body(
@@ -103,8 +109,9 @@ public class ImageController {
                         new Message("OK", "List information image comment successfully", commentImagedtos)
                 );
     }
+    
+    //Delete Image Comment
     @DeleteMapping("/{image_pk}")
-  //delete account users
   	ResponseEntity<Message> deleteImageComment(@PathVariable Long image_pk) {
   		if (imageService.existById(image_pk)) {
   			imageService.deleteImageComment(image_pk);

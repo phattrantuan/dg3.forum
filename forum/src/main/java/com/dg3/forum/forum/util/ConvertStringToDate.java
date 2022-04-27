@@ -6,6 +6,12 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class ConvertStringToDate {
+	
+	/**
+	 * Convert String to Date
+	 * @param startDate
+	 * @return date
+	 */
 	static Date convertStringtoDate(String startDate )  {
 		
 		DateFormat df = new SimpleDateFormat("yyyy/MM/dd");
