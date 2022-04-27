@@ -36,6 +36,7 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.dg3.forum.forum.config.WebSecurityConfig;
 import com.dg3.forum.forum.customannotation.PasswordMatch;
 import com.dg3.forum.forum.dto.EditUserdto;
 import com.dg3.forum.forum.dto.UserAndToken;
@@ -54,6 +55,9 @@ public class UserController {
 	private UserServiceimpl userServiceimpl;
 	@Autowired
 	private JwtService jwtService;
+	
+	@Autowired
+	private WebSecurityConfig webSecurityConfig;
 
 	/**
 	 * Show all user
@@ -230,7 +234,7 @@ public class UserController {
 			editUserdto.setAddress(address);
 			editUserdto.setDate_of_birth(date_of_birth);
 			editUserdto.setDescription(description);
-			editUserdto.setPassword(password);
+			editUserdto.setPassword(webSecurityConfig.passwordEncoder().encode(password));
 			editUserdto.setUser_pk(user_pk);
 			editUserdto.setUsername(username);
 			// check id user have exist
