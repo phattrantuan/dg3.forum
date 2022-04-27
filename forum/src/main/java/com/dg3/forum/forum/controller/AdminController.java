@@ -40,6 +40,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import com.dg3.forum.forum.config.WebSecurityConfig;
 import com.dg3.forum.forum.dto.UserAdminOrDealerdto;
 import com.dg3.forum.forum.entity.Message;
 import com.dg3.forum.forum.entity.Users;
@@ -72,7 +73,9 @@ public class AdminController {
 	UserServiceimpl userServiceimpl;
 	@Autowired
 	PostThreadServiceImpl postThreadServiceImpl;
-
+	
+	@Autowired 
+	WebSecurityConfig webSecurityConfig;
 	@PostMapping("/csv/upload")
 	public ResponseEntity<Message> uploadFile(@RequestParam("file") MultipartFile file) {
 		String message = "";
@@ -157,6 +160,7 @@ public class AdminController {
 					.body(new Message("Thất bại", "Số điện thoại đã tồn tại!", ""));
 		}
 
+		userAdminOrDealerdto.setPassword(webSecurityConfig.passwordEncoder().encode(userAdminOrDealerdto.getPassword()));
 		int check = adminServiceImpl.insertUserManagerOrDealer(new Users(userAdminOrDealerdto));
 		return check != 0
 				? ResponseEntity.status(HttpStatus.CREATED)
