@@ -49,22 +49,29 @@ public interface AdminRepository extends JpaRepository<Users, Long> {
 
 	/**
 	 * delete account
+	 * 
 	 * @param user_pk
-	 *@return 
+	 * @return
 	 */
-	 	@Modifying
-	    @Transactional
-	    @Query(value = "delete from users where user_pk = :user_pk", nativeQuery = true)
-	    void deleteAccount(@Param("user_pk") Long user_pk);
-	 	/**
-	 	 * disable account when expire contract
-	 	 * @return
-	 	 */
-		@Modifying
-	    @Transactional
-	    @Query(value = "update users set enable_users = false where expire = CURRENT_DATE", nativeQuery = true)
-	    void  disableAccountExpireContract();
-		
-		  @Query(value = "select * from users  where expire = CURRENT_DATE", nativeQuery = true)
-		  List<Users> getAllAccoutExpiretoday();
+	@Modifying
+	@Transactional
+	@Query(value = "delete from users where user_pk = :user_pk", nativeQuery = true)
+	void deleteAccount(@Param("user_pk") Long user_pk);
+
+	/**
+	 * disable account when expire contract
+	 * 
+	 * @return
+	 */
+	@Modifying
+	@Transactional
+	@Query(value = "update users set enable_users = false where expire = CURRENT_DATE", nativeQuery = true)
+	void disableAccountExpireContract();
+
+	/**
+	 * get all account expire today
+	 * @return
+	 */
+	@Query(value = "select * from users  where expire = CURRENT_DATE", nativeQuery = true)
+	List<Users> getAllAccoutExpiretoday();
 }
