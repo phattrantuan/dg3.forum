@@ -1,8 +1,8 @@
 package com.dg3.forum.forum.service;
 
-import com.dg3.forum.forum.entity.Comment;
-
 import java.util.List;
+
+import com.dg3.forum.forum.entity.Comment;
 
 public interface CommentService {
     /*
@@ -29,5 +29,12 @@ public interface CommentService {
     * Delete comment by posts
     * */
     void deleteComment(Long comment_pk);
+    
+//    /**
+//     * Get all comments according to thread_pk
+//     * @param thread_pk
+//     * @return list all comments according to thread_pk
+//     */
+//    List<Comment> showAllComments_Posts( Long thread_pk);
 
 }
