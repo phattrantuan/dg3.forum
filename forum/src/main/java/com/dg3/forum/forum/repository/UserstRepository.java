@@ -1,5 +1,6 @@
 package com.dg3.forum.forum.repository;
 
+import com.dg3.forum.forum.entity.Comment;
 import com.dg3.forum.forum.entity.Users;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
@@ -71,6 +72,17 @@ public interface UserstRepository extends JpaRepository<Users, Long> {
 			,@Param("username") String username
 			,@Param("address") String address
 			,@Param("img_avatar") String img_avatar,@Param("user_pk") Long user_pk);
+	
+/**
+ * Get user name according to id
+ * @param user_pk
+ * @return user name
+ */
+	@Query(value = "SELECT users.username"
+			+ "	FROM users"
+			+ "	WHERE user_pk = :user_pk", nativeQuery = true)
+	String  getUsername(@Param("user_pk") Long user_pk);
+	
 
 		    
 }

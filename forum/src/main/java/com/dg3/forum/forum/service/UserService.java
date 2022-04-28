@@ -5,25 +5,25 @@ import java.util.Optional;
 
 import com.dg3.forum.forum.entity.Users;
 
-
 public interface UserService {
 	/**
 	 * get show all users
+	 * 
 	 * @return list all users
 	 */
 	List<Users> listAll();
 
-	
 	/**
 	 * get only account user depend on id
+	 * 
 	 * @param id
 	 * @return information Users
 	 */
 	Users getUsers(Long id);
 
-
 	/**
-	 * check exist account  user
+	 * check exist account user
+	 * 
 	 * @param id
 	 * @return true or false
 	 */
@@ -31,6 +31,7 @@ public interface UserService {
 
 	/**
 	 * delete user
+	 * 
 	 * @param id
 	 * @return delete user
 	 */
@@ -38,6 +39,7 @@ public interface UserService {
 
 	/**
 	 * Find by id
+	 * 
 	 * @param user_pk
 	 * @return object Users
 	 */
@@ -45,6 +47,7 @@ public interface UserService {
 
 	/**
 	 * Find by name user
+	 * 
 	 * @param username
 	 * @return List User have User name enter
 	 */
@@ -52,6 +55,7 @@ public interface UserService {
 
 	/**
 	 * insert Users
+	 * 
 	 * @param users
 	 * @return information user inserted
 	 */
@@ -60,32 +64,42 @@ public interface UserService {
 //
 	/**
 	 * Check number phone
+	 * 
 	 * @param phone_number
-	 * @return List User have number phone  enter
+	 * @return List User have number phone enter
 	 */
 	List<Users> checkPhone_number(String phone_number);
 
 	/**
-	 * check email 
+	 * check email
+	 * 
 	 * @param email
 	 * @return List User have email enter
 	 */
 	List<Users> checkEmail(String email);
 
-
 	/**
 	 * Find email
+	 * 
 	 * @param email
 	 * @return Users have email enter
 	 */
 	Users findByEmail(String email);
+
 	/**
-	 * update Information User 
+	 * update Information User
+	 * 
 	 * @param users
 	 * @return Information User updated
 	 */
 	void updateInformationUser(Users users);
-	
 
+	
+	/**
+	 * Get user name according to id
+	 * @param user_pk
+	 * @return user name
+	 */
+	String getUsersname(Long user_pk);
 
 }

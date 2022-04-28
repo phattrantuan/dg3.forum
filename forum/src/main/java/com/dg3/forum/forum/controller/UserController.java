@@ -13,17 +13,7 @@ import java.util.Optional;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
-import javax.validation.constraints.Min;
 import javax.validation.constraints.Pattern;
-
-import com.dg3.forum.forum.dto.UserCreateDTO;
-import com.dg3.forum.forum.entity.Users;
-import com.dg3.forum.forum.service.JwtService;
-import com.dg3.forum.forum.service.UserService;
-import com.dg3.forum.forum.serviceimpl.UserServiceimpl;
-import com.dg3.forum.forum.util.DateCurrent;
-import com.dg3.forum.forum.util.En_DecodeAnImageToBase64;
-import com.dg3.forum.forum.util.GetNameExtensionsForbase64;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -33,14 +23,31 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.MethodArgumentNotValidException;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.dg3.forum.forum.config.WebSecurityConfig;
-import com.dg3.forum.forum.customannotation.PasswordMatch;
 import com.dg3.forum.forum.dto.EditUserdto;
 import com.dg3.forum.forum.dto.UserAndToken;
+import com.dg3.forum.forum.dto.UserCreateDTO;
 import com.dg3.forum.forum.entity.Message;
+import com.dg3.forum.forum.entity.Users;
+import com.dg3.forum.forum.service.JwtService;
+import com.dg3.forum.forum.service.UserService;
+import com.dg3.forum.forum.serviceimpl.UserServiceimpl;
+import com.dg3.forum.forum.util.DateCurrent;
+import com.dg3.forum.forum.util.En_DecodeAnImageToBase64;
+import com.dg3.forum.forum.util.GetNameExtensionsForbase64;
 
 @RestController
 @Validated

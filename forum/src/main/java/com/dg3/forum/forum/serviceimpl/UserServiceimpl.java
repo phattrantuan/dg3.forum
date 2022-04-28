@@ -190,8 +190,14 @@ public class UserServiceimpl implements UserService {
 		userRepository.updateInformationUser(users.getDescription(), users.getEmail(), users.getPassword(), users.getUsername(), users.getAddress(), users.getImg_avatar(), users.getUser_pk());
 		
 	}
-
-
+	/**
+	 * Get user name according to id
+	 * @param user_pk
+	 * @return user name
+	 */
+	public String getUsersname(Long user_pk) {
+		return userRepository.getUsername(user_pk);
+	}
 
 
 }

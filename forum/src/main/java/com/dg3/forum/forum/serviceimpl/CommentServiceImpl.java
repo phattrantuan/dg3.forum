@@ -39,4 +39,15 @@ public class CommentServiceImpl implements CommentService {
         commentRepository.deleteId_Comment(comment_pk);
     }
 
+    
+//    /**
+//     * Get all comments according to thread_pk
+//     * @param thread_pk
+//     * @return list all comments according to thread_pk
+//     */
+//	@Override
+//	public List<Comment> showAllComments_Posts(Long thread_pk) {
+//		return commentRepository.showAllComments_Posts(thread_pk);
+//	}
+
 }
