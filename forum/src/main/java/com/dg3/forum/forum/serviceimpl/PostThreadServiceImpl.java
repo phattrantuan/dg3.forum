@@ -97,4 +97,10 @@ public class PostThreadServiceImpl implements PostThreadService {
 	 return	postThreadRepository.getAnPostThrest(thread_pk);
 		
 	}
+
+	@Override
+	public List<PostThread> getAllPostThreads() {
+		// TODO Auto-generated method stub
+		return postThreadRepository.findAll();
+	}
 }

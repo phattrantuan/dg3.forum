@@ -10,6 +10,11 @@ public interface PostThreadService {
      * Respone is List of dealer posts
      * */
     List<PostThread> listAllPost_User (Long user_pk);
+    
+    /*
+     * List all post thread
+     */
+    List<PostThread> getAllPostThreads();
 
     /*
      * Save information posts

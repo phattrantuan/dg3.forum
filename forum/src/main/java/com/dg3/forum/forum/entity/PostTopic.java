@@ -3,6 +3,8 @@ package com.dg3.forum.forum.entity;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.ArrayList;
+
 import javax.persistence.*;
 
 @Getter
@@ -14,6 +16,8 @@ public class PostTopic {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long post_topic_pk;
     private String name_topic;
+    
     private boolean enable_post_topic;
+   
 
 }

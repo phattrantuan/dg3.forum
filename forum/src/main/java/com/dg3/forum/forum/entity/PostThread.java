@@ -11,6 +11,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.ArrayList;
 import java.util.Date;
 
 
@@ -32,5 +33,7 @@ public class PostThread {
     private boolean enable_post_thread;
     private boolean approved;
 
+    private int likeCount;
+    private ArrayList<Comment> comments;
     
 }

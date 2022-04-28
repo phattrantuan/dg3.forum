@@ -22,7 +22,7 @@ public class PostTopicController {
      * Show all Topic
      * @return
      */
-    @GetMapping
+    @GetMapping()
     public ResponseEntity<Message> showAllTopic() {
         LOGGER.error("listAllTopic");
         List<PostTopic> postTopics = postTopicService.listAllTopic();
