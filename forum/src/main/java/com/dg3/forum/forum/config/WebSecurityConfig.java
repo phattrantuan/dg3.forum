@@ -60,7 +60,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity httpSecurity) throws Exception {
 		// We don't need CSRF for this example
-		httpSecurity.csrf().disable()
+		/*httpSecurity.csrf().disable()
 				// don't authenticate this particular request
 				.authorizeRequests()
 					.antMatchers("/authenticate", "/signin", "/logout")
@@ -73,7 +73,22 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 				.sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 
 		// Add a filter to validate the tokens with every request
+		httpSecurity.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);*/
+		httpSecurity
+				.cors()
+				.and()
+				.csrf()
+				.disable()
+				.authorizeRequests()
+				.antMatchers("/authenticate","/signin").permitAll() // Cho phép tất cả mọi người truy cập vào 2 địa chỉ này
+				.anyRequest().authenticated() // Tất cả các request khác đều cần phải xác thực mới được truy cập
+				.and().httpBasic();
+		httpSecurity.logout().logoutUrl("/logout");
+
+		httpSecurity.sessionManagement()
+				.sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+
+		// Thêm một lớp Filter kiểm tra jwt
 		httpSecurity.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
 	}
-
 }

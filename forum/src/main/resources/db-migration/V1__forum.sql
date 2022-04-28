@@ -15,15 +15,11 @@ SET check_function_bodies = false;
 SET xmloption = content;
 SET client_min_messages = warning;
 SET row_security = off;
-
 SET default_tablespace = '';
-
 SET default_table_access_method = heap;
-
 --
 -- Name: comment; Type: TABLE; Schema: public; Owner: postgres
 --
-
 CREATE TABLE public.comment (
                                 comment_pk bigint NOT NULL,
                                 content_comment text,
@@ -31,49 +27,34 @@ CREATE TABLE public.comment (
                                 thread_pk bigint,
                                 enable_comment boolean
 );
-
-
 ALTER TABLE public.comment OWNER TO postgres;
-
 --
 -- Name: comment_comment_pk_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
-
 CREATE SEQUENCE public.comment_comment_pk_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
     NO MAXVALUE
     CACHE 1;
-
-
 ALTER TABLE public.comment_comment_pk_seq OWNER TO postgres;
-
 --
 -- Name: comment_comment_pk_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
-
 ALTER SEQUENCE public.comment_comment_pk_seq OWNED BY public.comment.comment_pk;
-
-
 --
 -- Name: hibernate_sequence; Type: SEQUENCE; Schema: public; Owner: postgres
 --
-
 CREATE SEQUENCE public.hibernate_sequence
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
     NO MAXVALUE
     CACHE 1;
-
-
 ALTER TABLE public.hibernate_sequence OWNER TO postgres;
-
 --
 -- Name: image; Type: TABLE; Schema: public; Owner: postgres
 --
-
 CREATE TABLE public.image (
                               image_pk bigint NOT NULL,
                               thread_pk bigint,
@@ -82,35 +63,24 @@ CREATE TABLE public.image (
                               image_comment text,
                               enable_image boolean
 );
-
-
 ALTER TABLE public.image OWNER TO postgres;
-
 --
 -- Name: image_image_pk_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
-
 CREATE SEQUENCE public.image_image_pk_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
     NO MAXVALUE
     CACHE 1;
-
-
 ALTER TABLE public.image_image_pk_seq OWNER TO postgres;
-
 --
 -- Name: image_image_pk_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
-
 ALTER SEQUENCE public.image_image_pk_seq OWNED BY public.image.image_pk;
-
-
 --
 -- Name: likes; Type: TABLE; Schema: public; Owner: postgres
 --
-
 CREATE TABLE public.likes (
                               like_pk bigint NOT NULL,
                               comment_pk bigint,
@@ -118,35 +88,24 @@ CREATE TABLE public.likes (
                               thread_pk bigint,
                               enable_like boolean
 );
-
-
 ALTER TABLE public.likes OWNER TO postgres;
-
 --
 -- Name: likes_like_pk_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
-
 CREATE SEQUENCE public.likes_like_pk_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
     NO MAXVALUE
     CACHE 1;
-
-
 ALTER TABLE public.likes_like_pk_seq OWNER TO postgres;
-
 --
 -- Name: likes_like_pk_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
-
 ALTER SEQUENCE public.likes_like_pk_seq OWNED BY public.likes.like_pk;
-
-
 --
 -- Name: medicine; Type: TABLE; Schema: public; Owner: postgres
 --
-
 CREATE TABLE public.medicine (
                                  dealer_pk bigint,
                                  medicine_pk bigint NOT NULL,
@@ -157,35 +116,24 @@ CREATE TABLE public.medicine (
                                  details_medicine text,
                                  enable_medicine boolean
 );
-
-
 ALTER TABLE public.medicine OWNER TO postgres;
-
 --
 -- Name: medicine_medicine_pk_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
-
 CREATE SEQUENCE public.medicine_medicine_pk_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
     NO MAXVALUE
     CACHE 1;
-
-
 ALTER TABLE public.medicine_medicine_pk_seq OWNER TO postgres;
-
 --
 -- Name: medicine_medicine_pk_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
-
 ALTER SEQUENCE public.medicine_medicine_pk_seq OWNED BY public.medicine.medicine_pk;
-
-
 --
 -- Name: post_thread; Type: TABLE; Schema: public; Owner: postgres
 --
-
 CREATE TABLE public.post_thread (
                                     thread_pk bigint NOT NULL,
                                     title_thread text,
@@ -196,69 +144,47 @@ CREATE TABLE public.post_thread (
                                     enable_post_thread boolean,
                                     approved boolean
 );
-
-
 ALTER TABLE public.post_thread OWNER TO postgres;
-
 --
 -- Name: post_thread_thread_pk_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
-
 CREATE SEQUENCE public.post_thread_thread_pk_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
     NO MAXVALUE
     CACHE 1;
-
-
 ALTER TABLE public.post_thread_thread_pk_seq OWNER TO postgres;
-
 --
 -- Name: post_thread_thread_pk_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
-
 ALTER SEQUENCE public.post_thread_thread_pk_seq OWNED BY public.post_thread.thread_pk;
-
-
 --
 -- Name: post_topic; Type: TABLE; Schema: public; Owner: postgres
 --
-
 CREATE TABLE public.post_topic (
                                    post_topic_pk bigint NOT NULL,
                                    name_topic text,
                                    enable_post_topic boolean
 );
-
-
 ALTER TABLE public.post_topic OWNER TO postgres;
-
 --
 -- Name: post_topic_post_topic_pk_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
-
 CREATE SEQUENCE public.post_topic_post_topic_pk_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
     NO MAXVALUE
     CACHE 1;
-
-
 ALTER TABLE public.post_topic_post_topic_pk_seq OWNER TO postgres;
-
 --
 -- Name: post_topic_post_topic_pk_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
-
 ALTER SEQUENCE public.post_topic_post_topic_pk_seq OWNED BY public.post_topic.post_topic_pk;
-
-
 --
 -- Name: rep_comment; Type: TABLE; Schema: public; Owner: postgres
 --
-
 CREATE TABLE public.rep_comment (
                                     comment_rep_pk bigint NOT NULL,
                                     content_comment_rep text,
@@ -266,7 +192,6 @@ CREATE TABLE public.rep_comment (
                                     comment_pk bigint,
                                     enable_rep_comment boolean
 );
-
 
 ALTER TABLE public.rep_comment OWNER TO postgres;
 
