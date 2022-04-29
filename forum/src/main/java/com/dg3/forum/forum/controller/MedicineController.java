@@ -24,7 +24,7 @@ public class MedicineController {
     @Autowired
     private UserService userService;
 
-    @PostMapping("/create/medicine")
+    @PostMapping("/create")
     public ResponseEntity<Message> createMedicine(@RequestBody Medicine medicine){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
@@ -46,7 +46,7 @@ public class MedicineController {
         }
     }
 
-    @PutMapping("/update/medicine/{medicine_pk}")
+    @PutMapping("/update/{medicine_pk}")
     public ResponseEntity<Message> updateMedicine(@RequestBody Medicine medicine, @PathVariable("medicine_pk") Long medicine_pk){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
@@ -63,7 +63,7 @@ public class MedicineController {
         );
     }
 
-    @DeleteMapping("/delete/medicine/{medicine_pk}")
+    @DeleteMapping("/delete/{medicine_pk}")
     public ResponseEntity<Message> deleteMedicine(@PathVariable("medicine_pk") Long medicine_pk){
         if(medicineService.checkExistByMedicine(medicine_pk) != null){
             medicineService.deleteMedicine(medicine_pk);
