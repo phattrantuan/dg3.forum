@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import javax.validation.constraints.Pattern;
 
+import org.apache.tomcat.util.codec.binary.Base64;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -62,7 +63,7 @@ public class UserController {
 	private UserServiceimpl userServiceimpl;
 	@Autowired
 	private JwtService jwtService;
-	
+
 	@Autowired
 	private WebSecurityConfig webSecurityConfig;
 
@@ -247,25 +248,40 @@ public class UserController {
 			// check id user have exist
 			if (service.existById(user_pk)) {
 
-				// create folder to save image upoad
-				Path staticPath = Paths.get("static");
-				Path imagePath = Paths.get("images");
-				if (!Files.exists(CURRENT_FOLDER.resolve(staticPath).resolve(imagePath))) {
-					Files.createDirectories(CURRENT_FOLDER.resolve(staticPath).resolve(imagePath));
-				}
-				Path file = CURRENT_FOLDER.resolve(staticPath).resolve(imagePath)
-						.resolve(img_avatar.getOriginalFilename());
-				try (OutputStream os = Files.newOutputStream(file)) {
-					os.write(img_avatar.getBytes());
-				} // !!create folder to save image upoad
+				byte[] imageArr = img_avatar.getBytes();
 
-				// get Part extension of file image when import
-				String pre = GetNameExtensionsForbase64
-						.getPartExtensions(imagePath.resolve(img_avatar.getOriginalFilename()).toString());
-				// set value into Img_avatar
-				editUserdto.setImg_avatar(
-						pre + En_DecodeAnImageToBase64.encoder(CURRENT_FOLDER + "\\" + staticPath.resolve("").toString()
-								+ "\\" + imagePath.resolve(img_avatar.getOriginalFilename()).toString()));
+				// Base64 that converts image as bytes to
+				// base64 encoded string, and this string store in a
+				// varchar column of database.
+				String imageAsString = Base64.encodeBase64String(imageArr);
+
+				/*
+				 * Get file extension by image
+				 */
+				String nameFile = img_avatar.getOriginalFilename();
+
+				String nameExtension = GetNameExtensionsForbase64.getPartExtensions(nameFile);
+				editUserdto.setImg_avatar(nameExtension + imageAsString);
+
+//				// create folder to save image upoad
+//				Path staticPath = Paths.get("static");
+//				Path imagePath = Paths.get("images");
+//				if (!Files.exists(CURRENT_FOLDER.resolve(staticPath).resolve(imagePath))) {
+//					Files.createDirectories(CURRENT_FOLDER.resolve(staticPath).resolve(imagePath));
+//				}
+//				Path file = CURRENT_FOLDER.resolve(staticPath).resolve(imagePath)
+//						.resolve(img_avatar.getOriginalFilename());
+//				try (OutputStream os = Files.newOutputStream(file)) {
+//					os.write(img_avatar.getBytes());
+//				} // !!create folder to save image upoad
+//
+//				// get Part extension of file image when import
+//				String pre = GetNameExtensionsForbase64
+//						.getPartExtensions(imagePath.resolve(img_avatar.getOriginalFilename()).toString());
+//				// set value into Img_avatar
+//				editUserdto.setImg_avatar(
+//						pre + En_DecodeAnImageToBase64.encoder(CURRENT_FOLDER + "\\" + staticPath.resolve("").toString()
+//								+ "\\" + imagePath.resolve(img_avatar.getOriginalFilename()).toString()));
 
 				service.updateInformationUser(new Users(editUserdto));
 
@@ -278,6 +294,7 @@ public class UserController {
 
 	/**
 	 * insertUser
+	 * 
 	 * @param userCreateDTO
 	 * @return
 	 */
@@ -291,21 +308,19 @@ public class UserController {
 		newusers.setCreated_date(DateCurrent.getDateCurrent());
 		newusers.getExpire();
 		newusers.setEnable_users(false);
-		//2 products must not have the same phone number and email !
+		// 2 products must not have the same phone number and email !
 		List<Users> foundPhoneNumber = service.checkPhone_number(userCreateDTO.getPhone_number().trim());
 		List<Users> foundEmail = service.checkEmail(userCreateDTO.getEmail().trim());
 		if (foundEmail.size() > 0) {
-			return ResponseEntity.status(HttpStatus.NOT_IMPLEMENTED).body(
-					new Message("Thất bại", "Email này đã tồn tại!", "")
-			);
+			return ResponseEntity.status(HttpStatus.NOT_IMPLEMENTED)
+					.body(new Message("Thất bại", "Email này đã tồn tại!", ""));
 		}
 		if (foundPhoneNumber.size() > 0) {
-			return ResponseEntity.status(HttpStatus.NOT_IMPLEMENTED).body(
-					new Message("Thất bại", "Số điện thoại đã tồn tại!", "")
-			);
+			return ResponseEntity.status(HttpStatus.NOT_IMPLEMENTED)
+					.body(new Message("Thất bại", "Số điện thoại đã tồn tại!", ""));
 		}
-		return ResponseEntity.status(HttpStatus.OK).body(
-				new Message("Thành công", "Thêm người dùng thành công!",service.save(newusers)));
+		return ResponseEntity.status(HttpStatus.OK)
+				.body(new Message("Thành công", "Thêm người dùng thành công!", service.save(newusers)));
 	}
 
 	/**
