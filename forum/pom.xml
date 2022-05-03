@@ -233,7 +233,7 @@
 					<driver>org.hibernate.dialect.PostgreSQL81Dialect</driver>
 					<url>jdbc:postgresql://localhost:5432/forum?currentSchema=public</url>
 					<user>postgres</user>
-					<password>phat</password>
+					<password>hung</password>
 				</configuration>
 			</plugin>
 
