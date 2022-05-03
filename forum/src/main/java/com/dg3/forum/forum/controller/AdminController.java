@@ -1,16 +1,13 @@
 package com.dg3.forum.forum.controller;
 
-import java.io.IOException;
-import java.io.OutputStream;
-import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.function.Function;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.slf4j.Logger;
@@ -23,7 +20,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -33,7 +29,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
@@ -44,14 +39,13 @@ import com.dg3.forum.forum.config.WebSecurityConfig;
 import com.dg3.forum.forum.dto.UserAdminOrDealerdto;
 import com.dg3.forum.forum.entity.Message;
 import com.dg3.forum.forum.entity.Users;
-import com.dg3.forum.forum.repository.UserstRepository;
 import com.dg3.forum.forum.serviceimpl.AdminServiceImpl;
 import com.dg3.forum.forum.serviceimpl.CSVServiceImpl;
 import com.dg3.forum.forum.serviceimpl.JwtServiceImpl;
 import com.dg3.forum.forum.serviceimpl.PostThreadServiceImpl;
 import com.dg3.forum.forum.serviceimpl.UserServiceimpl;
 import com.dg3.forum.forum.util.CSVHelper;
-import com.dg3.forum.forum.util.En_DecodeAnImageToBase64;
+
 
 @RestController
 
@@ -100,6 +94,18 @@ public class AdminController {
 		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new Message("not import", message, ""));
 	}
 
+	
+	
+	
+	
+	
+	
+	
+	
+
+	
+	
+	
 	@GetMapping("/getAllUsers")
 	public ResponseEntity<List<Users>> getAllUsers() {
 		try {
@@ -264,4 +270,11 @@ public class AdminController {
 		return errors;
 	}
 	
+
+	  //export error when sync
+//	  private static Function<Throwable, ResponseEntity<? extends List<Users>>> handleGetCarFailure = throwable -> {
+//	      LOGGER.error("Failed to read records: {}", throwable);
+//	      return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+//	  };
+//	
 }
