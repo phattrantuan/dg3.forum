@@ -18,6 +18,12 @@ public class Like_CommentController {
     @Autowired
     private Like_CommentService like_commentService;
 
+    /**
+     * sum like and sum comment
+     * list username by posts
+     * @param thread_pk
+     * @return object Like_Comment_Posts
+     */
     @GetMapping("/like_comment/{thread_pk}")
     public Like_Comment_Posts sumLike_CommentPosts(@PathVariable("thread_pk") Long thread_pk){
 //        return ResponseEntity.status(HttpStatus.OK).body(

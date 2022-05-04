@@ -8,16 +8,22 @@ import java.util.List;
 public interface ImageService {
     /*
     * Create image posts
+    * @param image
+    * @return object image
     * */
     Image createImagePosts(Image image);
 
     /*
     * Create image comment
+    * @param image
+    * @return object image
     * */
     Image createImageComment(Image image);
 
     /*
     * List information image posts
+    * @param thread_pk
+    * @return list object image
     * */
     List<Image> listAllImagePosts(Long thread_pk);
     
@@ -39,6 +45,6 @@ public interface ImageService {
 	 * @param image_pk
 	 * @return true or false
 	 */
-	public boolean existById(Long image_pk);
+	boolean existById(Long image_pk);
     
 }

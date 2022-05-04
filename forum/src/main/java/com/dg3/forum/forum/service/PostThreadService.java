@@ -33,35 +33,47 @@ public interface PostThreadService {
     void deletePosts(Long thread_pk);
 
     /*
-     *   Check the information of the post exists or not through thread_pk
+     * Check the information of the post exists or not through thread_pk
+     * @param thread_pk
+     * @return object postthread
      * */
     PostThread checkExistByThread_pk(Long thread_pk);
 
     /*
      * List all information posts
+     * @return list object postthread
      * */
     List<PostThread> listAllPosts();
 
     /*
      * Update approved
+     * @param approved and thread_pk
      * */
     void updateApproved(boolean approved, Long thread_pk);
 
     /*
      * Update enable_post_thread
+     * @param enable_post_thread and thread_pk
      * */
     void updateEnable_post_thread(boolean enable_post_thread, Long thread_pk);
 
     /*
      * Show all information posts not approved
+     * @return list object post thread
      * */
     List<PostThread> showAllPosts_NotApproved();
+
     /**
      * approved post of users
+     * @param thread_pk
+     *
      */
     int approvedPost(Long thread_pk);
+
     /*
      * Get an object post thread
+     * @param thread_pk
+     * @return object post thread
      */
     PostThread getAnPostThrest(Long thread_pk);
     

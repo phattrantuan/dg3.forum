@@ -7,26 +7,34 @@ import com.dg3.forum.forum.entity.Comment;
 public interface CommentService {
     /*
     * Create comment posts
+    * @param comment
+    * @return object comment
     * */
     Comment createCommentPosts(Comment comment);
 
     /*
     * Show comment by posts
+    * @param thread_pk
+    * @return lits object comment
     * */
     List<Comment> showAllComment_Posts(Long thread_pk);
 
     /*
     * Update comment by posts
+    * @param comment_pk and content_comment
     * */
     void updateCommnet_Posts(Long comment_pk, String content_comment);
 
     /*
     * Get information comment by posts
+    * @param comment
+    * @return object comment
     * */
     Comment getByComment(Long comment);
 
     /*
     * Delete comment by posts
+    * @param commment_pk
     * */
     void deleteComment(Long comment_pk);
     

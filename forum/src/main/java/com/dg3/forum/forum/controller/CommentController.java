@@ -30,9 +30,13 @@ public class CommentController {
 	@Autowired
 	private UserService userService;
 
+	/*
+	* Create commment by user
+	* Request is Long thread_pk and Object comment
+	* Respone create comment in database
+	* */
 	@PostMapping("/create/posts/{thread_pk}")
-	public ResponseEntity<Message> createComment(@PathVariable("thread_pk") Long thread_pk,
-			@RequestBody Comment comment) {
+	public ResponseEntity<Message> createComment(@PathVariable("thread_pk") Long thread_pk, @RequestBody Comment comment) {
 		if (comment.getContent_comment() != "") {
 			Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 			UserDetails userDetails = (UserDetails) authentication.getPrincipal();
@@ -51,9 +55,13 @@ public class CommentController {
 		}
 	}
 
+	/*
+	* Update comment by user
+	* Request is Long thread_pk, Long comment_pk and Object comment
+	* Reponse update comment in database through thread_pk and commnet_pk
+	 */
 	@PutMapping("/update/posts/{thread_pk}/{comment_pk}")
-	public ResponseEntity<Message> updateComment(@PathVariable("thread_pk") Long thread_pk,
-			@PathVariable("comment_pk") Long comment_pk, @RequestBody Comment comment) {
+	public ResponseEntity<Message> updateComment(@PathVariable("thread_pk") Long thread_pk, @PathVariable("comment_pk") Long comment_pk, @RequestBody Comment comment) {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		UserDetails userDetails = (UserDetails) authentication.getPrincipal();
 
@@ -70,6 +78,11 @@ public class CommentController {
 		}
 	}
 
+	/*
+	* delete comment by user
+	* Request is Long comment_pk
+	* Reponse delete comment through comment_pk
+	*/
 	@DeleteMapping("/delete/posts/{comment_pk}")
 	public ResponseEntity<Message> deleteComment(@PathVariable("comment_pk") Long comment_pk) {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -102,6 +115,11 @@ public class CommentController {
 //                );
 //    }
 
+	/*
+	* Show Information list all commnet by post thread
+	* Request is Long thread_pk
+	* Reponse list comment by post thread
+	*/
 	@GetMapping("/all/posts/{thread_pk}")
 	public ResponseEntity<Message> showAllComments_Posts(@PathVariable("thread_pk") Long thread_pk) {
 		List<Comment> listComment = commentService.showAllComment_Posts(thread_pk);
@@ -122,7 +140,8 @@ public class CommentController {
 		return commentsdtos.isEmpty()
 				? ResponseEntity.status(HttpStatus.NOT_IMPLEMENTED)
 						.body(new Message("Failed", "Can't find list comment", ""))
-				: ResponseEntity.status(HttpStatus.OK).body(new Message("OK", "List comment by posts", commentsdtos));
+				: ResponseEntity.status(HttpStatus.OK)
+						.body(new Message("OK", "List comment by posts", commentsdtos));
 	}
 
 }

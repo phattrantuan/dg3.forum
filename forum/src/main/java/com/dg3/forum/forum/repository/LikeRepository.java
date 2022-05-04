@@ -11,8 +11,9 @@ import java.util.List;
 
 public interface LikeRepository extends JpaRepository<Like, Long> {
     /*
-    * Find information like posts
+    * Find information like posts though thread_pk
     * Request is threak_pk and user_pk
+    * Reponse object like
     * */
     @Transactional
     @Query(value = "select * from likes " +
@@ -20,8 +21,9 @@ public interface LikeRepository extends JpaRepository<Like, Long> {
     Like findByThreak_pkAndUser_pk(@Param("thread_pk") Long thread_pk, @Param("user_pk") Long user_pk);
 
     /*
-     * Find information like comment posts
+     * Find information like comment posts though comment_pk
      * Request is thread_pk, user_pk and comment_pk
+     * Reponse object like
      * */
     @Transactional
     @Query(value = "select * from likes " +
@@ -31,6 +33,7 @@ public interface LikeRepository extends JpaRepository<Like, Long> {
     /*
     * Delete like posts
     * Request is thread_pk, user_pk and comment_pk
+    * Reponse delete like in database
     * */
     @Modifying
     @Transactional
@@ -40,6 +43,7 @@ public interface LikeRepository extends JpaRepository<Like, Long> {
     /*
      * Delete like comment posts
      * Request is thread_pk and user_pk
+     * Delete like in database
      * */
     @Modifying
     @Transactional
@@ -47,7 +51,9 @@ public interface LikeRepository extends JpaRepository<Like, Long> {
     void deleteByLike_Comment(@Param("thread_pk") Long thread_pk, @Param("user_pk") Long user_pk, @Param("comment_pk") Long comment_pk);
 
     /*
-    * Sum like by post
+    * information like by post
+    * Resquest thread_pk
+    * Reponse information list posts in database
     * */
     @Modifying
     @Transactional

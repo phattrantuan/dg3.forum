@@ -23,6 +23,12 @@ public class ImageController {
     @Autowired
     private ImageService imageService;
 
+    /**
+     * create imageFile by post through thread_pk
+     * @param imageFile and thread_pk
+     * @return insert object image in database
+     * @throws IOException
+     */
     @PostMapping("/create/posts/{thread_pk}")
     public ResponseEntity<Message> createImagePosts(@RequestParam MultipartFile imageFile, @PathVariable("thread_pk") Long thread_pk) throws IOException {
         byte[] imageArr = imageFile.getBytes();
@@ -51,6 +57,13 @@ public class ImageController {
 //        );
     }
 
+    /**
+     * create imageFile by comment through comment_pk
+     * @param imageFile
+     * @param comment_pk
+     * @return insert object image in database
+     * @throws IOException
+     */
     @PostMapping("/create/comment/{comment_pk}")
     public ResponseEntity<Message> createImageComment(@RequestParam MultipartFile imageFile, @PathVariable("comment_pk") Long comment_pk) throws IOException {
         byte[] imageArr = imageFile.getBytes();
@@ -75,6 +88,11 @@ public class ImageController {
         );
     }
 
+    /**
+     * list all image posts
+     * @param thread_pk
+     * @return list all image posts in database
+     */
     @GetMapping("/all/posts/{thread_pk}")
     public ResponseEntity<Message> listAllImagePosts(@PathVariable("thread_pk") Long thread_pk){
         List<Image> listImagePosts = imageService.listAllImagePosts(thread_pk);
@@ -91,7 +109,7 @@ public class ImageController {
     
     /**
      * get all image comment
-     * @return
+     * @return list all image comment in database
      */
     @GetMapping("/all/imagecomment")
     public ResponseEntity<Message> listAllImageComment(){
@@ -109,8 +127,12 @@ public class ImageController {
                         new Message("OK", "List information image comment successfully", commentImagedtos)
                 );
     }
-    
-    //Delete Image Comment
+
+    /**
+     * Delete Image Comment
+     * @param image_pk
+     * @return delete Image Comment in database
+     */
     @DeleteMapping("/{image_pk}")
   	ResponseEntity<Message> deleteImageComment(@PathVariable Long image_pk) {
   		if (imageService.existById(image_pk)) {
