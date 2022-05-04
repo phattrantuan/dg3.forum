@@ -37,7 +37,7 @@ public class CSVServiceImpl {
 	  final long start = System.currentTimeMillis();
     try {
       List<Users> listUsers = CSVHelper.csvToTutorials(file.getInputStream());
-      LOGGER.info("Saving a list of cars of size {} records ", listUsers.size());
+      LOGGER.info("Saving a list of users of size {} records ", listUsers.size());
       repository.saveAll(listUsers);
       LOGGER.info("Elapsed time: {}", (System.currentTimeMillis() - start));
       return CompletableFuture.completedFuture(listUsers);
