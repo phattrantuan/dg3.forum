@@ -63,13 +63,13 @@ public interface AdminRepository extends JpaRepository<Users, Long> {
 	 */
 	@Modifying
 	@Transactional
-	@Query(value = "update users set enable_users = false where expire = CURRENT_DATE", nativeQuery = true)
+	@Query(value = "update users set enable_users = false where expire = CURRENT_DATE or expire < CURRENT_DATE", nativeQuery = true)
 	void disableAccountExpireContract();
 
 	/**
 	 * get all account expire today
 	 * @return list User expire contract
 	 */
-	@Query(value = "select * from users  where expire = CURRENT_DATE", nativeQuery = true)
+	@Query(value = "select * from users  where expire = CURRENT_DATE  or expire < CURRENT_DATE", nativeQuery = true)
 	List<Users> getAllAccoutExpiretoday();
 }

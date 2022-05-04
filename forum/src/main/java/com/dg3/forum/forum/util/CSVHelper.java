@@ -11,16 +11,19 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import com.dg3.forum.forum.config.WebSecurityConfig;
 import com.dg3.forum.forum.entity.Users;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVPrinter;
 import org.apache.commons.csv.CSVRecord;
 import org.apache.commons.csv.QuoteMode;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.web.multipart.MultipartFile;
 
 public class CSVHelper {
+
 	public static String TYPE = "text/csv";
 	static String[] HEADERs = { "email", "password", "username", "role", "phone_number", "address", "date_of_birth",
 			  "description", "expire"};
@@ -35,6 +38,7 @@ public class CSVHelper {
 	}
 	
 	public static List<Users> csvToTutorials(InputStream is) {
+		
 		try (BufferedReader fileReader = new BufferedReader(new InputStreamReader(is, "UTF-8"));
 				CSVParser csvParser = new CSVParser(fileReader,
 						CSVFormat.DEFAULT.withFirstRecordAsHeader().withIgnoreHeaderCase().withTrim());) {
