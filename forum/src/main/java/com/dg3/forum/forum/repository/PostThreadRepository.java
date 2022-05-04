@@ -65,6 +65,7 @@ public interface PostThreadRepository extends JpaRepository<PostThread, Long>{
 
     /*
      * Show all information posts approved
+     * @return list posts thread
      * */
     @Transactional
     @Query(value = "select * from post_thread " +
@@ -74,6 +75,8 @@ public interface PostThreadRepository extends JpaRepository<PostThread, Long>{
 
     /*
      * Update approved
+     * @param approved and thread_pk
+     *
      * */
     @Modifying
     @Transactional
@@ -84,6 +87,7 @@ public interface PostThreadRepository extends JpaRepository<PostThread, Long>{
 
     /*
      * Update enable_post_thread
+     * @param enable_post_thread, thread_pk
      * */
     @Modifying
     @Transactional
@@ -94,6 +98,7 @@ public interface PostThreadRepository extends JpaRepository<PostThread, Long>{
 
     /*
      * Show all information posts not approved
+     * @return list post thread
      * */
     @Transactional
     @Query(value = "select * from post_thread " +
@@ -106,14 +111,15 @@ public interface PostThreadRepository extends JpaRepository<PostThread, Long>{
 	 * approved post of users
 	 * 
 	 * @param thread_pk
+     * @return state of thread is true
 	 */
     @Modifying
 	@Transactional
-	@Query(value = "update Post_Thread  set approved = true where thread_pk = :thread_pk", nativeQuery = true)
+	@Query(value = "update Post_Thread set approved = true where thread_pk = :thread_pk", nativeQuery = true)
 	int approvedPost(@Param("thread_pk") Long thread_pk);
     
     /**
-     * 
+     * get information user point
      * @param thread_pk
      * @return object postThread
      */

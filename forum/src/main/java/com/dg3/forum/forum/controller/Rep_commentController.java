@@ -24,6 +24,11 @@ public class Rep_commentController {
     @Autowired
     private UserService userService;
 
+    /**
+     * Create repcomment
+     * @param comment_pk and repComment
+     * @return insert repcomment
+     */
     @PostMapping("/create/{comment_pk}")
     public ResponseEntity<Message> createRepComment(@PathVariable("comment_pk") Long comment_pk, @RequestBody RepComment repComment){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -41,6 +46,11 @@ public class Rep_commentController {
 
     }
 
+    /**
+     * Update rep comment
+     * @param comment_rep_pk and repComment
+     * @return update rep comment
+     */
     @PutMapping("/update/{comment_rep_pk}")
     public ResponseEntity<Message> updateRepComment(@PathVariable("comment_rep_pk") Long comment_rep_pk, @RequestBody RepComment repComment){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -69,6 +79,11 @@ public class Rep_commentController {
         }
     }
 
+    /**
+     * Delete rep comment
+     * @param comment_rep_pk
+     * @return delete rep comment
+     */
     @DeleteMapping("/delete/{comment_rep_pk}")
     public ResponseEntity<Message> deleteRepComment(@PathVariable("comment_rep_pk") Long comment_rep_pk){
         RepComment checkRepComment = rep_commentService.checkExistRepComment(comment_rep_pk);
@@ -86,6 +101,11 @@ public class Rep_commentController {
         }
     }
 
+    /**
+     * List all rep commentby comment posts
+     * @param comment_pk
+     * @return list all rep comment
+     */
     @GetMapping("/all/{comment_pk}")
     public ResponseEntity<Message> getAllRepComment(@PathVariable("comment_pk") Long comment_pk){
         List<RepComment> list = rep_commentService.getAllRepComment(comment_pk);

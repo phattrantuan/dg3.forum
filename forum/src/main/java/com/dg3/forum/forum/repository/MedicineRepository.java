@@ -13,9 +13,18 @@ import javax.transaction.Transactional;
 import java.util.List;
 
 public interface MedicineRepository extends JpaRepository<Medicine, Long> {
-    /*
+
+    /**
      * Update medicine
-     * */
+     *
+     * @param name_medicine
+     * @param where_production
+     * @param price
+     * @param effect
+     * @param details_medicine
+     * @param medicine_pk
+     * @param dealer_pk
+     */
     @Modifying
     @Transactional
     @Query(value = "update medicine set name_medicine = :name_medicine," +
@@ -28,30 +37,38 @@ public interface MedicineRepository extends JpaRepository<Medicine, Long> {
                          @Param("details_medicine") String details_medicine,
                          @Param("medicine_pk") Long medicine_pk, @Param("dealer_pk") Long dealer_pk);
 
-    /*
+    /**
      * Delete medicine
+     * @param medicine_pk
      */
     @Modifying
     @Transactional
     @Query(value = "delete from medicine where medicine_pk = :medicine_pk", nativeQuery = true)
     void deleteMedicine (@Param("medicine_pk") Long medicine_pk);
 
-    /*
+    /**
      * Find information by medicine through the main key medicine_pk table medicine
-     * */
+     * @param medicine_pk
+     * @return object medicine
+     */
     @Transactional
     @Query(value = "select * from medicine where medicine_pk = :medicine_pk", nativeQuery = true)
     Medicine getByMedicine_pk(@Param("medicine_pk") Long medicine_pk);
 
     /*
      * Find information by medicine through the name_medicine table medicine
+     * @param name_medicine and dealer_pk
+     * @return object medicine
      * */
+
     @Transactional
     @Query(value = "select * from medicine where name_medicine = :name_medicine and dealer_pk = :dealer_pk", nativeQuery = true)
     Medicine getByName_medicine(@Param("name_medicine") String name_medicine, @Param("dealer_pk") Long dealer_pk);
 
     /*
      * List all information medicine by dealer
+     * @param dealer_pk
+     * @return list medicine
      * */
     @Transactional
     @Query(value = "select medicine.* from medicine " +

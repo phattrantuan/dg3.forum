@@ -22,6 +22,11 @@ public class LikeController {
     @Autowired
     private UserService userService;
 
+    /**
+     * Create like by posts through thread_pk
+     * @param thread_pk
+     * @return insert like in database
+     */
     @PostMapping("/create/posts/{thread_pk}")
     public ResponseEntity<Message> createLike_Posts(@PathVariable("thread_pk") Long thread_pk){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -48,6 +53,11 @@ public class LikeController {
         }
     }
 
+    /**
+     * Delete like posts
+     * @param thread_pk
+     * @return delete like posts
+     */
     @DeleteMapping("/delete/posts/{thread_pk}")
     public ResponseEntity<Message> deleteLikePosts(@PathVariable("thread_pk") Long thread_pk){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -70,6 +80,11 @@ public class LikeController {
         }
     }
 
+    /**
+     * Create like comment
+     * @param thread_pk and comment_pk
+     * @return insert like comment in database
+     */
     @PostMapping("/create/comment/{thread_pk}/{comment_pk}")
     public ResponseEntity<Message> createLike_Comment(@PathVariable("thread_pk") Long thread_pk, @PathVariable("comment_pk") Long comment_pk){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -96,6 +111,11 @@ public class LikeController {
         }
     }
 
+    /**
+     * Delete like commnent
+     * @param thread_pk and comment_pk
+     * @return delete like commnent in database
+     */
     @DeleteMapping("/delete/comment/{thread_pk}/{comment_pk}")
     public ResponseEntity<Message> deleteLikeComment(@PathVariable("thread_pk") Long thread_pk, @PathVariable("comment_pk") Long comment_pk){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();

@@ -24,6 +24,11 @@ public class MedicineController {
     @Autowired
     private UserService userService;
 
+    /**
+     * Create medicine by user dealer
+     * @param medicine
+     * @return insert medicine in database
+     */
     @PostMapping("/create")
     public ResponseEntity<Message> createMedicine(@RequestBody Medicine medicine){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -46,6 +51,11 @@ public class MedicineController {
         }
     }
 
+    /**
+     * Update medicine
+     * @param medicine and medicine_pk
+     * @return update medicine in database
+     */
     @PutMapping("/update/{medicine_pk}")
     public ResponseEntity<Message> updateMedicine(@RequestBody Medicine medicine, @PathVariable("medicine_pk") Long medicine_pk){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -63,6 +73,11 @@ public class MedicineController {
         );
     }
 
+    /**
+     * Delete medicine through medicine_pk
+     * @param medicine_pk
+     * @return delete medicine in database
+     */
     @DeleteMapping("/delete/{medicine_pk}")
     public ResponseEntity<Message> deleteMedicine(@PathVariable("medicine_pk") Long medicine_pk){
         if(medicineService.checkExistByMedicine(medicine_pk) != null){
@@ -84,6 +99,10 @@ public class MedicineController {
         }
     }
 
+    /**
+     * List all medicine by user dealer
+     * @return listAllMedicine_Dealer in database
+     */
     @GetMapping("/all/medicine")
     public ResponseEntity<Message> listAllMedicine_Dealer(){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();

@@ -12,6 +12,8 @@ import java.util.List;
 public interface Rep_commentRepository extends JpaRepository<RepComment, Long> {
     /*
     *   Update repcomment
+    * @param content_comment_rep and comment_rep_pk
+    *
     * */
     @Modifying
     @Transactional
@@ -20,6 +22,7 @@ public interface Rep_commentRepository extends JpaRepository<RepComment, Long> {
 
     /*
      *   Delete repcomment
+     *  @param commnet_rep_pk
      * */
     @Modifying
     @Transactional
@@ -28,6 +31,8 @@ public interface Rep_commentRepository extends JpaRepository<RepComment, Long> {
 
     /*
     * Find information repcomment
+    * @param comment_rep_pk
+    * @return object repcomment
     * */
     @Transactional
     @Query(value = "select * from rep_comment where comment_rep_pk = :comment_rep_pk", nativeQuery = true)
@@ -35,6 +40,8 @@ public interface Rep_commentRepository extends JpaRepository<RepComment, Long> {
 
     /*
      * Find information repcomment
+     * @param comment_pk
+     * @return list object repcomment
      * */
     @Transactional
     @Query(value = "select * from rep_comment where comment_pk = :comment_pk", nativeQuery = true)
@@ -42,6 +49,8 @@ public interface Rep_commentRepository extends JpaRepository<RepComment, Long> {
 
     /*
     * Sum repcomment by comment posts
+    * @param comment_pk
+    * @return total number of objects found
     * */
     @Transactional
     @Query(value = "select count(*) from rep_comment where comment_pk = :comment_pk", nativeQuery = true)

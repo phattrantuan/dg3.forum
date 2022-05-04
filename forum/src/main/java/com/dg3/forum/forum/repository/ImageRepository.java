@@ -11,7 +11,7 @@ import java.util.List;
 
 public interface ImageRepository extends JpaRepository<Image, Long> {
    /**
-    * 
+    * Find by image through thread_pk
     * @param thread_pk
     * @return List information posts
     */
@@ -21,7 +21,7 @@ public interface ImageRepository extends JpaRepository<Image, Long> {
     List<Image> findByThread_pk(Long thread_pk);
     
  /**
-  *  
+  *  List all image comment
   * @return list image for comment
   */
     @Query(value = "select * from image where enable_image = true and image_thread is null", nativeQuery = true)

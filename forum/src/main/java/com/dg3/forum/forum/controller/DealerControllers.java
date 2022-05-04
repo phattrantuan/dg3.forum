@@ -32,7 +32,9 @@ public class DealerControllers {
 
     /*
      * Showing a list posts by user
-     * */
+     * Request is Long user_pk
+     * Reponse list post
+     */
     @GetMapping("/all/{user_pk}")
     public ResponseEntity<Message> showAllPost_User(@PathVariable Long user_pk) {
         List<PostThread> listAllPost = postThreadService.listAllPost_User(user_pk);
@@ -48,9 +50,11 @@ public class DealerControllers {
                 );
     }
 
-    /*
-     * Create posts
-     * */
+    /**
+     * Create post
+     * @param postThread
+     * @return object postThread in database
+     */
     @PostMapping("/create/posts")
     public ResponseEntity<Message> createPosts(@RequestBody PostThread postThread){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -74,9 +78,11 @@ public class DealerControllers {
         );
     }
 
-    /*
+    /**
      * Update posts
-     * */
+     * @param postThread and thread_pk
+     * @return update posts in database
+     */
     @PutMapping("/update/posts/{thread_pk}")
     public ResponseEntity<Message> updatePosts(@RequestBody PostThread postThread, @PathVariable("thread_pk") Long thread_pk){
         /*
@@ -101,9 +107,11 @@ public class DealerControllers {
 
     }
 
-    /*
+    /**
      * Delete posts
-     * */
+     * @param thread_pk
+     * @return posts delete in database
+     */
     @DeleteMapping("/delete/posts/{thread_pk}")
     public ResponseEntity<Message> deletePosts(@PathVariable("thread_pk") Long thread_pk){
         /*
@@ -130,9 +138,10 @@ public class DealerControllers {
         }
     }
 
-    /*
+    /**
      * List all posts approved
-     * */
+     * @return list posts in database approved
+     */
     @GetMapping("/all")
     public ResponseEntity<Message> listAllPosts(){
         List<PostThread> list = postThreadService.listAllPosts();
@@ -146,6 +155,11 @@ public class DealerControllers {
                 );
     }
 
+    /**
+     * Update approved
+     * @param thread_pk and approved
+     * @return update approved in database
+     */
     @PutMapping("/update_approved/{thread_pk}")
     public ResponseEntity<Message> updateApproved(@PathVariable("thread_pk") Long thread_pk, @Param("approved") String approved){
         PostThread checkExistsPostsThread = postThreadService.checkExistByThread_pk(thread_pk);
@@ -163,6 +177,11 @@ public class DealerControllers {
         }
     }
 
+    /**
+     * Update enable
+     * @param thread_pk and enable_post_thread
+     * @return update enable posts in database
+     */
     @PutMapping("/update_enable_post_thread/{thread_pk}")
     public ResponseEntity<Message> updateEnable_post_thread(@PathVariable("thread_pk") Long thread_pk, @Param("enable_post_thread") String enable_post_thread){
         PostThread checkExistsPostsThread = postThreadService.checkExistByThread_pk(thread_pk);
@@ -180,6 +199,10 @@ public class DealerControllers {
         }
     }
 
+    /**
+     * show all posts not approved
+     * @return list posts not approved
+     */
     @GetMapping("/showAllPosts_NotApproved")
     public ResponseEntity<Message> showAllPosts_NotApproved(){
         return ResponseEntity.status(HttpStatus.OK).body(
