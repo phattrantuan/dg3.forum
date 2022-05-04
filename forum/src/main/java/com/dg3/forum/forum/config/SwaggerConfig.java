@@ -16,10 +16,11 @@ import java.util.Collections;
 public class SwaggerConfig {
     @Bean
     public Docket api() {
+//Sau khi Docket bean được khởi tạo, phương thức select () của nó trả về một ApiSelectorBuilder instance, cung cấp cơ chế để kiểm soát các API bởi Swagger.
         return new Docket(DocumentationType.SWAGGER_2)
                 .select()
                 //.apis(RequestHandlerSelectors.basePackage("com.example.demohung.Controller"))
-                //.apis(RequestHandlerSelectors.basePackage("com.example.demohung"))
+                //.any thì chọn hiển thị ở bên swagger tất cả API của controller.
                 .apis(RequestHandlerSelectors.any())
                 .paths(PathSelectors.any())
                 .build()
@@ -31,6 +32,7 @@ public class SwaggerConfig {
      * @return
      */
     private ApiInfo apiInfo()
+    //cung cấp các thông tin về API Information
     {
         return new ApiInfo(
                 "Forum Covid-19 of DG3"
