@@ -140,28 +140,6 @@ public class UserServiceimpl implements UserService {
         return userRepository.findAll();
     }
 
-//	public User findById(int id) {
-//		for (User user : listUser) {
-//			if (user.getId() == id) {
-//				return user;
-//			}
-//		}
-//		return null;
-//	}
-
-//	public boolean add(User user) {
-//		for (User userExist : listUser) {
-//			if (user.getId() == userExist.getId() || StringUtils.equals(user.getUsername(), userExist.getUsername())) {
-//				return false;
-//			}
-//		}
-//		listUser.add(user);
-//		return true;
-//	}
-
-//	public void delete(int id) {
-//		listUser.removeIf(user -> user.getId() == id);
-//	}
 
     /**
      * @param username

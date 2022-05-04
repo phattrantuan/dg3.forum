@@ -97,7 +97,7 @@ public class UserController {
 	}
 
 	/**
-	 * Show list username
+	 * Show list by username
 	 *
 	 * @param username
 	 * @return
@@ -114,7 +114,7 @@ public class UserController {
 	}
 
 	/**
-	 * Insert check phone and check email
+	 * Insert uers,check phone and check email
 	 *
 	 * @param users
 	 * @return
@@ -168,47 +168,7 @@ public class UserController {
 	}
 
 	/**
-	 * Login
-	 * 
-	 * @param request
-	 * @param user
-	 * @return
-	 */
-	@PostMapping("/login")
-	public ResponseEntity<UserAndToken> login(HttpServletRequest request, @RequestBody Users user) {
-		String result = "";
-		HttpStatus httpStatus = null;
-		UserAndToken userAndToken = new UserAndToken();
-		// System.out.print(user.getUsername() + user.getPassword());
-		try {
-
-			result = jwtService.generateTokenLogin(user.getUsername());
-			List<Users> userData = service.findByUsername(user.getUsername());
-			Users u = userData.get(0);
-
-// 				if(!this.passwordEncoder.matches(u.getPassword(), user.getPassword()) || u==null) {
-// 					httpStatus = HttpStatus.BAD_REQUEST;
-
-			if (u == null) {
-				httpStatus = HttpStatus.BAD_REQUEST;
-
-			} else {
-				userAndToken.setUser(userData.get(0));
-				userAndToken.setToken(result);
-
-				httpStatus = HttpStatus.OK;
-			}
-
-		} catch (Exception ex) {
-			// System.out.print(ex);
-			result = "Server Error";
-			httpStatus = HttpStatus.INTERNAL_SERVER_ERROR;
-		}
-		return new ResponseEntity<UserAndToken>(userAndToken, httpStatus);
-	}
-
-	/**
-	 * Delete id
+	 * Delete user by id
 	 *
 	 * @param user_pk
 	 * @return

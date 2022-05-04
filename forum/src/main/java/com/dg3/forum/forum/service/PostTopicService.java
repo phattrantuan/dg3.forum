@@ -35,12 +35,22 @@ public interface PostTopicService {
     PostTopic save(PostTopic postTopic);
 
     /**
-     * hàm có sẵn jpa find by id
+     * find by id
      * @param post_topic_pk
      * @return
      */
     Optional<PostTopic> findById(Long post_topic_pk);
 
+    /**
+     * check id
+     * @param id
+     * @return
+     */
     boolean existById(Long id);
+
+    /**
+     * delete topic by id
+     * @param id
+     */
     void deleteTopic(Long id);
 }
