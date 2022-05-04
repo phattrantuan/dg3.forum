@@ -27,6 +27,11 @@ public class CSVServiceImpl {
 	
   @Autowired
   UserstRepository repository;
+  /**
+   * insert users through file csv
+   * @param file
+   * @return user inserted
+   */
   @Async
   public CompletableFuture save(MultipartFile file) {
 	  final long start = System.currentTimeMillis();
@@ -41,13 +46,19 @@ public class CSVServiceImpl {
     }
   }
   
-
+  /**
+   * get information account to file csv
+   * @return file csv contain information users
+   */
   public ByteArrayInputStream load() {
     List<Users> listUsers = repository.findAll();
     ByteArrayInputStream in = CSVHelper.tutorialsToCSV(listUsers);
     return in;
   }
-
+/**
+ * get all information users
+ * @return list users
+ */
   public List<Users> getAllUsers() {
     return repository.findAll();
   }
