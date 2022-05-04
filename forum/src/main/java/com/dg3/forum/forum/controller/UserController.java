@@ -58,9 +58,6 @@ public class UserController {
 	private static final Path CURRENT_FOLDER = Paths.get(System.getProperty("user.dir"));// get location
 	@Autowired
 	private UserService service;
-
-	@Autowired
-	private UserServiceimpl userServiceimpl;
 	@Autowired
 	private JwtService jwtService;
 
@@ -247,9 +244,7 @@ public class UserController {
 			editUserdto.setUsername(username);
 			// check id user have exist
 			if (service.existById(user_pk)) {
-
 				byte[] imageArr = img_avatar.getBytes();
-
 				// Base64 that converts image as bytes to
 				// base64 encoded string, and this string store in a
 				// varchar column of database.
@@ -259,32 +254,8 @@ public class UserController {
 				 * Get file extension by image
 				 */
 				String nameFile = img_avatar.getOriginalFilename();
-
 				String nameExtension = GetNameExtensionsForbase64.getPartExtensions(nameFile);
 				editUserdto.setImg_avatar(nameExtension + imageAsString);
-
-//				// create folder to save image upoad
-//				Path staticPath = Paths.get("static");
-//				Path imagePath = Paths.get("images");
-//				if (!Files.exists(CURRENT_FOLDER.resolve(staticPath).resolve(imagePath))) {
-//					Files.createDirectories(CURRENT_FOLDER.resolve(staticPath).resolve(imagePath));
-//				}
-//				Path file = CURRENT_FOLDER.resolve(staticPath).resolve(imagePath)
-//						.resolve(img_avatar.getOriginalFilename());
-//				try (OutputStream os = Files.newOutputStream(file)) {
-//					os.write(img_avatar.getBytes());
-//				} // !!create folder to save image upoad
-//
-//				// get Part extension of file image when import
-//				String pre = GetNameExtensionsForbase64
-//						.getPartExtensions(imagePath.resolve(img_avatar.getOriginalFilename()).toString());
-//				// set value into Img_avatar
-//				editUserdto.setImg_avatar(
-//						pre + En_DecodeAnImageToBase64.encoder(CURRENT_FOLDER + "\\" + staticPath.resolve("").toString()
-//								+ "\\" + imagePath.resolve(img_avatar.getOriginalFilename()).toString()));
-
-				service.updateInformationUser(new Users(editUserdto));
-
 				return ResponseEntity.status(HttpStatus.OK)
 						.body(new Message("Success", "UpdateSuccess!", service.findById(editUserdto.getUser_pk())));
 			}

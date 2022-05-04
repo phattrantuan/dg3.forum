@@ -39,13 +39,13 @@ import com.dg3.forum.forum.config.WebSecurityConfig;
 import com.dg3.forum.forum.dto.UserAdminOrDealerdto;
 import com.dg3.forum.forum.entity.Message;
 import com.dg3.forum.forum.entity.Users;
+import com.dg3.forum.forum.service.UserService;
 import com.dg3.forum.forum.serviceimpl.AdminServiceImpl;
 import com.dg3.forum.forum.serviceimpl.CSVServiceImpl;
 import com.dg3.forum.forum.serviceimpl.JwtServiceImpl;
 import com.dg3.forum.forum.serviceimpl.PostThreadServiceImpl;
 import com.dg3.forum.forum.serviceimpl.UserServiceimpl;
 import com.dg3.forum.forum.util.CSVHelper;
-
 
 @RestController
 
@@ -55,21 +55,24 @@ public class AdminController {
 	private static final Path CURRENT_FOLDER = Paths.get(System.getProperty("user.dir"));
 	@Autowired
 	AdminServiceImpl adminServiceImpl;
-	@Autowired
-	UserServiceimpl serviceimpl;
-	
+
 	@Autowired
 	CSVServiceImpl fileService;
 
 	@Autowired
-	JwtServiceImpl jwtServiceImpl;
-	@Autowired
 	UserServiceimpl userServiceimpl;
 	@Autowired
 	PostThreadServiceImpl postThreadServiceImpl;
-	
-	@Autowired 
+
+	@Autowired
 	WebSecurityConfig webSecurityConfig;
+
+	/**
+	 * insert list users have role Dealer and Manager
+	 * 
+	 * @param file
+	 * @return list users
+	 */
 	@PostMapping("/csv/upload")
 	public ResponseEntity<Message> uploadFile(@RequestParam("file") MultipartFile file) {
 		String message = "";
@@ -94,22 +97,14 @@ public class AdminController {
 		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new Message("not import", message, ""));
 	}
 
-	
-	
-	
-	
-	
-	
-	
-	
-
-	
-	
-	
+	/**
+	 * get all information users
+	 * @return list Users
+	 */
 	@GetMapping("/getAllUsers")
 	public ResponseEntity<List<Users>> getAllUsers() {
 		try {
-			List<Users> users = serviceimpl.listAll();
+			List<Users> users = userServiceimpl.listAll();
 
 			if (users.isEmpty()) {
 				return new ResponseEntity<>(HttpStatus.NO_CONTENT);
@@ -121,6 +116,11 @@ public class AdminController {
 		}
 	}
 
+	/**
+	 * 
+	 * @param fileName
+	 * @return file contain information of user
+	 */
 	@GetMapping("/download/{fileName:.+}")
 	public ResponseEntity<Resource> downloadFile(@PathVariable String fileName) {
 		InputStreamResource file = new InputStreamResource(fileService.load());
@@ -129,29 +129,12 @@ public class AdminController {
 				.contentType(MediaType.parseMediaType("application/csv")).body(file);
 	}
 
-	@PostMapping("/insertmanager")
-	public ResponseEntity<List<Users>> insertUserManagers() {
-		try {
-			List<Users> users = fileService.getAllUsers();
-
-			if (users.isEmpty()) {
-				return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-			}
-
-			return new ResponseEntity<>(users, HttpStatus.OK);
-		} catch (Exception e) {
-			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
-		}
-	}
-
-//	@PostMapping("/insert")
-//	ResponseEntity<Message> deleteProduct(@RequestBody Users users) {
-//		LOGGER.error("save dealer or manager");
-//		boolean user = adminServiceImpl.insertUser(users);
-//		return user ? ResponseEntity.status(HttpStatus.OK).body(new Message("Ok", "insert cussess", users))
-//				: ResponseEntity.status(HttpStatus.NOT_FOUND).body(new Message("Fail", "insert fail", ""));
-//	}
-
+	
+/**
+ * insert User Dealer Or Manager
+ * @param userAdminOrDealerdto
+ * @return information inserted
+ */
 	@PostMapping("/insertUserDealerOrManager")
 	ResponseEntity<Message> insertUserDealerOrManager(@RequestBody @Valid UserAdminOrDealerdto userAdminOrDealerdto) {
 		LOGGER.error("save dealer or manager");
@@ -159,14 +142,15 @@ public class AdminController {
 		List<Users> foundEmail = userServiceimpl.checkEmail(userAdminOrDealerdto.getEmail().trim());
 		if (foundEmail.size() > 0) {
 			return ResponseEntity.status(HttpStatus.NOT_IMPLEMENTED)
-					.body(new Message("Thất bại", "Email này đã tồn tại!", ""));
+					.body(new Message("Faild", " This email existed!", ""));
 		}
 		if (foundPhoneNumber.size() > 0) {
 			return ResponseEntity.status(HttpStatus.NOT_IMPLEMENTED)
-					.body(new Message("Thất bại", "Số điện thoại đã tồn tại!", ""));
+					.body(new Message("Faild", "Phone number existed!", ""));
 		}
 
-		userAdminOrDealerdto.setPassword(webSecurityConfig.passwordEncoder().encode(userAdminOrDealerdto.getPassword()));
+		userAdminOrDealerdto
+				.setPassword(webSecurityConfig.passwordEncoder().encode(userAdminOrDealerdto.getPassword()));
 		int check = adminServiceImpl.insertUserManagerOrDealer(new Users(userAdminOrDealerdto));
 		return check != 0
 				? ResponseEntity.status(HttpStatus.CREATED)
@@ -174,43 +158,13 @@ public class AdminController {
 				: ResponseEntity.status(HttpStatus.NOT_FOUND).body(new Message("Fail", "insert fail", ""));
 	}
 
-	@DeleteMapping("/{user_pk}")
-	ResponseEntity<Message> deleteProduct(@PathVariable Long user_pk) {
-		if (adminServiceImpl.existById(user_pk)) {
 
-			return ResponseEntity.status(HttpStatus.OK).body(new Message("Thành công!", "Xóa thành công!", ""));
-		}
-		return ResponseEntity.status(HttpStatus.NOT_FOUND)
-				.body(new Message("Thất bại!", "Không tìm thấy người dùng này để xóa!", ""));
-	}
 
-//	@RequestMapping(value = "/login", method = RequestMethod.POST)
-//	public ResponseEntity<String> login(HttpServletRequest request, @RequestBody Users user) {
-//		String result = "";
-//		HttpStatus httpStatus = null;
-//		try {
-//			if (userServiceimpl.checkLogin(user)) {
-//				result = jwtServiceImpl.generateTokenLogin(user.getUsername());
-//				httpStatus = HttpStatus.OK;
-//			} else {
-//				result = "Wrong userId and password";
-//				httpStatus = HttpStatus.BAD_REQUEST;
-//			}
-//		} catch (Exception ex) {
-//			result = "Server Error";
-//			httpStatus = HttpStatus.INTERNAL_SERVER_ERROR;
-//		}
-//		return new ResponseEntity<String>(result, httpStatus);
-//	}
-
-//
-//	@GetMapping("/{a}")
-//	public Users listAll(@PathVariable Long a) {
-//		return repo.findRoomByUserId(a);
-//	}
-
-	// block account spam
-
+/**
+ * block account
+ * @param user_pk
+ * @return block account
+ */
 	@PutMapping(value = "/block/{user_pk}")
 	ResponseEntity<Message> blockUsers(@PathVariable Long user_pk) {
 		if (adminServiceImpl.existById(user_pk)) {
@@ -220,43 +174,54 @@ public class AdminController {
 		return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new Message("Faild!", "not find users !", ""));
 	}
 
-	//approved Post of User
+
+	/**
+	 * approved Post of User
+	 * @param thread_pk
+	 * @return approved Post of User
+	 */
 	@PutMapping(value = "/approved/{thread_pk}")
 	ResponseEntity<Message> approvedPost(@PathVariable Long thread_pk) {
 		if (!Objects.isNull(postThreadServiceImpl.checkExistByThread_pk(thread_pk))) {
 			postThreadServiceImpl.approvedPost(thread_pk);
-		
-			return ResponseEntity.status(HttpStatus.OK).body(new Message("success!", "Approved",postThreadServiceImpl.getAnPostThrest(thread_pk)));
+
+			return ResponseEntity.status(HttpStatus.OK)
+					.body(new Message("success!", "Approved", postThreadServiceImpl.getAnPostThrest(thread_pk)));
 		}
 		return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new Message("Faild!", "not find thread !", ""));
 	}
-	
-	
-	//delete account users
+
+	/**
+	 * delete account users
+	 * @param user_pk
+	 * @return deleted account
+	 */
 	@DeleteMapping(value = "/deleteAccount/{user_pk}")
 	ResponseEntity<Message> deleteAccount(@PathVariable Long user_pk) {
 		if (adminServiceImpl.existById(user_pk)) {
 			adminServiceImpl.deleteAccount(user_pk);
-		
-			return ResponseEntity.status(HttpStatus.OK).body(new Message("success!", "deleted",""));
+
+			return ResponseEntity.status(HttpStatus.OK).body(new Message("success!", "deleted", ""));
 		}
 		return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new Message("Faild!", "not find users !", ""));
 	}
-	
-	//approved Post of User
-		@PutMapping(value = "/disableAccount")
-		ResponseEntity<Message> disableAccount() {
-			if (adminServiceImpl.getAllAccoutExpiretoday().size()>0) {
-			adminServiceImpl.disableAccountExpireContract();
-				return ResponseEntity.status(HttpStatus.OK).body(new Message("success!", "Disable account expire today",adminServiceImpl.getAllAccoutExpiretoday()));
-			}
-			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new Message("Faild!", "not have account expire today !", ""));
-		}
-	
-	
 
 	
-	
+	/**
+	 * Disable account when expire 
+	 * @return account disabled
+	 */
+	@PutMapping(value = "/disableAccount")
+	ResponseEntity<Message> disableAccount() {
+		if (adminServiceImpl.getAllAccoutExpiretoday().size() > 0) {
+			adminServiceImpl.disableAccountExpireContract();
+			return ResponseEntity.status(HttpStatus.OK).body(new Message("success!", "Disable account expire today",
+					adminServiceImpl.getAllAccoutExpiretoday()));
+		}
+		return ResponseEntity.status(HttpStatus.NOT_FOUND)
+				.body(new Message("Faild!", "not have account expire today !", ""));
+	}
+
 	// export error validation
 	@ResponseStatus(HttpStatus.BAD_REQUEST)
 	@ExceptionHandler(MethodArgumentNotValidException.class)
@@ -269,9 +234,8 @@ public class AdminController {
 		});
 		return errors;
 	}
-	
 
-	  //export error when sync
+	// export error when sync
 //	  private static Function<Throwable, ResponseEntity<? extends List<Users>>> handleGetCarFailure = throwable -> {
 //	      LOGGER.error("Failed to read records: {}", throwable);
 //	      return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
