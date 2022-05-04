@@ -44,9 +44,7 @@ public class AdminServiceImpl implements AdminService {
 	}
 
 
-	/*
-	 * insert account have role User or manager
-	 */
+
 	/**
 	 * Insert User with role is Manager or Dealer( through dto)
 	 * 

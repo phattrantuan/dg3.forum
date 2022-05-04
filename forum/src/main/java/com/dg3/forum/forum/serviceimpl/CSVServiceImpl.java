@@ -2,6 +2,7 @@ package com.dg3.forum.forum.serviceimpl;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.Function;
@@ -15,6 +16,7 @@ import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.dg3.forum.forum.config.WebSecurityConfig;
 import com.dg3.forum.forum.entity.Users;
 import com.dg3.forum.forum.repository.UserstRepository;
 import com.dg3.forum.forum.util.CSVHelper;
@@ -27,6 +29,8 @@ public class CSVServiceImpl {
 	
   @Autowired
   UserstRepository repository;
+  @Autowired
+  WebSecurityConfig webSecurityConfig;
   /**
    * insert users through file csv
    * @param file
@@ -37,6 +41,10 @@ public class CSVServiceImpl {
 	  final long start = System.currentTimeMillis();
     try {
       List<Users> listUsers = CSVHelper.csvToTutorials(file.getInputStream());
+ 
+
+  
+      
       LOGGER.info("Saving a list of users of size {} records ", listUsers.size());
       repository.saveAll(listUsers);
       LOGGER.info("Elapsed time: {}", (System.currentTimeMillis() - start));
