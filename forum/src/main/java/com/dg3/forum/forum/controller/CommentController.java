@@ -1,10 +1,7 @@
 package com.dg3.forum.forum.controller;
 
-import com.dg3.forum.forum.dto.CommentImagedto;
-import com.dg3.forum.forum.dto.Commentsdto;
+import com.dg3.forum.forum.dto.CommentsDTO;
 import com.dg3.forum.forum.entity.Comment;
-import com.dg3.forum.forum.entity.Image;
-import com.dg3.forum.forum.entity.Like;
 import com.dg3.forum.forum.entity.Message;
 import com.dg3.forum.forum.entity.Users;
 import com.dg3.forum.forum.service.CommentService;
@@ -12,7 +9,6 @@ import com.dg3.forum.forum.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -123,25 +119,25 @@ public class CommentController {
 	@GetMapping("/all/posts/{thread_pk}")
 	public ResponseEntity<Message> showAllComments_Posts(@PathVariable("thread_pk") Long thread_pk) {
 		List<Comment> listComment = commentService.showAllComment_Posts(thread_pk);
-		List<Commentsdto> commentsdtos = new ArrayList<>();
+		List<CommentsDTO> commentsDTOS = new ArrayList<>();
 
 		for (Comment comment : listComment) {
 			String getNameUser = userService.getUsersname(comment.getUser_pk());
-			Commentsdto commentDTO = new Commentsdto();
+			CommentsDTO commentDTO = new CommentsDTO();
 			commentDTO.setComment_pk(comment.getComment_pk());
 			commentDTO.setContent_comment(comment.getContent_comment());
 			commentDTO.setEnable_comment(comment.isEnable_comment());
 			commentDTO.setThread_pk(comment.getThread_pk());
 			commentDTO.setUser_pk(comment.getUser_pk());
 			commentDTO.setUsername(getNameUser);
-			commentsdtos.add(commentDTO);
+			commentsDTOS.add(commentDTO);
 		}
 
-		return commentsdtos.isEmpty()
+		return commentsDTOS.isEmpty()
 				? ResponseEntity.status(HttpStatus.NOT_IMPLEMENTED)
 						.body(new Message("Failed", "Can't find list comment", ""))
 				: ResponseEntity.status(HttpStatus.OK)
-						.body(new Message("OK", "List comment by posts", commentsdtos));
+						.body(new Message("OK", "List comment by posts", commentsDTOS));
 	}
 
 }

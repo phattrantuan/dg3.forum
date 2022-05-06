@@ -1,9 +1,8 @@
 package com.dg3.forum.forum.controller;
 
 import javax.servlet.http.HttpServletRequest;
-import com.dg3.forum.forum.serviceimpl.UserServiceimpl;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import com.dg3.forum.forum.serviceimpl.UserServiceImpl;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -23,7 +22,7 @@ import com.dg3.forum.forum.serviceimpl.JwtServiceImpl;
 @RestController
 @RequestMapping("/api/v1/")
 public class LoginController {
-	  private static final Logger LOGGER = LoggerFactory.getLogger(AdminController.class);
+	private static org.apache.log4j.Logger LOGGER = Logger.getLogger(LoginController.class);
 	
 @Autowired
 AdminServiceImpl adminServiceImpl;
@@ -35,7 +34,7 @@ AdminServiceImpl adminServiceImpl;
   @Autowired 
   JwtServiceImpl jwtServiceImpl;
   @Autowired
-  UserServiceimpl userServiceimpl;
+  UserServiceImpl userServiceimpl;
   
   @RequestMapping(value = "/login", method = RequestMethod.POST)
 	public ResponseEntity<String> login(HttpServletRequest request, @RequestBody Users user) {

@@ -4,7 +4,7 @@ import com.dg3.forum.forum.entity.RepComment;
 
 import java.util.List;
 
-public interface Rep_commentService {
+public interface RepCommentService {
     /*
      * Create rep comment
      * @param repcomment

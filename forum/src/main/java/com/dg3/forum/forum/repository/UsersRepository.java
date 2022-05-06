@@ -1,6 +1,5 @@
 package com.dg3.forum.forum.repository;
 
-import com.dg3.forum.forum.entity.Comment;
 import com.dg3.forum.forum.entity.Users;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
@@ -15,7 +14,7 @@ import javax.transaction.Transactional;
 
 @Repository
 
-public interface UserstRepository extends JpaRepository<Users, Long> {
+public interface UsersRepository extends JpaRepository<Users, Long> {
 	/**
 	 * Get user information by username
 	 * @param username

@@ -6,13 +6,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.dg3.forum.forum.entity.RepComment;
-import com.dg3.forum.forum.repository.Rep_commentRepository;
-import com.dg3.forum.forum.service.Rep_commentService;
+import com.dg3.forum.forum.repository.RepCommentRepository;
+import com.dg3.forum.forum.service.RepCommentService;
 
 @Service
-public class Rep_commentServiceImpl implements Rep_commentService {
+public class RepCommentServiceImpl implements RepCommentService {
     @Autowired
-    private Rep_commentRepository rep_commentRepository;
+    private RepCommentRepository rep_commentRepository;
 
     @Override
     public RepComment createRep_Comment(RepComment repComment) {

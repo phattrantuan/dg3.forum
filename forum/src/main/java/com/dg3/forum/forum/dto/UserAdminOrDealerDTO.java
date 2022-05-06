@@ -15,7 +15,7 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class UserAdminOrDealerdto {
+public class UserAdminOrDealerDTO {
 @Email
 	private String email;
 @PasswordMatch
@@ -30,7 +30,7 @@ public class UserAdminOrDealerdto {
 	private String description;
     private Date expire;
 	
-	public UserAdminOrDealerdto(Users entity) {
+	public UserAdminOrDealerDTO(Users entity) {
         this.email = entity.getUsername();
         this.password = entity.getPassword();
         this.username = entity.getUsername();

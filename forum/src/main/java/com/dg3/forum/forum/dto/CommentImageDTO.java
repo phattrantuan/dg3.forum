@@ -12,13 +12,13 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class CommentImagedto {
+public class CommentImageDTO {
 	private Long image_pk;
 	private Long thread_pk;
 	private Long comment_pk;
 	private String image_comment;
 	
-	public CommentImagedto(Image image)
+	public CommentImageDTO(Image image)
 	{
 		this.image_pk = image.getImage_pk();
 		this.thread_pk= image.getThread_pk();

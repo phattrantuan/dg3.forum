@@ -3,15 +3,15 @@ package com.dg3.forum.forum.dto;
 
 import com.dg3.forum.forum.entity.Users;
 
-public class UserAndToken {
+public class UserAndTokenDTO {
 	Users user;
 	String token;
 
-	public UserAndToken() {
+	public UserAndTokenDTO() {
 
 	}
 
-	public UserAndToken(Users user, String token) {
+	public UserAndTokenDTO(Users user, String token) {
 		this.user = user;
 		this.token = token;
 	}

@@ -6,7 +6,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 
-import com.dg3.forum.forum.dto.CommentImagedto;
+import com.dg3.forum.forum.dto.CommentImageDTO;
 
 @Getter
 @Setter
@@ -24,7 +24,7 @@ public class Image {
 	private String image_comment;
 	private boolean enable_image;
 	//map commentimagedto to image
-	public Image(CommentImagedto commentImagedto)
+	public Image(CommentImageDTO commentImagedto)
 	{
 		this.image_pk = commentImagedto.getImage_pk();
 		this.thread_pk = commentImagedto.getThread_pk();

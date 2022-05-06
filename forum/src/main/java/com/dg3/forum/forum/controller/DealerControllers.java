@@ -5,7 +5,7 @@ import com.dg3.forum.forum.entity.PostThread;
 import com.dg3.forum.forum.entity.Users;
 import com.dg3.forum.forum.service.PostThreadService;
 import com.dg3.forum.forum.service.UserService;
-import org.slf4j.Logger;
+import org.apache.log4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
@@ -22,7 +22,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/dealer")
 public class DealerControllers {
-    private static final Logger LOGGER = LoggerFactory.getLogger(UserController.class);
+    private static org.apache.log4j.Logger LOGGER = Logger.getLogger(DealerControllers.class);
 
     @Autowired
     private PostThreadService postThreadService;

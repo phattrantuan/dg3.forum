@@ -1,6 +1,5 @@
 package com.dg3.forum.forum.service;
 
-import com.dg3.forum.forum.dto.CommentImagedto;
 import com.dg3.forum.forum.entity.Image;
 
 import java.util.List;

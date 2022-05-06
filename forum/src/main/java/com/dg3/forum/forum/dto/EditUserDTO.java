@@ -14,7 +14,7 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class EditUserdto {
+public class EditUserDTO {
 
 	private Long user_pk;
 	@PasswordMatch
@@ -25,7 +25,7 @@ public class EditUserdto {
 	private String img_avatar;
 	private String description;
 
-	public EditUserdto(Users entity) {
+	public EditUserDTO(Users entity) {
 		this.user_pk = entity.getUser_pk();
 		this.password = entity.getPassword();
 		this.username = entity.getUsername();

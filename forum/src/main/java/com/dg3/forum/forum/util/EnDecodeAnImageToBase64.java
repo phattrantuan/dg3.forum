@@ -5,14 +5,10 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.Base64;
 
-import org.apache.commons.io.FilenameUtils;
 
-
-public class En_DecodeAnImageToBase64 {
+public class EnDecodeAnImageToBase64 {
 	/**
 	 * Convert image to base 64
 	 * @param imagePath

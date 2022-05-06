@@ -3,12 +3,12 @@ package com.dg3.forum.forum.controller;
 import java.util.Objects;
 
 import com.dg3.forum.forum.config.JwtTokenUtil;
-import com.dg3.forum.forum.config.WebSecurityConfig;
-import com.dg3.forum.forum.dto.JwtRequest;
-import com.dg3.forum.forum.dto.JwtResponse;
+import com.dg3.forum.forum.dto.JwtRequestDTO;
+import com.dg3.forum.forum.dto.JwtResponseDTO;
 import com.dg3.forum.forum.entity.Message;
 import com.dg3.forum.forum.entity.Users;
 import com.dg3.forum.forum.service.UserService;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -29,7 +29,7 @@ import javax.servlet.http.HttpServletResponse;
 @RestController
 @CrossOrigin
 public class JwtAuthenticationController {
-
+	private static org.apache.log4j.Logger LOGGER = Logger.getLogger(JwtAuthenticationController.class);
 	private static final String AUTH_HEADER = null;
 
 	@Autowired
@@ -51,8 +51,8 @@ public class JwtAuthenticationController {
 	 * @throws Exception
 	 */
 	@RequestMapping(value = {"/authenticate", "/signin"}, method = RequestMethod.POST)
-	public ResponseEntity<?> createAuthenticationToken(@RequestBody JwtRequest authenticationRequest) throws Exception {
-
+	public ResponseEntity<?> createAuthenticationToken(@RequestBody JwtRequestDTO authenticationRequest) throws Exception {
+		LOGGER.info("Thành công!");
 		authenticate(authenticationRequest.getUsername(), authenticationRequest.getPassword());
 
 		Users users = userService.findByEmail(authenticationRequest.getUsername());
@@ -73,7 +73,7 @@ public class JwtAuthenticationController {
 
 			SecurityContextHolder.getContext().setAuthentication(authentication);
 
-			return ResponseEntity.ok(new JwtResponse(token));
+			return ResponseEntity.ok(new JwtResponseDTO(token));
 		} else {
 			/*
 			* nếu ban_account là true thì thông báo là tài khoản bị khóa

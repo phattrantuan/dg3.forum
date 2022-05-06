@@ -7,14 +7,14 @@ import java.util.List;
 
 @Getter
 @Setter
-public class Like_Comment_Posts {
+public class LikeCommentPostsDTO {
     private int numberLike;
     private int numberComment;
     private List<String> listNameLike;
 
-    public Like_Comment_Posts(){ }
+    public LikeCommentPostsDTO(){ }
 
-    public Like_Comment_Posts(int numberLike, int numberComment, List<String> listNameLike){
+    public LikeCommentPostsDTO(int numberLike, int numberComment, List<String> listNameLike){
         this.numberLike = numberLike;
         this.numberComment = numberComment;
         this.listNameLike = listNameLike;

@@ -16,8 +16,8 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import com.dg3.forum.forum.customannotation.Email;
 import com.dg3.forum.forum.customannotation.PasswordMatch;
 import com.dg3.forum.forum.customannotation.Phone;
-import com.dg3.forum.forum.dto.EditUserdto;
-import com.dg3.forum.forum.dto.UserAdminOrDealerdto;
+import com.dg3.forum.forum.dto.EditUserDTO;
+import com.dg3.forum.forum.dto.UserAdminOrDealerDTO;
 import com.dg3.forum.forum.dto.UserCreateDTO;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -82,7 +82,7 @@ public class Users {
 	}
 
 	// mapping UserAdminOrDealerdto to Users
-	public Users(UserAdminOrDealerdto userAdminOrDealerdto) {
+	public Users(UserAdminOrDealerDTO userAdminOrDealerdto) {
 		this.email = userAdminOrDealerdto.getEmail();
 		this.password = userAdminOrDealerdto.getPassword();
 		this.username = userAdminOrDealerdto.getUsername();
@@ -111,7 +111,7 @@ public class Users {
 	
 
 	// mapping EditUserdto to Users
-	public Users(EditUserdto editUserdto) {
+	public Users(EditUserDTO editUserdto) {
 		this.user_pk = editUserdto.getUser_pk();
 		this.password = editUserdto.getPassword();
 		this.username = editUserdto.getUsername();

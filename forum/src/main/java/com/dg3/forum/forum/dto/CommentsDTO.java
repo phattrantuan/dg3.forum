@@ -8,7 +8,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter 	
-public class Commentsdto {
+public class CommentsDTO {
 	private Long comment_pk;
 	private String content_comment;
 	private Long user_pk;

@@ -3,7 +3,7 @@ package com.dg3.forum.forum.controller;
 import com.dg3.forum.forum.entity.Message;
 import com.dg3.forum.forum.entity.PostTopic;
 import com.dg3.forum.forum.service.PostTopicService;
-import org.slf4j.Logger;
+import org.apache.log4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -14,7 +14,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/v1/topics")
 public class PostTopicController {
-    private static final Logger LOGGER = LoggerFactory.getLogger(UserController.class);
+    private static org.apache.log4j.Logger LOGGER = Logger.getLogger(PostTopicController.class);
     @Autowired
     private PostTopicService postTopicService;
 
