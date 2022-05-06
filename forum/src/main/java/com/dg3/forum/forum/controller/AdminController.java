@@ -6,12 +6,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
-import java.util.function.Function;
 
 import javax.validation.Valid;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.core.io.Resource;
@@ -36,22 +34,20 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.dg3.forum.forum.config.WebSecurityConfig;
-import com.dg3.forum.forum.dto.UserAdminOrDealerdto;
+import com.dg3.forum.forum.dto.UserAdminOrDealerDTO;
 import com.dg3.forum.forum.entity.Message;
 import com.dg3.forum.forum.entity.Users;
-import com.dg3.forum.forum.service.UserService;
 import com.dg3.forum.forum.serviceimpl.AdminServiceImpl;
 import com.dg3.forum.forum.serviceimpl.CSVServiceImpl;
-import com.dg3.forum.forum.serviceimpl.JwtServiceImpl;
 import com.dg3.forum.forum.serviceimpl.PostThreadServiceImpl;
-import com.dg3.forum.forum.serviceimpl.UserServiceimpl;
+import com.dg3.forum.forum.serviceimpl.UserServiceImpl;
 import com.dg3.forum.forum.util.CSVHelper;
 
 @RestController
 
 @RequestMapping("/api/v1/admin")
 public class AdminController {
-	private static final Logger LOGGER = LoggerFactory.getLogger(AdminController.class);
+	private static org.apache.log4j.Logger LOGGER = Logger.getLogger(AdminController.class);
 	private static final Path CURRENT_FOLDER = Paths.get(System.getProperty("user.dir"));
 	@Autowired
 	AdminServiceImpl adminServiceImpl;
@@ -60,7 +56,7 @@ public class AdminController {
 	CSVServiceImpl fileService;
 
 	@Autowired
-	UserServiceimpl userServiceimpl;
+	UserServiceImpl userServiceimpl;
 	@Autowired
 	PostThreadServiceImpl postThreadServiceImpl;
 
@@ -136,7 +132,7 @@ public class AdminController {
  * @return information inserted
  */
 	@PostMapping("/insertUserDealerOrManager")
-	ResponseEntity<Message> insertUserDealerOrManager(@RequestBody @Valid UserAdminOrDealerdto userAdminOrDealerdto) {
+	ResponseEntity<Message> insertUserDealerOrManager(@RequestBody @Valid UserAdminOrDealerDTO userAdminOrDealerdto) {
 		LOGGER.error("save dealer or manager");
 		List<Users> foundPhoneNumber = userServiceimpl.checkPhone_number(userAdminOrDealerdto.getPhone_number().trim());
 		List<Users> foundEmail = userServiceimpl.checkEmail(userAdminOrDealerdto.getEmail().trim());

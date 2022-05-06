@@ -1,6 +1,6 @@
 package com.dg3.forum.forum.controller;
 
-import com.dg3.forum.forum.dto.CommentImagedto;
+import com.dg3.forum.forum.dto.CommentImageDTO;
 import com.dg3.forum.forum.entity.Image;
 import com.dg3.forum.forum.entity.Message;
 import com.dg3.forum.forum.service.ImageService;
@@ -114,17 +114,17 @@ public class ImageController {
     @GetMapping("/all/imagecomment")
     public ResponseEntity<Message> listAllImageComment(){
         List<Image> listImageComment = imageService.listAllImageComment();
-        List<CommentImagedto> commentImagedtos = new ArrayList<CommentImagedto>();
+        List<CommentImageDTO> commentImageDTOS = new ArrayList<CommentImageDTO>();
         for(Image image : listImageComment)
         {
-        	commentImagedtos.add(new CommentImagedto(image));
+        	commentImageDTOS.add(new CommentImageDTO(image));
         }
         return listImageComment.isEmpty() ?
                 ResponseEntity.status(HttpStatus.NOT_FOUND).body(
                         new Message("Failed", "Can't find list information image comment", "")
                 ) :
                 ResponseEntity.status(HttpStatus.OK).body(
-                        new Message("OK", "List information image comment successfully", commentImagedtos)
+                        new Message("OK", "List information image comment successfully", commentImageDTOS)
                 );
     }
 

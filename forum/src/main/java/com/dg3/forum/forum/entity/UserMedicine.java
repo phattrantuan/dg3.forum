@@ -1,14 +1,12 @@
 package com.dg3.forum.forum.entity;
 
 import javax.persistence.Entity;
-import javax.persistence.Table;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.Entity;
 import javax.persistence.Id;
 
 @Getter
@@ -17,7 +15,7 @@ import javax.persistence.Id;
 @NoArgsConstructor
 @Entity
 
-public class User_Medicine {
+public class UserMedicine {
     private Long user_pk;
     private Long medicine_pk;
     private Long id;

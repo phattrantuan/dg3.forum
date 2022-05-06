@@ -8,15 +8,15 @@ import org.springframework.stereotype.Service;
 import org.thymeleaf.util.StringUtils;
 
 import com.dg3.forum.forum.entity.Users;
-import com.dg3.forum.forum.repository.UserstRepository;
+import com.dg3.forum.forum.repository.UsersRepository;
 import com.dg3.forum.forum.service.UserService;
 import com.dg3.forum.forum.util.UserDetailsImpl;
 
 @Service
-public class UserServiceimpl implements UserService {
+public class UserServiceImpl implements UserService {
 
     @Autowired
-    UserstRepository userRepository;
+    UsersRepository userRepository;
 
 
     /**

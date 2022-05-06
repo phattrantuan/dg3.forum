@@ -9,7 +9,7 @@ import org.springframework.data.repository.query.Param;
 import javax.transaction.Transactional;
 import java.util.List;
 
-public interface Rep_commentRepository extends JpaRepository<RepComment, Long> {
+public interface RepCommentRepository extends JpaRepository<RepComment, Long> {
     /*
     *   Update repcomment
     * @param content_comment_rep and comment_rep_pk

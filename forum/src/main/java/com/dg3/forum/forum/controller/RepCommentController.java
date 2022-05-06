@@ -3,7 +3,7 @@ package com.dg3.forum.forum.controller;
 import com.dg3.forum.forum.entity.Message;
 import com.dg3.forum.forum.entity.RepComment;
 import com.dg3.forum.forum.entity.Users;
-import com.dg3.forum.forum.service.Rep_commentService;
+import com.dg3.forum.forum.service.RepCommentService;
 import com.dg3.forum.forum.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -17,9 +17,9 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/repcomment")
-public class Rep_commentController {
+public class RepCommentController {
     @Autowired
-    private Rep_commentService rep_commentService;
+    private RepCommentService rep_commentService;
 
     @Autowired
     private UserService userService;

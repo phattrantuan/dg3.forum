@@ -1,8 +1,6 @@
 package com.dg3.forum.forum.controller;
 
 import java.io.IOException;
-import java.io.OutputStream;
-import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Date;
@@ -10,14 +8,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-
-import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import javax.validation.constraints.Pattern;
-
+import org.apache.log4j.Logger;
 import org.apache.tomcat.util.codec.binary.Base64;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -38,23 +32,20 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.dg3.forum.forum.config.WebSecurityConfig;
-import com.dg3.forum.forum.dto.EditUserdto;
-import com.dg3.forum.forum.dto.UserAndToken;
+import com.dg3.forum.forum.dto.EditUserDTO;
 import com.dg3.forum.forum.dto.UserCreateDTO;
 import com.dg3.forum.forum.entity.Message;
 import com.dg3.forum.forum.entity.Users;
 import com.dg3.forum.forum.service.JwtService;
 import com.dg3.forum.forum.service.UserService;
-import com.dg3.forum.forum.serviceimpl.UserServiceimpl;
 import com.dg3.forum.forum.util.DateCurrent;
-import com.dg3.forum.forum.util.En_DecodeAnImageToBase64;
 import com.dg3.forum.forum.util.GetNameExtensionsForbase64;
 
 @RestController
 @Validated
 @RequestMapping("/api/v1/users")
 public class UserController {
-	private static final Logger LOGGER = LoggerFactory.getLogger(UserController.class);
+	private static Logger LOGGER = Logger.getLogger(UserController.class);
 	private static final Path CURRENT_FOLDER = Paths.get(System.getProperty("user.dir"));// get location
 	@Autowired
 	private UserService service;
@@ -71,7 +62,7 @@ public class UserController {
 	 */
 	@GetMapping
 	public ResponseEntity<Message> listAll() {
-		LOGGER.error("listAll");
+		LOGGER.info("Success!");
 		List<Users> users = service.listAll();
 		return users.isEmpty()
 				? ResponseEntity.status(HttpStatus.NOT_FOUND)
@@ -195,7 +186,7 @@ public class UserController {
 			@RequestParam MultipartFile img_avatar, @RequestParam String description) throws IOException {
 		{
 
-			EditUserdto editUserdto = new EditUserdto();
+			EditUserDTO editUserdto = new EditUserDTO();
 			editUserdto.setAddress(address);
 			editUserdto.setDate_of_birth(date_of_birth);
 			editUserdto.setDescription(description);

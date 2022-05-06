@@ -8,13 +8,13 @@ import org.springframework.stereotype.Service;
 
 import com.dg3.forum.forum.entity.Users;
 import com.dg3.forum.forum.repository.AdminRepository;
-import com.dg3.forum.forum.repository.UserstRepository;
+import com.dg3.forum.forum.repository.UsersRepository;
 import com.dg3.forum.forum.service.AdminService;
 
 @Service
 public class AdminServiceImpl implements AdminService {
 	@Autowired
-	UserstRepository userstRepository;
+    UsersRepository usersRepository;
 	@Autowired
 	AdminRepository adminRepository;
 
@@ -25,7 +25,7 @@ public class AdminServiceImpl implements AdminService {
 	 * @return true or false
 	 */
 	public boolean insertUser(Users users) {
-		if (Objects.isNull(userstRepository.save(users))) {
+		if (Objects.isNull(usersRepository.save(users))) {
 			return false;
 		}
 		;
@@ -40,7 +40,7 @@ public class AdminServiceImpl implements AdminService {
 	 */
 	@Override
 	public boolean existById(Long id) {
-		return userstRepository.existsById(id);
+		return usersRepository.existsById(id);
 	}
 
 
